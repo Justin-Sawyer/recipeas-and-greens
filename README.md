@@ -1,4 +1,4 @@
-<h1 align="center"><a style="color:green" href="">Recipeas and Greens</a></h1>
+<h1 align="center"><a href="">Recipeas and Greens</a></h1>
 
 <img src="documentation/image-aid/screenshot.png">
 
