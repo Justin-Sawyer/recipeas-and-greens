@@ -31,14 +31,14 @@ the creator of the website intends to use the site to sell a range of kitchen ac
 		4) Upon loading the website, I would like to be presented with the most recently added recipes. 
         I want these recipes to be shown with images, in order to whet my appetite. 
 
-		5) I want the possibility to both search for recipes but also to simply view recipes bsed on their category or level of difficulty via a simple click of buttons. 
+		5) I want the possibility to both search for recipes and simply view recipes based on their category or level of difficulty via a simple click of buttons. 
         Thus, on the loading page (but not within the navigation) I want to see buttons listing (for example) "Quick and Easy", "Challenging" or "Difficult". 
         On pressing these links, I want to be presented with the most recently uploaded recipes within these criteria. 
-        Conversly, if I press the button "Category", I want to be taken to a generic page that list (with images overlaid by the category name) each category. 
+        Conversely, if I press the button "Category", I want to be taken to a generic page that lists (with images overlaid by the category name) each category. 
         Upon clicking these images, I then want to be taken to a page showing the most recently uploaded recipes within that category.
 
 		6) I want to be encouraged to join the community and thus enter my own recipes for the community to use and enjoy. 
-        Although there might not be monetary incentives for joining the community, I would like to to be made clear that there are indeed advantages to joining, 
+        Although there might not be monetary incentives for joining the community, I would like it to to be made clear that there are indeed advantages to joining, 
         such as the possibility to upvote, comment and mark recipes as personal favourites. 
         I want this functionality so that I do not have to keep scrolling through a potentially endless list of recipes before finding the recipe I enjoyed preparing (and eating!) 
         last week, last month or last year.
@@ -67,7 +67,7 @@ the creator of the website intends to use the site to sell a range of kitchen ac
 
 		4) As a returning member, I want to be able to add new recipes, edit previous recipes, edit my Account details if any of these have changed. 
 
-		5) I want to be able to search for recipes based on their name, their ingredients, their category and their ease of preparation. 
+		5) I want to be able to search for recipes based on their names, their ingredients, their categories and their ease of preparation. 
         For example, if I return home late from work during a weeknight, I want to be able to search for "Quick and Easy" recipes. 
         Ultimately, I would like to then refine my search to include what I have in my pantry or fridge. 
         Thus while using the search functionality, if I search for "Quick and Easy spaghetti", 
@@ -76,17 +76,17 @@ the creator of the website intends to use the site to sell a range of kitchen ac
 
 		6) Conversely, as a returing member, if I decide that this is a community I no longer want to be a part of, I want the possibility to Delete My Account. 
         The deleting process must be simple, but I do not want to be able to delete my Account by accident. 
-        Thus, I want to be prompted with an alert, for example, that asks me simply to veify that I wish to delete my Account. 
+        Thus, I want to be prompted with an alert, for example, that asks me simply to verify that I wish to Delete My Account. 
         I also want it to be made clear to me that clicking "Delete Account" deletes all of my uploaded recipes, and clears any community recipes from my own personal list of favourites. 
         Thus, if at a later date I decide to rejoin the community, 
-        I want it made clear to me on deleting my account that I will have to rebuild my recipes and list of favourites as any new community member would.
+        I want it made clear to me on deleting my Account that I will have to rebuild my recipes and list of favourites as any new community member would.
 
 	- #### Frequent Visitors:
 		1) I want the conditions listed for First Time Visitors and Returning Visitors to be true also for myself as a Frequent Visitor.
 
 		2) I want the process of adding new recipes to be "second nature". In other words, unless absolutely necessary, if there is an update to the website, 
         I want the process of uploading new recipes to remain "as is". 
-        If there is a neccesity to change the process of adding or editing recipes, I want this change to be virtually invisible (unnoticable) to me as an end user. 
+        If there is a necessity to change the process of adding or editing recipes, I want this change to be virtually invisible (unnoticeable) to me as an end user. 
         Thus, I can become what is known as a "power user" with ease. 
 
 		3) As a frequent visitor, I want to be reminded subtly that this website exists to sell its range of cooking utensils. 
@@ -110,13 +110,13 @@ the creator of the website intends to use the site to sell a range of kitchen ac
 
 	- #### Imagery:
 		Imagery is extremely important on this website. Nothing makes the tongue water more than seeing a beautifully presented meal. 
-        The images inspire the end user to both try the recipe, and more importantly, join the community and become an active member.
+        The images inspire the user to both try the recipe, and more importantly, join the community and become an active member.
 
 		Ideally, each recipe page should have the final end meal for that recipe as its banner image. 
         Where this is not possible, the banner image should be an image of the recipe's category (i.e. "Italian" rather than "Quick and Easy").
 
 		Thus, when uploading a recipe to the website, the community member should be prompted to add an image of the prepared meal. 
-        Ideally, upon uploading the photo of the prepared meal, the user should be shown how the image will appear as a banner, and then prompted to accept the image or upload another.
+        Ideally, upon uploading the photo of the prepared meal, the user should be shown how the image will appear as a banner, and then be prompted to accept the image or upload another.
 
 - ### Wireframes:
 	[Landing Pages]()
