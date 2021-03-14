@@ -47,7 +47,7 @@ nav .brand-logo {
     background-color: white;
 }
 
-/* Change the autofill background color 
+/* Change the autofill background color to white
 From https://stackoverflow.com/a/14205976/14773450 */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -55,6 +55,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
     box-shadow: 0 0 0 30px white inset !important;
+    /* Additional clip below from https://stackoverflow.com/a/58682412/14773450 */
     background-clip: content-box !important;
 }
 

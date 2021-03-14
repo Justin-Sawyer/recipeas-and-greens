@@ -227,7 +227,110 @@ settings for maximal optimisation for web deployment.
 ## Code Testing
 This project has been a labour of love and has taken many, many hours to complete. Code was tested exhaustively to check for errors and bugs:
 
+### Registration:
 
+The registration template page had a few ugly parts to it. Having told the HTML input code to accept only certain patterns (length of username and password, conditions for email and password), the developer found it prudent to tell the user that the entries would only be accepted if they met these conditions. That is, the username having a minumum of 6 characters, the password having a minimum of 8 characters, which must include a minimum of at least 1 number, 1 uppercase letter and 1 lowercase letter. However, the input text fields did not allow for all of this information.
+
+The developer toyed with the idea of creating a separate `<div>` element to tell the user of these conditions, but felt that the information was best being placed within each label.
+
+First, the developer added separate `<p>` elements after each label, but found the text was not indented:
+
+```
+<!-- Choose User Name -->
+<div class="row registration" id="username-row">
+	<div class="input-field col s12">
+		<i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+		<input id="username" name="username" type="text" minlength="6" maxlength="24" pattern="^[a-zA-Z0-9]{6,24}$"class="validate" required>
+		<label for="username">Choose a Username</label>
+		<p>Minimum 6 characters</p>
+	</div>
+</div>
+
+```
+<img src="code-result-screenshots/registration-form-conditions-1.png"
+
+Next, the developer tried adding line breaks within the label:
+
+```
+<label for="username">Choose a Username <br><br>Min 6 characters</label>
+```
+
+This worked well:
+
+<img src="code-result-screenshots/registration-form-conditions-2.png"
+
+However, when it came to inputting text into the field, the result was not so good:
+
+<img src="code-result-screenshots/registration-form-conditions-3.png"
+
+Additionally, the developer faced problems with rendering the labels on different screen sizes. Below is a screenshot of the password field on a 425px width screen (or, large Mobile screen):
+
+<img src="code-result-screenshots/registration-form-conditions-4.png"
+
+The developer solved these issues through a use of CSS, effectively changing the label font size according to the width of the screen:
+
+```
+@media only screen and (max-width: 750px) {
+    .input-field>label {
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .input-field>label {
+        font-size: 0.7rem;
+    }
+}
+```
+
+Here is the result on a 375px wide screen:
+
+<img src="code-result-screenshots/registration-form-conditions-5.png"
+
+The developer then tried to create an Account, however the Autocomplete function for the form then inserted blocks of colour as well as the autocompleted items (in Google Chrome):
+
+<img src="code-result-screenshots/registration-form-conditions-6.png"
+
+As can be seen in the screenshot above, this result was very ugly. To counter this, the developer inserted another block of CSS and added class="registration" to each `row` within the `card-panel`:
+
+```
+.registration {
+    background-color: white;
+}
+```
+
+The end result is much more eye-catching, but still renders oddly on different browsers. Google Chrome renders the background in blue, while Safari renders it in yellow:
+
+Chrome:
+
+<img src="code-result-screenshots/registration-form-conditions-7.png"
+
+Safari:
+
+<img src="code-result-screenshots/registration-form-conditions-8.png"
+
+The devloper then looked for a better solution on StackOverflow, and found the following snippet:
+
+```
+/* Change the autofill background color 
+From https://stackoverflow.com/a/14205976/14773450 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    box-shadow: 0 0 0 30px white inset !important;
+}
+```
+
+The code was pushed to Git, and the results were almost as expected: the background stays white on both browsers on desktop devices. However, on iOS, the background color persists. The developer found a further snippet of code on StackOverflow:
+
+```
+/* From https://stackoverflow.com/a/58682412/14773450 */
+background-clip: content-box !important;
+```
+
+The background now stays white on Safari for iOS when autocomplete is used.
 
 
 
