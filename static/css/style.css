@@ -32,3 +32,34 @@ nav .brand-logo {
 .btn-large .fas {
     color: white;
 }
+
+/* ------------------------------------------------------------------------ Flashes */
+.flashes h4{
+    padding: 8px;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* ------------------------------------------------------------------------ Registration */
+.registration {
+    background-color: white;
+}
+
+
+.register-button {
+    margin-top: 32px;
+}
+
+@media only screen and (max-width: 750px) {
+    .input-field>label {
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .input-field>label {
+        font-size: 0.7rem;
+    }
+}

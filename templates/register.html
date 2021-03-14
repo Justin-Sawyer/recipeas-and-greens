@@ -4,27 +4,57 @@
     <div class="row">
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register') }}">
             <div class="card-panel brown darken-4">
-                <!-- Choose User Name -->
-                <div class="row">
+
+                <!-- First Name -->
+                <div class="row registration" id="first-name-row" style="background-color: white;">
                     <div class="input-field col s12">
                         <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
-                        <input id="username" name="username" type="text" class="validate">
-                        <label for="username">Username</label>
+                        <input id="first_name" name="first_name" type="text" minlength="3" class="validate" required>
+                        <label for="first_name">First Name</label>
+                    </div>
+                </div>
+
+                <!-- Last Name -->
+                <div class="row registration" id="last-name-row" style="background-color: white;">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                        <input id="last_name" name="last_name" type="text" minlength="3" class="validate" required>
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+
+                <!-- Choose User Name -->
+                <div class="row registration" id="username-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                        <input id="username" name="username" type="text" minlength="6" maxlength="24" pattern="^[a-zA-Z0-9]{6,24}$"class="validate" required>
+                        <label for="username">Choose a Username (Min 6)</label>
+                    </div>
+                </div>
+
+                <!-- email -->
+                <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                <div class="row registration" id="email-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-at prefix green-text text-darken-2"></i>
+                        <input id="email" name="email" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="validate" required>
+                        <label for="email">Email Address</label>
                     </div>
                 </div>
 
                 <!-- Choose Password -->
-                <div class="row">
+                <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                <div class="row registration" id="password-row">
                     <div class="input-field col s12">
                         <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
-                        <input id="password" name="password" type="password" class="validate">
-                        <label for="password">Password</label>
+                        <input id="password" name="password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
+                        <label for="password">Password (Min 8: 1 number, 1 UPPER & 1 lower)</label>
                     </div>
                 </div>
 
                 <!-- Submit Button -->
-                <div class="row">
-                    <button type="submit" class="col s12 btn-large green darken-2 text-shadow">
+                <div class="row" id="submit-button">
+                    <button type="submit" class="col s12 btn-large register-button green darken-2 text-shadow">
                         Register <i class="fas fa-sign-in-alt"></i>
                     </button>
                 </div>
