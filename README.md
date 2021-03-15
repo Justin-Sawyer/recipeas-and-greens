@@ -119,9 +119,9 @@ the creator of the website intends to use the site to sell a range of kitchen ac
         Ideally, upon uploading the photo of the prepared meal, the user should be shown how the image will appear as a banner, and then be prompted to accept the image or upload another.
 
 - ### Wireframes:
-	[Landing Pages](https://github.com/Justin-Sawyer/recipeas-and-greens/media/wireframes/landing-pages.png)
+	[Landing Pages](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/landing-pages.png)
 
-	[Categories](/workspace/recipeas-and-greens/static/media/wireframes/categories.png)
+	[Categories](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/categories.png)
 
 	[Level of Difficulty](/workspace/recipeas-and-greens/static/media/wireframes/difficulty-level.png)
 
