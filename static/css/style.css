@@ -1,18 +1,22 @@
 /* ------------------------------------------------------------------------ General */
+h1 {
+    font-size: xx-large;
+}
+
 h2 {
-    font-size: 28px;
+    font-size: x-large;
 }
 
 h3 {
-    font-size: 24px;
+    font-size: large;
 }
 
 h4 {
-    font-size: 20px;
+    font-size: medium;
 }
 
 h5 {
-    font-size: 16px;
+    font-size: small;
 }
 
 img {
@@ -53,6 +57,34 @@ nav .brand-logo {
 .promo-image,
 .promo-text {
     padding: 16px;
+}
+
+.member-advantage {
+    font-size: medium;
+    margin: 4px 0;
+}
+
+.capacity,
+.diameter {
+    margin-bottom: 0;
+}
+
+.sizes {
+    margin-top: 0;
+}
+
+@media only screen and (max-width: 768px) {
+    .qualities {
+        font-size: 14px;
+        margin: 8px;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .qualities {
+        font-size: medium;
+        margin: 8px;
+    }
 }
 
 /* ------------------------------------------------------------------------ Font Awesome Icon Color on Forms */
