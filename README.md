@@ -247,7 +247,7 @@ First, the developer added separate `<p>` elements after each label, but found t
 </div>
 
 ```
-<img src="code-result-screenshots/registration-form-conditions-1.png"
+<img src="static/media/testing-screenshots/registration/registration-form-conditions-1.png">
 
 Next, the developer tried adding line breaks within the label:
 
@@ -257,15 +257,15 @@ Next, the developer tried adding line breaks within the label:
 
 This worked well:
 
-<img src="code-result-screenshots/registration-form-conditions-2.png"
+<img src="static/media/testing-screenshots/registration/registration-form-conditions-2.png">
 
 However, when it came to inputting text into the field, the result was not so good:
 
-<img src="code-result-screenshots/registration-form-conditions-3.png"
+<img src="static/media/testing-screenshots/registration/registration-form-conditions-3.png">
 
 Additionally, the developer faced problems with rendering the labels on different screen sizes. Below is a screenshot of the password field on a 425px width screen (or, large Mobile screen):
 
-<img src="code-result-screenshots/registration-form-conditions-4.png"
+<img src="static/media/testing-screenshots/registration/registration-form-conditions-4.png">
 
 The developer solved these issues through a use of CSS, effectively changing the label font size according to the width of the screen:
 
@@ -285,11 +285,11 @@ The developer solved these issues through a use of CSS, effectively changing the
 
 Here is the result on a 375px wide screen:
 
-<img src="code-result-screenshots/registration-form-conditions-5.png"
+<img src="static/media/testing-screenshots/registration/registration-form-conditions-5.png">
 
 The developer then tried to create an Account, however the Autocomplete function for the form then inserted blocks of colour as well as the autocompleted items (in Google Chrome):
 
-<img src="code-result-screenshots/registration-form-conditions-6.png"
+<img src="static/media/testing-screenshots/registration/registration-form-conditions-6.png">
 
 As can be seen in the screenshot above, this result was very ugly. To counter this, the developer inserted another block of CSS and added class="registration" to each `row` within the `card-panel`:
 
@@ -303,11 +303,11 @@ The end result is much more eye-catching, but still renders oddly on different b
 
 Chrome:
 
-<img src="code-result-screenshots/registration-form-conditions-7.png"
+<img src="static/media/testing-screenshots/registration/registration-form-conditions-7.png">
 
 Safari:
 
-<img src="code-result-screenshots/registration-form-conditions-8.png"
+<img src="static/media/testing-screenshots/registration/registration-form-conditions-8.png">
 
 The devloper then looked for a better solution on StackOverflow, and found the following snippet:
 
@@ -323,14 +323,22 @@ input:-webkit-autofill:active {
 }
 ```
 
-The code was pushed to Git, and the results were almost as expected: the background stays white on both browsers on desktop devices. However, on iOS, the background color persists. The developer found a further snippet of code on StackOverflow:
+The code was pushed to Git, and the results were almost as expected: the background stays white on both browsers on desktop devices:
+
+<img src="static/media/testing-screenshots/registration/registration-form-conditions-9.png">
+
+However, on iOS, the background color persists. The developer found a further snippet of code on StackOverflow:
 
 ```
 /* From https://stackoverflow.com/a/58682412/14773450 */
 background-clip: content-box !important;
 ```
 
-The background now stays white on Safari for iOS when autocomplete is used.
+The background now stays white on Safari for iOS when autocomplete is used:
+
+<img src="static/media/testing-screenshots/registration/registration-form-conditions-10.png">
+
+And as can be seen in the last two images above, the "Min x" prompts are nicely formatted, too.
 
 
 
