@@ -4,4 +4,6 @@ and from Code Institute Backend Development Mini Project */
 $(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
     $('.parallax').parallax();
+    $('.tabs').tabs();
   });
+

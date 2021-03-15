@@ -330,7 +330,8 @@ The code was pushed to Git, and the results were almost as expected: the backgro
 However, on iOS, the background color persists. The developer found a further snippet of code on StackOverflow:
 
 ```
-/* From https://stackoverflow.com/a/58682412/14773450 */
+/* Change the autofill background color Safari iOS 
+From https://stackoverflow.com/a/58682412/14773450 */
 background-clip: content-box !important;
 ```
 
@@ -338,7 +339,7 @@ The background now stays white on Safari for iOS when autocomplete is used:
 
 <img src="static/media/testing-screenshots/registration/registration-form-conditions-10.png">
 
-And as can be seen in the last two images above, the "Min x" prompts are nicely formatted, too.
+And as can be seen in the last two images above, the "Min x" prompts in the Username and Password fields are nicely formatted, too.
 
 
 

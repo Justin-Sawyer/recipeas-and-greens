@@ -2,7 +2,22 @@
 {% block content %}
 
     <div class="row">
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register') }}">
+        <div class="col s12">
+            <h1>Be part of the Recipeas and Greens community</h1>
+        </div>
+
+        <div class="col s12 m4">
+            <p>Enjoying the recipeas you've seen so far?</p>
+            <p>Join and become part of the growing Recipeas and Greens community!</p>
+            
+            <h2>Membership Advantages:</h2>
+            <h3 class="green-text text-darken-2"><i class="fas fa-share"></i>  Share your own recipeas with the community</h3>
+            <h3 class="green-text text-darken-2"><i class="fas fa-heart"></i>  Add community recipeas to your list of favourites</h3>
+            <h3 class="green-text text-darken-2"><i class="fas fa-plus"></i>  Vote recipeas to build a list of community favourites</h3>
+            <h3 class="green-text text-darken-2"><i class="fas fa-dollar-sign"></i>  Enjoy advantageous prices for our range of kitchen products</h3>
+        </div>
+    
+        <form class="col s12 m8" method="POST" action="{{ url_for('register') }}">
             <div class="card-panel brown darken-4">
 
                 <!-- First Name -->

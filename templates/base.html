@@ -51,9 +51,9 @@
                 <li><a href="{{ url_for('register') }}">Register</a></li>
             </ul>
 
-            <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
             <div class="parallax-container">
-                <div class="parallax"><img src="../static/images/pexels-anna-tis-6219209.jpg"></div>
+                <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
+                <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg"></div>
             </div>
         </header>
 
@@ -62,8 +62,8 @@
                 {% if messages %}
                     {% for message in messages %}
                         <div class="row">
-                            <div class="col s12 m8 offset-m2 flashes">
-                                <h4 class="green lighten-1 center-align white-text text-shadow">{{ message }}</h4>
+                            <div class="col s12 flashes">
+                                <h4 class="green darken-2 center-align white-text text-shadow">{{ message }}</h4>
                             </div>
                         </div>
                     {% endfor %}
@@ -79,7 +79,96 @@
 
 
         <div class="parallax-container">
-            <div class="parallax"><img src="../static/images/pexels-anna-tis-6219209.jpg"></div>
+            <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
+            <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg"></div>
+        </div>
+
+        <div class="container">
+            <h2 class="center-align">Try our range of cooking utensils:</h2>
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <!-- Photo by Justus Menke from Pexels https://www.pexels.com/photo/food-pot-kitchen-chrome-5782042/ -->
+                            <img class="activator" src="../static/media/images/products/pexels-justus-menke-5782042-squared.png" alt="Recipeas and Greens Sauce Pan Collection">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator"><strong>Sauce Pans</strong><i class="fas fa-ellipsis-v right"></i></span>
+                            <p><a href="#">Find out more!</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4"><strong>Sauce Pans</strong><i class="far fa-times-circle right"></i></span>
+                            <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Suitable for Heavy Duty usage</h4>
+                            <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Lightweight construction</h4>
+                            <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  All cooking types (including Induction)</h4>
+                            <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Dishwasher proof</h4>
+                            <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Oven proof</h4>
+                            <div class="row">
+                                <div class="col s6">
+                                    <h4 class="brown-text text-darken-4"><i class="fas fa-align-justify"></i>  Capacity:</h4>  
+                                    <h4 class="brown-text text-darken-4">1l, 2l, 5l, 15l</h4>
+                                </div>
+                                <div class="col s6">
+                                    <h4 class="brown-text text-darken-4"><i class="far fa-circle"></i>  Diameter:</h4>  
+                                    <h4 class="brown-text text-darken-4">15cm, 30cm, 45cm</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 m6">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <!-- Photo by Toa Heftiba Şinca from Pexels https://www.pexels.com/photo/silver-steel-sauce-pot-1194434/ -->
+                            <img class="activator" src="../static/media/images/products/pexels-toa-heftiba-şinca-1194434-squared.png" alt="Recipeas and Greens Frying Pan Collection">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator"><strong>Frying Pans</strong><i class="fas fa-ellipsis-v right"></i></span>
+                            <p><a href="#">Find out more!</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4"><strong>Frying Pans</strong><i class="far fa-times-circle right"></i></span>
+                            <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Suitable for Heavy Duty usage</h4>
+                            <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Lightweight construction</h4>
+                            <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  All cooking types (including Induction)</h4>
+                            <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Dishwasher proof</h4>
+                            <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Non stick</h4>
+                            <div class="row">
+                                <div class="col s6">
+                                    <h4 class="brown-text text-darken-4"><i class="fas fa-align-justify"></i>  Capacity:</h4>  
+                                    <h4 class="brown-text text-darken-4">0.5l, 1l, 2l</h4>
+                                </div>
+                                <div class="col s6">
+                                    <h4 class="brown-text text-darken-4"><i class="far fa-circle"></i>  Diameter:</h4>  
+                                    <h4 class="brown-text text-darken-4">15cm, 30cm, 45cm</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <ul id="tabs-swipe-demo" class="tabs">
+                <li class="tab col s6 green darken-2"><a class="white-text active" href="#test-swipe-1">Saucepans</a></li>
+                <li class="tab col s6 green darken-2"><a class="white-text" href="#test-swipe-2">Frying Pans</a></li>
+            </ul>
+            <div id="test-swipe-1" class="col s12">
+                <div class="row">
+                    <div class="col s6 promo-image" style="padding:16px">
+                        <img src="../static/media/images/products/pexels-justus-menke-5782042.jpg" alt="">
+                    </div>
+                    <div class="col s6 promo-text">
+                        <h3>Recipeas and Greens Saucepans</h3>
+                        <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Suitable for Heavy Duty usage</h4>
+                        <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Lightweight construction</h4>
+                        <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  All cooking types (including Induction)</h4>
+                        <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Dishwasher proof</h4>
+                        <h4 class="green-text text-darken-2"><i class="fas fa-check"></i>  Oven proof</h4>
+                    </div>
+                </div>
+            </div>
+            <div id="test-swipe-2" class="col s12 red">Test 2</div>
+            </div> -->
         </div>
 
         <!-- Minified jQuery script -->
