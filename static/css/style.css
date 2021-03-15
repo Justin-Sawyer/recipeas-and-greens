@@ -23,6 +23,10 @@ img {
     width: 100%;
 }
 
+.title {
+    margin: 8px 0;
+}
+
 /* ------------------------------------------------------------------------ Navigation */
 nav .brand-logo {
     padding: 0 0 0 8px;
