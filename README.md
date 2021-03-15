@@ -123,33 +123,33 @@ the creator of the website intends to use the site to sell a range of kitchen ac
 
 	[Categories](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/categories.png)
 
-	[Level of Difficulty](/workspace/recipeas-and-greens/static/media/wireframes/difficulty-level.png)
+	[Level of Difficulty](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/difficulty-level.png)
 
-	[Individual Recipe Example](/workspace/recipeas-and-greens/static/media/wireframes/recipe.png)
+	[Individual Recipe Example](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/recipe.png)
 
-	[Sign Up](/workspace/recipeas-and-greens/static/media/wireframes/sign-up.png)
+	[Sign Up](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/sign-up.png)
 
-	[Log In](/workspace/recipeas-and-greens/static/media/wireframes/login.png)
+	[Log In](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/login.png)
 
-	[Log Out](/workspace/recipeas-and-greens/static/media/wireframes/log-out.png)
+	[Log Out](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/log-out.png)
 
-	[My Account](/workspace/recipeas-and-greens/static/media/wireframes/my-account.png)
+	[My Account](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/my-account.png)
 
-	[Edit My Account](/workspace/recipeas-and-greens/static/media/wireframes/edit-my-account.png)
+	[Edit My Account](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/edit-my-account.png)
 
-	[Change Password](/workspace/recipeas-and-greens/static/media/wireframes/change-password.png)
+	[Change Password](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/change-password.png)
 
-	[Upload Recipe](/workspace/recipeas-and-greens/static/media/wireframes/upload-recipe.png)
+	[Upload Recipe](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/upload-recipe.png)
 
-	[Edit Recipe](/workspace/recipeas-and-greens/static/media/wireframes/edit-recipe.png)
+	[Edit Recipe](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/edit-recipe.png)
 
-	[Delete Recipe](/workspace/recipeas-and-greens/static/media/wireframes/delete-recipe.png)
+	[Delete Recipe](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/delete-recipe.png)
 
-	[My Recipes](/workspace/recipeas-and-greens/static/media/wireframes/my-recipes.png)
+	[My Recipes](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/my-recipes.png)
 
-	[My Favourite Recipes](/workspace/recipeas-and-greens/static/media/wireframes/my-favourites.png)
+	[My Favourite Recipes](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/my-favourites.png)
 
-	[Delete My Account](/workspace/recipeas-and-greens/static/media/wireframes/delete-account.png)
+	[Delete My Account](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/delete-account.png)
 
 ## Features:
 -	This website is fully responsive and interactive.
