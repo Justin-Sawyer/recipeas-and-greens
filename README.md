@@ -119,37 +119,37 @@ the creator of the website intends to use the site to sell a range of kitchen ac
         Ideally, upon uploading the photo of the prepared meal, the user should be shown how the image will appear as a banner, and then be prompted to accept the image or upload another.
 
 - ### Wireframes:
-	[Landing Pages]()
+	[Landing Pages](/workspace/recipeas-and-greens/static/media/wireframes/landing-pages.png)
 
-	[Categories]()
+	[Categories](/workspace/recipeas-and-greens/static/media/wireframes/categories.png)
 
-	[Level of Difficulty]()
+	[Level of Difficulty](/workspace/recipeas-and-greens/static/media/wireframes/difficulty-level.png)
 
-	[Individual Recipe Example]()
+	[Individual Recipe Example](/workspace/recipeas-and-greens/static/media/wireframes/recipe.png)
 
-	[Sign Up]()
+	[Sign Up](/workspace/recipeas-and-greens/static/media/wireframes/sign-up.png)
 
-	[Sign In]()
+	[Log In](/workspace/recipeas-and-greens/static/media/wireframes/login.png)
 
-	[Sign Out]()
+	[Log Out](/workspace/recipeas-and-greens/static/media/wireframes/log-out.png)
 
-	[My Account]()
+	[My Account](/workspace/recipeas-and-greens/static/media/wireframes/my-account.png)
 
-	[Edit My Account]()
+	[Edit My Account](/workspace/recipeas-and-greens/static/media/wireframes/edit-my-account.png)
 
-	[Change Password]()
+	[Change Password](/workspace/recipeas-and-greens/static/media/wireframes/change-password.png)
 
-	[Upload Recipe]()
+	[Upload Recipe](/workspace/recipeas-and-greens/static/media/wireframes/upload-recipe.png)
 
-	[Edit Recipe]()
+	[Edit Recipe](/workspace/recipeas-and-greens/static/media/wireframes/edit-recipe.png)
 
-	[Delete Recipe]()
+	[Delete Recipe](/workspace/recipeas-and-greens/static/media/wireframes/delete-recipe.png)
 
-	[My Recipes]()
+	[My Recipes](/workspace/recipeas-and-greens/static/media/wireframes/my-recipes.png)
 
-	[My Favourite Recipes]()
+	[My Favourite Recipes](/workspace/recipeas-and-greens/static/media/wireframes/my-favourites.png)
 
-	[Delete My Account]()
+	[Delete My Account](/workspace/recipeas-and-greens/static/media/wireframes/delete-account.png)
 
 ## Features:
 -	This website is fully responsive and interactive.
