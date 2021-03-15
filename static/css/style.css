@@ -134,3 +134,8 @@ input:-webkit-autofill:active {
         font-size: 0.7rem;
     }
 }
+
+/* ------------------------------------------------------------------------ Footer */
+.copyright {
+    padding-top: 8px;
+}

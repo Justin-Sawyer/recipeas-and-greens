@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="row">
+        <div class="col s12">
+            <h1>Log In</h1>
+        </div>
+
+        <div class="col s12 m4">
+            <p>Enjoying the recipeas you've seen so far?</p>
+            <p>Join and become part of the growing Recipeas and Greens community!</p>
+            
+            <h2>Membership Advantages:</h2>
+            <h3 class="green-text text-darken-2"><i class="fas fa-share"></i>  Share your own recipeas with the community</h3>
+            <h3 class="green-text text-darken-2"><i class="fas fa-heart"></i>  Add community recipeas to your list of favourites</h3>
+            <h3 class="green-text text-darken-2"><i class="fas fa-plus"></i>  Vote recipeas to build a list of community favourites</h3>
+            <h3 class="green-text text-darken-2"><i class="fas fa-dollar-sign"></i>  Enjoy advantageous prices for our range of kitchen products</h3>
+        </div>
+    
+        <form class="col s12 m8" method="POST" action="{{ url_for('login') }}">
+            <div class="card-panel brown darken-4">
+
+                <!-- Enter Login User Name -->
+                <div class="row registration" id="username-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-cog prefix green-text text-darken-2"></i>
+                        <input id="username" name="username" type="text" minlength="6" maxlength="24" pattern="^[a-zA-Z0-9]{6,24}$"class="validate" required>
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+
+                <!-- Enter Password -->
+                <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                <div class="row registration" id="password-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
+                        <input id="password" name="password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
+                        <label for="password">Enter Password</label>
+                    </div>
+                </div>
+
+                <!-- Log In Button -->
+                <div class="row" id="submit-button">
+                    <button type="submit" class="col s12 btn-large register-button green darken-2 text-shadow">
+                        Log In <i class="fas fa-sign-in-alt"></i>
+                    </button>
+                </div>
+
+                <!-- Create Account -->
+                <div class="row">
+                    <div class="col s12">
+                        <p class="center-align white-text">
+                            New Here? 
+                            <a href="{{ url_for('register') }}" class="green-text text-darken-2">Register Account</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock%}
