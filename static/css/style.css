@@ -27,6 +27,14 @@ img {
     margin: 8px 0;
 }
 
+.cinnamon {
+    background-color: #bd6423
+}
+
+.cinnamon-text {
+    color: #bd6423
+}
+
 /* ------------------------------------------------------------------------ Navigation */
 nav .brand-logo {
     padding: 0 0 0 8px;
@@ -137,6 +145,20 @@ input:-webkit-autofill:active {
     .input-field>label {
         font-size: 0.7rem;
     }
+}
+
+/* ------------------------------------------------------------------------ Profile */
+.placeholder-image {
+    border: 1px #428e3c solid;
+}
+
+.user-recipeas,
+.recipeas {
+    margin-top: 0;
+}
+
+.recipeas {
+    font-weight: 800;
 }
 
 /* ------------------------------------------------------------------------ Footer */

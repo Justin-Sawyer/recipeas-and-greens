@@ -100,7 +100,7 @@ the creator of the website intends to use the site to sell a range of kitchen ac
         The website is named "Reci***PEAS*** and ***GREENS***" and therefore green is the natural choice for its primary colour. 
         Green is the colour of both most vegetables and most herbs. 
         
-        The green is contrasted with brown, which makes the end user think of the warmth of spice and spice mixtures.
+        The green is contrasted with cinnamon, which makes the end user think of the warmth of spice and spice mixtures.
 
 	- #### Typography:
 		As the website is aimed towards the generation that uses paper or physical folders to store their personal recipes, the typography must be simple. 
