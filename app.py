@@ -84,11 +84,18 @@ def profile(username):
     # Grab the session user's username from the database
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
+    first_name = mongo.db.users.find_one(
+        {"username": session["user"]})["first_name"]
+    last_name = mongo.db.users.find_one(
+        {"username": session["user"]})["last_name"]
+    email = mongo.db.users.find_one(
+        {"username": session["user"]})["email"]
 
     # If session cookie exists
     if session["user"]:
-        return render_template("profile.html", username=username)
-  
+        return render_template(
+            "profile.html", username=username, first_name=first_name, last_name=last_name, email=email)
+
     return render_template("profile.html", username=username)
 
 
