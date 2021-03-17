@@ -7,6 +7,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" 
             integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" 
             crossorigin="anonymous" type="text/css" />
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      
         <!-- Compiled and minified CSS from Materialize -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
         <!-- Site CSS with jinja url_for method-->
@@ -33,7 +36,7 @@
                         <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
                         {% if session.user %}
                             <li><a class="white-text" href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                            <li><a class="white-text" href="#">Add Recipe</a></li>
+                            <li><a class="white-text" href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
                             <li><a class="white-text" href="{{ url_for('logout') }}">Log Out</a></li>
                         {% else %}
                             <li><a class="white-text" href="{{ url_for('login') }}">Log In</a></li>
@@ -49,7 +52,7 @@
                 <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
                 {% if session.user %}
                     <li><a class="white-text" href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                    <li><a class="white-text" href="#">Add Recipe</a></li>
+                    <li><a class="white-text" href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
                     <li><a class="white-text" href="{{ url_for('logout') }}">Log Out</a></li>
                 {% else %}
                     <li><a class="white-text" href="{{ url_for('login') }}">Log In</a></li>
@@ -176,7 +179,7 @@
                             <li><a class="white-text" href="{{ url_for('get_recipes') }}">Recipes</a></li>
                             {% if session.user %}
                                 <li><a class="white-text" href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                                <li><a class="white-text" href="#">Add Recipe</a></li>
+                                <li><a class="white-text" href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
                                 <li><a class="white-text" href="{{ url_for('logout') }}">Log Out</a></li>
                             {% else %}
                                 <li><a class="white-text" href="{{ url_for('login') }}">Log In</a></li>
@@ -201,6 +204,24 @@
         <script src="{{ url_for('static', filename='js/script.js') }}"></script>
         <!-- Custom scripts jinja -->
         {% block scripts %}
+
+            <!-- Image Uploader formatting -->
+            <!-- From https://www.webtrickshome.com/faq/how-to-display-uploaded-image-in-html-using-javascript-->
+            <script>
+                var loadFile = function (event) {
+                    var image = document.getElementById('output');
+                    image.src = URL.createObjectURL(event.target.files[0]);
+                };
+            </script>
+
+            <!-- Add chips to input -->
+            <script>
+                var instance = M.Chips.getInstance(elem);
+                instance.addChip({
+                    tag: 'chip content'
+                });
+            </script>
+
         {% endblock %}
 
     </body>
