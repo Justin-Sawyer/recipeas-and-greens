@@ -161,6 +161,15 @@ input:-webkit-autofill:active {
     font-weight: 800;
 }
 
+/* ------------------------------------------------------------------------ Recipes */
+.category {
+    font-weight: 800;
+}
+
+.times {
+    margin: 0;
+}
+
 /* ------------------------------------------------------------------------ Footer */
 .copyright {
     padding-top: 8px;

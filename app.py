@@ -20,7 +20,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
-    recipes = mongo.db.recipes.find()
+    recipes = list(mongo.db.recipes.find())
     return render_template("recipes.html", recipes=recipes)
 
 
@@ -93,8 +93,16 @@ def profile(username):
 
     # If session cookie exists
     if session["user"]:
+        if "profile_image" in request.files:
+            profile_image = request.files["profile_image"]
+            mongo.save_file(profile_image.filename, profile_image)
+            mongo.db.users.insert(
+                {"profile_image_name": request.form.get(
+                    profile_image.filename)})
+            flash("Image uploaded!")
         return render_template(
-            "profile.html", username=username, first_name=first_name, last_name=last_name, email=email)
+            "profile.html", username=username, first_name=first_name,
+            last_name=last_name, email=email)
 
     return render_template("profile.html", username=username)
 

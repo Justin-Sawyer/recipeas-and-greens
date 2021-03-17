@@ -5,64 +5,48 @@
 
     <div class="row">
         <div class="col s12 m6 l4">
-            <ul class="collapsible">
-                <li>
-                    <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>First</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-                <li>
-                    <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>Second</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-                <li>
-                    <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>Third</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-            </ul>
-        </div>
+            <ul>
+                {% for recipe in recipes %}
+                    <li>
 
-        <div class="col s12 m6 l4">
-            <ul class="collapsible">
-                <li>
-                    <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>First</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-                <li>
-                    <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>Second</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-                <li>
-                    <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>Third</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-            </ul>
-        </div>
+                        <div class="card">
+                            <a class="btn-floating halfway-fab waves-effect waves-light green darken-2">
+                                <i class="fas fa-plus tooltipped"
+                                    data-position="left" data-tooltip="Add to Favourites!">
+                                </i>
+                            </a>
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="../static/media/images/recipe-photos/prawn-cocktail-sauce.png">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator cinnamon-text"><strong>{{ recipe.recipe_name }}</strong><i class="fas fa-ellipsis-v right"></i></span>
+                                <p><a href="#">Go to Recipea</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title cinnamon-text"><strong>{{ recipe.recipe_name }}</strong><i class="far fa-times-circle right"></i></span>
+                                <p class="category green-text text-darken-2">Category: <span class="right">{{ recipe.recipe_category }}</span></p>
+                                <p class="category green-text text-darken-2">Level: <span class="right">{{ recipe.recipe_level_of_difficulty }}</span></p>
+                                <p>{{ recipe.recipe_description }}</p>
+                                <p class="times">Preparation Time: <span class="right">{{ recipe.recipe_prep_time }}</span></p>
+                                <p class="times">Cooking Time: <span class="right">{{ recipe.recipe_cooking_time }}</span></p>
+                                <br>
+                                <p><a href="#">Go to Recipea</a></p>
+                            </div>
+                        </div>
 
-        <div class="col s12 m6 l4">
-            <ul class="collapsible">
-                <li>
-                    <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>First</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-                <li>
-                    <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>Second</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
-                <li>
-                    <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>Third</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                </li>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </div>
+
+        
 
         {{ recipe.recipe_name }}<br>
         {{ recipe.recipe_description }}<br>
         {{ recipe.recipe_prep_time }}<br>
         {{ recipe.recipe_cooking_time }}<br>
         {{ recipe.recipe_servings }}<br>
-        {{ recipe.recipe_category }}<br>
-        {{ recipe.recipe_level_of_difficulty }}<br>
         {{ recipe.recipe_ingredients }}<br>
         {{ recipe.recipe_preparation }}<br>
 
