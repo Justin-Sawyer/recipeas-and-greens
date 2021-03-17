@@ -4,7 +4,7 @@
     <div class="row">
         <ul>
             {% for recipe in recipes %}
-            <li class="col s12 m6 l4 recipe-list-item">
+            <li class="col s12 m6 l4 xl3recipe-list-item">
                 <div class="card">
                     <a class="btn-floating halfway-fab waves-effect waves-light red">
                         <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Add to Favourites!">
@@ -14,21 +14,23 @@
                         <img class="activator" src="{{ recipe.recipe_image }}">
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator cinnamon-text"><strong>{{ recipe.recipe_name }}</strong><i
-                                class="fas fa-ellipsis-v right"></i></span>
+                        <span class="card-title activator cinnamon-text">
+                            <i class="fas fa-ellipsis-v right"></i><strong>{{ recipe.recipe_name }}</strong></span>
                         <p><a href="#">Go to Recipea</a></p>
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title cinnamon-text"><strong>{{ recipe.recipe_name }}</strong><i
-                                class="far fa-times-circle right"></i></span>
+                        <span class="card-title cinnamon-text">
+                            <i class="far fa-times-circle right"></i>
+                            <strong>{{ recipe.recipe_name }}</strong>
+                                </span>
                         <p class="category green-text text-darken-2">Category: <span
                                 class="right">{{ recipe.recipe_category }}</span></p>
                         <p class="category green-text text-darken-2">Level: <span
                                 class="right">{{ recipe.recipe_level_of_difficulty }}</span></p>
                         <p>{{ recipe.recipe_description }}</p>
-                        <p class="times">Preparation Time: <span class="right">{{ recipe.recipe_prep_time }}</span></p>
+                        <!--<p class="times">Preparation Time: <span class="right">{{ recipe.recipe_prep_time }}</span></p>
                         <p class="times">Cooking Time: <span class="right">{{ recipe.recipe_cooking_time }}</span></p>
-                        <br>
+                        <br>-->
                         <p><a href="#">Go to Recipea</a></p>
                     </div>
                 </div>

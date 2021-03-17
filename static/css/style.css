@@ -178,7 +178,8 @@ input:-webkit-autofill:active {
     font-weight: 800;
 }
 
-.times {
+.times,
+.category {
     margin: 0;
 }
 
