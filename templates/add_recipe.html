@@ -33,7 +33,7 @@
                     <!-- Recipe Level of Difficulty -->
                     <div class="input-field col s12">
                         <i class="fas fa-ellipsis-v prefix green-text text-darken-2"></i>
-                        <select class="green-text text-darken-2">
+                        <select id="recipe_level_of_difficulty" name="recipe_level_of_difficulty" class="green-text text-darken-2 validate" required>
                             <option value="" disabled selected><p>Choose Level of Difficulty</p></option>
                             <option value="quick_and_easy">Quick & Easy</option>
                             <option value="challenging">Challenging</option>
@@ -41,18 +41,33 @@
                         </select>
                     </div>
 
-                    <!-- Recipe Preparation Time -->
+                    <!-- Recipe Servings -->
                     <div class="input-field col s12">
-                        <i class="fas fa-user-clock prefix green-text text-darken-2"></i>
-                        <input id="recipe_prep_time" name="recipe_prep_time" minlength="5" maxlength="50" type="text" class="validate" required>
-                        <label for="recipe_prep_time">Prep Time (eg: 1 hour 30 mins)</label>
+                        <i class="fas fa-sort-numeric-down prefix green-text text-darken-2"></i>
+                        <select id="recipe_servings" name="recipe_servings" class="green-text text-darken-2 validate" required>
+                            <option value="" disabled selected><p>How Many Servings?</p></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
                     </div>
 
-                    <!-- Recipe Cooking Time -->
+                    <!-- Is Favourite -->
                     <div class="input-field col s12">
-                        <i class="fas fa-hourglass-start prefix green-text text-darken-2"></i>
-                        <input id="recipe_cooking_time" name="recipe_cooking_time" minlength="5" maxlength="50" type="text" class="validate" required>
-                        <label for="recipe_cooking_time">Cooking Time (eg: 1 hour 30 mins)</label>
+                        <div class="switch">
+                            <i class="fas fa-heart-broken prefix black-text"></i>
+                            <label for="is_favourite">
+                                <input type="checkbox" id="is_favourite" name="is_favourite">
+                                <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to add to favourites"></span>
+                            </label>
+                            <i class="fas fa-heart prefix red-text"></i>
+                        </div>
                     </div>
 
                     <!-- Image Uploader formatting -->
@@ -60,9 +75,9 @@
                     <div class="input-field col s12">
                         <p><input type="file"  accept="image/*" name="recipe_image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
                         <p>
-                            <label class="btn green darken-2 white-text" for="file" style="cursor: pointer;">
+                            <label class="btn btn-block green darken-2 white-text" for="file" style="cursor: pointer;">
                                 <i class="fas fa-camera"></i> 
-                                Upload A Photo of your Recipea
+                                Add Recipea Photo
                             </label>
                         </p>
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
@@ -71,6 +86,20 @@
                 </div>
 
                 <div class="col s12 m8">
+
+                    <!-- Recipe Preparation Time -->
+                    <div class="input-field col s12 m6">
+                        <i class="fas fa-user-clock prefix green-text text-darken-2"></i>
+                        <input id="recipe_prep_time" name="recipe_prep_time" minlength="5" maxlength="50" type="text" class="validate" required>
+                        <label for="recipe_prep_time">Prep Time (eg: 1 hour 30 mins)</label>
+                    </div>
+
+                    <!-- Recipe Cooking Time -->
+                    <div class="input-field col s12 m6">
+                        <i class="fas fa-hourglass-start prefix green-text text-darken-2"></i>
+                        <input id="recipe_cooking_time" name="recipe_cooking_time" minlength="5" maxlength="50" type="text" class="validate" required>
+                        <label for="recipe_cooking_time">Cooking Time (eg: 1 hour 30 mins)</label>
+                    </div>
 
                     <!-- Recipe Description -->
                     <div class="input-field col s12">
