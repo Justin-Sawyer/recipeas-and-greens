@@ -170,6 +170,10 @@ input:-webkit-autofill:active {
     margin: 0;
 }
 
+.recipe-list-item {
+    padding-bottom: 16px!important;
+}
+
 /* ------------------------------------------------------------------------ Footer */
 .copyright {
     padding-top: 8px;
