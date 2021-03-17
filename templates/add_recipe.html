@@ -17,15 +17,6 @@
                         <label for="recipe_name">Recipea Name</label>
                     </div>
 
-                    <!-- Recipe category -->
-                    <!--
-                    <div class="input-field col s12">
-                        <i class="fas fa-flag prefix green-text text-darken-2"></i>
-                        <input id="recipe_category" name="recipe_category" minlength="5" maxlength="50" type="text" class="validate" required>
-                        <label for="recipe_category">Category (eg: Asian, Drink etc.)</label>
-                    </div>
-                    -->
-
                     <div class="input-field col s12">
                         <i class="fas fa-flag prefix green-text text-darken-2"></i>
                         <select id="recipe_category" name="recipe_category" class="green-text text-darken-2 validate" required>
@@ -35,21 +26,12 @@
                             {% endfor %}
                         </select>
                     </div>
-
-                    <!-- Default with no input (automatically generated)  -->
-                    <!--<div class="input-field col s12">
-                        <i class="fas fa-tags prefix green-text text-darken-2"></i>
-                        <div class="chips chips-placeholder"></div>
-                    </div>-->
                     
                     <!-- Recipe Level of Difficulty -->
                     <div class="input-field col s12">
                         <i class="fas fa-ellipsis-v prefix green-text text-darken-2"></i>
                         <select id="recipe_level_of_difficulty" name="recipe_level_of_difficulty" class="green-text text-darken-2 validate" required>
                             <option value="" disabled selected><p>Choose Level of Difficulty</p></option>
-                            <!--<option value="quick_and_easy">Quick & Easy</option>
-                            <option value="challenging">Challenging</option>
-                            <option value="difficult">Difficult</option>-->
                             {% for level in level_of_difficulty %}
                                 <option value="{{ level.recipe_level_of_difficulty }}">{{ level.recipe_level_of_difficulty }}</option>
                             {% endfor %}

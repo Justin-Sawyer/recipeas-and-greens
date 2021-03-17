@@ -8,10 +8,6 @@ $(document).ready(function(){
     $('.collapsible').collapsible();
     $('.tooltipped').tooltip();
     $('select').formSelect();
-    $('.chips-placeholder').chips({
-        placeholder: 'Enter a tag',
-        secondaryPlaceholder: '+Tag',
-    });
   });
 
   
