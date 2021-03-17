@@ -47,9 +47,12 @@
                         <i class="fas fa-ellipsis-v prefix green-text text-darken-2"></i>
                         <select id="recipe_level_of_difficulty" name="recipe_level_of_difficulty" class="green-text text-darken-2 validate" required>
                             <option value="" disabled selected><p>Choose Level of Difficulty</p></option>
-                            <option value="quick_and_easy">Quick & Easy</option>
+                            <!--<option value="quick_and_easy">Quick & Easy</option>
                             <option value="challenging">Challenging</option>
-                            <option value="difficult">Difficult</option>
+                            <option value="difficult">Difficult</option>-->
+                            {% for level in level_of_difficulty %}
+                                <option value="{{ level.recipe_level_of_difficulty }}">{{ level.recipe_level_of_difficulty }}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
