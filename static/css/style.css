@@ -35,7 +35,7 @@ img {
     color: #bd6423
 }
 
-/* ------------------------------------------------------------------------ Navigation */
+/* ------------------------------------------------------------------------ Navigation & Parralax */
 nav .brand-logo {
     padding: 0 0 0 8px;
 }
@@ -44,6 +44,12 @@ nav .brand-logo {
 @media only screen and (max-width: 992px) {
     nav .brand-logo {
         font-size: 1.7rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .parallax-container {
+      height: 300px;
     }
 }
 
