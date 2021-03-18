@@ -30,10 +30,19 @@
                         <p>{{ recipe.recipe_description }}</p>
                         <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
                         <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
-                        <!--<p class="times">Preparation Time: <span class="right">{{ recipe.recipe_prep_time }}</span></p>
-                        <p class="times">Cooking Time: <span class="right">{{ recipe.recipe_cooking_time }}</span></p>
-                        <br>-->
-                        <p><a href="#">Go to Recipea</a></p>
+
+                        <!-- Open recipe -->
+                        <a href="" class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>
+                        
+
+                        <!-- Edit recipe -->
+                        <a href="" class="col s5 left btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
+                        
+
+                        <!-- Delete recipe -->
+                        <a href="" class="col s5 right btn-small recipe-action red">Delete</a>
+                        
+                        <!--<p><a href="#">Go to Recipea</a></p>-->
                     </div>
                 </div>
             </li>

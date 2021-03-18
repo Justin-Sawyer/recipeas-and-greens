@@ -8,7 +8,7 @@ $(document).ready(function(){
     $('.collapsible').collapsible();
     $('.tooltipped').tooltip();
     $('select').formSelect();
-  });
+
 
 /* From Code Institute Materialize Form Validation video */
 validateMaterializeSelect();
@@ -38,5 +38,5 @@ validateMaterializeSelect();
             }
         });
     }
-  });
+});
 

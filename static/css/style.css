@@ -188,8 +188,22 @@ input:-webkit-autofill:active {
     padding-bottom: 16px!important;
 }
 
+.recipe-action {
+    display: block;
+    margin: 4px 0;
+}
+
+.edit-button:active,
+.edit-button:focus,
+.edit-button:focus-within,
+.edit-button:hover,
+.edit-button:visited,
+.edit-button:focus-visible {
+    background-color: #bd6423!important;
+}
+
 /* --------------------------------------------------------------------- Add Recipe */
-.btn-add-recipe {
+.btn-add-recipe, {
     width: 100%;
 }
 
