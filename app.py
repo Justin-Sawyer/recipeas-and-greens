@@ -125,7 +125,7 @@ def add_recipe():
             "recipe_name": request.form.get("recipe_name"),
             # multi select dropdown (like recipe ingredients) use:
             # "recipe_ingredients": request.form.getlist("recipe_ingredients"),
-            "recipe_ingredients": request.form.get("recipe_ingredients"),
+            "recipe_ingredients": request.form.getlist("recipe_ingredients"),
             "recipe_preparation": request.form.get("recipe_preparation"),
             "recipe_prep_time": request.form.get("recipe_prep_time"),
             "recipe_cooking_time": request.form.get("recipe_cooking_time"),
@@ -142,10 +142,24 @@ def add_recipe():
         flash("Recipe added to the Recipeas and Greens community!")
         return redirect(url_for("get_recipes"))
 
-    categories = mongo.db.categories.find().sort("recipe_category", 1)
     level_of_difficulty = mongo.db.level_of_difficulty.find()
     return render_template(
-        "add_recipe.html", categories=categories,
+        "add_recipe.html", level_of_difficulty=level_of_difficulty)
+
+
+@app.route("/recipe/<recipe_id>")
+def recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template("recipe.html", recipe=recipe)
+
+
+@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
+    level_of_difficulty = mongo.db.level_of_difficulty.find()
+    return render_template(
+        "edit_recipe.html", recipe=recipe,
         level_of_difficulty=level_of_difficulty)
 
 

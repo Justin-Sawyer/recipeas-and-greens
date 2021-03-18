@@ -32,11 +32,11 @@
                         <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
 
                         <!-- Open recipe -->
-                        <a href="" class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>
+                        <a href="{{ url_for('recipe', recipe_id=recipe._id)}}" class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>
                         
 
                         <!-- Edit recipe -->
-                        <a href="" class="col s5 left btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
+                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="col s5 left btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
                         
 
                         <!-- Delete recipe -->

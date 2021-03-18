@@ -203,7 +203,7 @@ input:-webkit-autofill:active {
 }
 
 /* --------------------------------------------------------------------- Add Recipe */
-.btn-add-recipe, {
+.btn-add-recipe {
     width: 100%;
 }
 

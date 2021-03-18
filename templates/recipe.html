@@ -3,20 +3,25 @@
 
     <div class="row">
         <div class="col s12">
-            <h1 class="title">Add a Recipea</h1>
+            <h1 class="title">{{ recipe.recipe_name }}</h1>
         </div>
 
         <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
             <div class="row">
 
-                <!-- Recipe name -->
-                <div class="input-field col s12">
-                    <i class="fas fa-utensils prefix green-text text-darken-2"></i>
-                    <input id="recipe_name" name="recipe_name" minlength="5" maxlength="150" type="text" class="validate" required>
-                    <label for="recipe_name">Recipea Name</label>
-                </div>
-
                 <div class="col s12 m4">
+                    {{ recipe.recipe_category }}
+                    {{ recipe.recipe_level_of_difficulty }}
+                    {{ recipe.recipe_servings }}
+                    {{ recipe.recipe_prep_time }}
+                    {{ recipe.recipe_cooking_time }}
+                    {{ recipe.recipe_source }}
+                    {{ recipe.created_by }}
+                    {{ recipe.is_favourite }}
+                    {{ recipe.recipe_description }}
+                    {{ recipe.recipe_ingredients }}
+                    {{ recipe.recipe_preparation }}
+                    <img src="{{ recipe.recipe_image }}" alt="">
                     
                     <!-- Recipe Level of Difficulty -->
                     <div class="input-field col s12">
