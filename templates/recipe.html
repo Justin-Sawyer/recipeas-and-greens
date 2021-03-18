@@ -6,22 +6,28 @@
             <h1 class="title">{{ recipe.recipe_name }}</h1>
         </div>
 
+        <div class="col s12">
+            
+                <h2 class="cinnamon-text"><i class="fas fa-quote-left green-text text-darken-2 left"></i>
+                {{ recipe.recipe_description }}    <i class="fas fa-quote-right green-text text-darken-2 right-icon"></i></h2>
+            
+        </div>
+
         <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
             <div class="row">
 
                 <div class="col s12 m4">
-                    {{ recipe.recipe_category }}
-                    {{ recipe.recipe_level_of_difficulty }}
-                    {{ recipe.recipe_servings }}
-                    {{ recipe.recipe_prep_time }}
-                    {{ recipe.recipe_cooking_time }}
-                    {{ recipe.recipe_source }}
-                    {{ recipe.created_by }}
-                    {{ recipe.is_favourite }}
-                    {{ recipe.recipe_description }}
-                    {{ recipe.recipe_ingredients }}
-                    {{ recipe.recipe_preparation }}
-                    <img src="{{ recipe.recipe_image }}" alt="">
+                    {{ recipe.recipe_category }}<br>
+                    {{ recipe.recipe_level_of_difficulty }}<br>
+                    {{ recipe.recipe_servings }}<br>
+                    {{ recipe.recipe_prep_time }}<br>
+                    {{ recipe.recipe_cooking_time }}<br><br>
+                    {{ recipe.recipe_source }}<br>
+                    {{ recipe.created_by }}<br><br>
+                    {{ recipe.is_favourite }}<br><br>
+                    {{ recipe.recipe_ingredients }}<br><br>
+                    {{ recipe.recipe_preparation }}<br><br>
+                    <img src="{{ recipe.recipe_image }}" alt="Image of {{ recipe.recipe_name }}">
                     
                     <!-- Recipe Level of Difficulty -->
                     <div class="input-field col s12">
