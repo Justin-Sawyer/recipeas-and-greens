@@ -117,8 +117,31 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/add_recipe")
+@app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
+    if request.method == "POST":
+        is_favourite = "on" if request.form.get("is_favourite") else "off"
+        recipe = {
+            "recipe_name": request.form.get("recipe_name"),
+            # multi select dropdown (like recipe ingredients) use:
+            # "recipe_ingredients": request.form.getlist("recipe_ingredients"),
+            "recipe_ingredients": request.form.get("recipe_ingredients"),
+            "recipe_preparation": request.form.get("recipe_preparation"),
+            "recipe_prep_time": request.form.get("recipe_prep_time"),
+            "recipe_cooking_time": request.form.get("recipe_cooking_time"),
+            "recipe_description": request.form.get("recipe_description"),
+            "recipe_category": request.form.get("recipe_category"),
+            "recipe_level_of_difficulty": request.form.get(
+                "recipe_level_of_difficulty"),
+            "recipe_servings": request.form.get("recipe_servings"),
+            "recipe_source": request.form.get("recipe_source"),
+            "is_favourite": is_favourite,
+            "created_by": session["user"]
+        }
+        mongo.db.recipes.insert_one(recipe)
+        flash("Recipe added to the Recipeas and Greens community!")
+        return redirect(url_for("get_recipes"))
+
     categories = mongo.db.categories.find().sort("recipe_category", 1)
     level_of_difficulty = mongo.db.level_of_difficulty.find()
     return render_template(

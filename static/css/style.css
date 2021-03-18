@@ -179,12 +179,18 @@ input:-webkit-autofill:active {
 }
 
 .times,
-.category {
+.category,
+.source {
     margin: 0;
 }
 
 .recipe-list-item {
     padding-bottom: 16px!important;
+}
+
+/* --------------------------------------------------------------------- Add Recipe */
+.btn-add-recipe {
+    width: 100%;
 }
 
 /* ------------------------------------------------------------------------ Footer */
