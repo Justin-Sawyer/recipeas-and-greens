@@ -93,18 +93,19 @@ def profile(username):
 
     # If session cookie exists
     if session["user"]:
-        if "profile_image" in request.files:
-            profile_image = request.files["profile_image"]
-            mongo.save_file(profile_image.filename, profile_image)
-            mongo.db.users.insert(
-                {"profile_image_name": request.form.get(
-                    profile_image.filename)})
-            flash("Image uploaded!")
         return render_template(
             "profile.html", username=username, first_name=first_name,
             last_name=last_name, email=email)
 
     return render_template("profile.html", username=username)
+
+
+@app.route("/edit_user/<user_id>", methods=["GET", "POST"])
+def edit_user(user_id):
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+
+    return render_template(
+        "edit_user.html", user=user)
 
 
 @app.route("/logout")
