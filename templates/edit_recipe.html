@@ -12,8 +12,8 @@
                 <!-- Recipe name -->
                 <div class="input-field col s12">
                     <i class="fas fa-utensils prefix green-text text-darken-2"></i>
-                    <input id="recipe_name" name="recipe_name" minlength="5" maxlength="150" type="text" class="validate" required>
-                    <label for="recipe_name">Recipea Name</label>
+                    <input class="edit-recipe-prompt validate" id="recipe_name" name="recipe_name" minlength="5" maxlength="150" type="text" required>
+                    <label class="edit-recipe" for="recipe_name">Name:<br>{{ recipe.recipe_name }}</label>
                 </div>
 
                 <div class="col s12 m4">
@@ -49,22 +49,22 @@
                     <!-- Recipe Preparation Time -->
                     <div class="input-field col s12">
                         <i class="fas fa-user-clock prefix green-text text-darken-2"></i>
-                        <input id="recipe_prep_time" name="recipe_prep_time" minlength="5" maxlength="50" type="text" class="validate" required>
-                        <label for="recipe_prep_time">Prep Time (eg: 1 hour 30 mins)</label>
+                        <input class="edit-recipe-prompt validate" id="recipe_prep_time" name="recipe_prep_time" minlength="5" maxlength="50" type="text" required>
+                        <label class="edit-recipe" for="recipe_prep_time">Preparation Time:<br>{{ recipe.recipe_prep_time }}</label>
                     </div>
 
                     <!-- Recipe Cooking Time -->
                     <div class="input-field col s12">
                         <i class="fas fa-hourglass-start prefix green-text text-darken-2"></i>
-                        <input id="recipe_cooking_time" name="recipe_cooking_time" minlength="5" maxlength="50" type="text" class="validate" required>
-                        <label for="recipe_cooking_time">Cooking Time (eg: 1 hour 30 mins)</label>
+                        <input class="edit-recipe-prompt validate" id="recipe_cooking_time" name="recipe_cooking_time" minlength="5" maxlength="50" type="text" required>
+                        <label class="edit-recipe" for="recipe_cooking_time">Cooking Time:<br>{{ recipe.recipe_cooking_time }}</label>
                     </div>
 
                     <!-- Recipe Source -->
                     <div class="input-field col s12">
                         <i class="fas fa-laptop-house prefix green-text text-darken-2"></i>
-                        <input id="recipe_source" name="recipe_source" minlength="5" maxlength="150" type="text" class="validate" required>
-                        <label for="recipe_source">Recipea Source</label>
+                        <input class="edit-recipe-prompt validate" id="recipe_source" name="recipe_source" minlength="5" maxlength="150" type="text" required>
+                        <label class="edit-recipe" for="recipe_source">Source:<br>{{ recipe.recipe_source }}</label>
                     </div>
 
                     <!-- Is Favourite -->
@@ -99,42 +99,36 @@
                     <div class="input-field col s12">
                         <i class="fas fa-flag prefix green-text text-darken-2"></i>
                         <textarea id="recipe_category" name="recipe_category"
-                        class="materialize-textarea validate" required></textarea>
-                        <label for="recipe_category">Recipea category (separate each category with a new line)</label>
-                        <!--<select id="recipe_category" name="recipe_category" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>Choose Category</p></option>
-                            {% for category in categories %}
-                                <option value="{{ category.recipe_category }}">{{ category.recipe_category }}</option>
-                            {% endfor %}
-                        </select>-->
+                        class="materialize-textarea edit-recipe-textarea-prompt validate" required></textarea>
+                        <label class="edit-recipe" for="recipe_category">Category:<br>{{ recipe.recipe_category }}</label>
                     </div>
 
                     <!-- Recipe Description -->
                     <div class="input-field col s12">
                         <i class="fas fa-quote-right prefix green-text text-darken-2"></i>
                         <textarea id="recipe_description" name="recipe_description" minlength="5" maxlength="200" 
-                        class="materialize-textarea validate" required></textarea>
-                        <label for="recipe_description">A brief description of your Recipea</label>
+                        class="materialize-textarea edit-recipe-textarea-prompt validate" required></textarea>
+                        <label class="edit-recipe" for="recipe_description">Description:<br>{{ recipe.recipe_description }}</label>
                     </div>
 
                     <!-- Recipe Ingredients -->
                     <div class="input-field col s12">
                         <i class="fas fa-list-ul prefix green-text text-darken-2"></i>
                         <textarea id="recipe_ingredients" name="recipe_ingredients" 
-                        class="materialize-textarea validate" required></textarea>
-                        <label for="recipe_ingredients">Ingredients (separate each ingredient with a new line)</label>
+                        class="materialize-textarea edit-recipe-textarea-prompt validate" required></textarea>
+                        <label class="edit-recipe" for="recipe_ingredients">Ingredients:<br>{{ recipe.recipe_ingredients }}</label>
                     </div>
 
                     <!-- Recipe Instructions -->
                     <div class="input-field col s12">
                         <i class="fas fa-list-ol prefix green-text text-darken-2"></i>
                         <textarea id="recipe_preparation" name="recipe_preparation" 
-                        class="materialize-textarea validate" required></textarea>
-                        <label for="recipe_preparation">Preparation (separate each step with a new line)</label>
+                        class="materialize-textarea edit-recipe-textarea-prompt validate" required></textarea>
+                        <label class="edit-recipe" for="recipe_preparation">Preparation:<br>{{ recipe.recipe_preparation }}</label>
                     </div>
                 </div>
-                <!-- Submit button -->
-            
+
+                <!-- Submit Edit button -->           
                 <div class="col s12 center-align">
                     <button type="submit" class="btn btn-block btn-add-recipe green darken-2 text-shadow">
                         Edit Recipea  <i class="fas fa-edit"></i>

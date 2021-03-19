@@ -120,6 +120,9 @@ def logout():
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "POST":
+        if "recipe_image" in request.files:
+            recipe_image = request.files["recipe_image"]
+            mongo.save_file(recipe_image.filename, recipe_image)
         is_favourite = "on" if request.form.get("is_favourite") else "off"
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
@@ -134,17 +137,24 @@ def add_recipe():
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
             "recipe_servings": request.form.get("recipe_servings"),
+            # Credit to Cormac from Sudent Support for the next line of code
+            "recipe_image": recipe_image.filename,
             "recipe_source": request.form.get("recipe_source"),
             "is_favourite": is_favourite,
             "created_by": session["user"]
         }
-        mongo.db.recipes.insert_one(recipe)
+        mongo.db.recipes.insert(recipe)
         flash("Recipe added to the Recipeas and Greens community!")
         return redirect(url_for("get_recipes"))
 
     level_of_difficulty = mongo.db.level_of_difficulty.find()
     return render_template(
         "add_recipe.html", level_of_difficulty=level_of_difficulty)
+
+
+@app.route("/file/<filename>")
+def file(filename):
+    return mongo.send_file(filename)
 
 
 @app.route("/recipe/<recipe_id>")

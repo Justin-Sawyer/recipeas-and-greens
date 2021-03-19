@@ -27,7 +27,7 @@
                     {{ recipe.is_favourite }}<br><br>
                     {{ recipe.recipe_ingredients }}<br><br>
                     {{ recipe.recipe_preparation }}<br><br>
-                    <img src="{{ recipe.recipe_image }}" alt="Image of {{ recipe.recipe_name }}">
+                    <img src="{{ url_for('file', filename=recipe['recipe_image']) }}" alt="">
                     
                     <!-- Recipe Level of Difficulty -->
                     <div class="input-field col s12">
