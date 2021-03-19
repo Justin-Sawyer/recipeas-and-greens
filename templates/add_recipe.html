@@ -63,7 +63,8 @@
                     <!-- Recipe Source -->
                     <div class="input-field col s12">
                         <i class="fas fa-laptop-house prefix green-text text-darken-2"></i>
-                        <input id="recipe_source" name="recipe_source" minlength="5" maxlength="150" type="text" class="validate" required>
+                        <textarea id="recipe_source" name="recipe_source" 
+                        class="materialize-textarea validate" required></textarea>
                         <label for="recipe_source">Recipea Source</label>
                     </div>
 
@@ -131,6 +132,14 @@
                         <textarea id="recipe_preparation" name="recipe_preparation" 
                         class="materialize-textarea validate" required></textarea>
                         <label for="recipe_preparation">Preparation (separate each step with a new line)</label>
+                    </div>
+
+                    <!-- Chef's Notes -->
+                    <div class="input-field col s12">
+                        <i class="fas fa-list-ol prefix green-text text-darken-2"></i>
+                        <textarea id="recipe_notes" name="recipe_notes" 
+                        class="materialize-textarea validate" required></textarea>
+                        <label for="recipe_notes">Chef's notes & hints (separate each with a new line)</label>
                     </div>
                 </div>
                 <!-- Submit button -->
