@@ -97,10 +97,6 @@
                     <div class="input-field col s12">
                         <div class="switch">
                             <i class="fas fa-heart-broken prefix black-text"></i>
-                            <!--<label for="is_favourite">
-                                <input type="checkbox" id="is_favourite" name="is_favourite">
-                                <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to add to favourites"></span>
-                            </label>-->
                             <label for="is_favourite">
                                 {% if recipe.is_favourite == "on" %}
                                     <input type="checkbox" id="is_favourite" name="is_favourite" checked>
@@ -171,12 +167,13 @@
                     </div>
                 </div>
 
-                <!-- Submit Edit button -->           
+                <!-- Submit buttons -->           
                 <div class="col s12 center-align">
                     <!-- Cancel button -->
                     <a href="{{ url_for('get_recipes') }}" class="btn red text-shadow">
                         Cancel Editing <i class="fas fa-times-circle right"></i>
                     </a>
+                    <!-- Edit button -->
                     <button type="submit" class="btn green darken-2 text-shadow">
                         Edit Recipea <i class="fas fa-edit right"></i>
                     </button>
