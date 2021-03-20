@@ -1,4 +1,12 @@
 {% extends "base.html" %}
+{% block banner %}
+
+    <div class="parallax-container">
+        <div class="parallax"><img src="{{ url_for('file', filename=recipe['recipe_image']) }}" alt="Recipe banner"></div>
+    </div>
+
+{% endblock%}
+
 {% block content %}
 
     <div class="row">
