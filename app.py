@@ -121,6 +121,8 @@ def logout():
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "POST":
+        # Credit: Pretty Printed (https://courses.prettyprinted.com/)
+        # via YouTube video (https://www.youtube.com/watch?v=DsgAuceHha4)
         if "recipe_image" in request.files:
             recipe_image = request.files["recipe_image"]
             mongo.save_file(recipe_image.filename, recipe_image)
@@ -128,7 +130,7 @@ def add_recipe():
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
             # multi select dropdown (like recipe ingredients) use:
-            # "recipe_ingredients": request.form.getlist("recipe_ingredients"),
+            # "recipe_ingredients": request.form.getlist("recipe_ingredients")
             "recipe_ingredients": request.form.get("recipe_ingredients"),
             "recipe_preparation": request.form.get("recipe_preparation"),
             "recipe_notes": request.form.get("recipe_notes"),
@@ -151,8 +153,10 @@ def add_recipe():
         return redirect(url_for("get_recipes"))
 
     level_of_difficulty = mongo.db.level_of_difficulty.find()
+    servings = mongo.db.servings.find()
     return render_template(
-        "add_recipe.html", level_of_difficulty=level_of_difficulty)
+        "add_recipe.html", level_of_difficulty=level_of_difficulty,
+        servings=servings)
 
 
 @app.route("/file/<filename>")
@@ -168,12 +172,46 @@ def recipe(recipe_id):
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
+    if request.method == "POST":
+        """ # Credit: Pretty Printed (https://courses.prettyprinted.com/)
+        # via YouTube video (https://www.youtube.com/watch?v=DsgAuceHha4)
+        if "recipe_image" in request.files:
+            recipe_image = request.files["recipe_image"]
+            mongo.save_file(recipe_image.filename, recipe_image)
+        """
+        is_favourite = "on" if request.form.get("is_favourite") else "off"
+        submit = {
+            "recipe_name": request.form.get("recipe_name"),
+            # multi select dropdown (like recipe ingredients) use:
+            # "recipe_ingredients": request.form.getlist("recipe_ingredients"),
+            "recipe_ingredients": request.form.get("recipe_ingredients"),
+            "recipe_preparation": request.form.get("recipe_preparation"),
+            "recipe_notes": request.form.get("recipe_notes"),
+            "recipe_prep_time": request.form.get("recipe_prep_time"),
+            "recipe_cooking_time": request.form.get("recipe_cooking_time"),
+            "recipe_total_time": request.form.get("recipe_total_time"),
+            "recipe_description": request.form.get("recipe_description"),
+            "recipe_category": request.form.get("recipe_category"),
+            "recipe_level_of_difficulty": request.form.get(
+                "recipe_level_of_difficulty"),
+            "recipe_servings": request.form.get("recipe_servings"),
+            # Credit to Cormac from Sudent Support for the next line of code
+            # "recipe_image": recipe_image.filename,
+            "recipe_source": request.form.get("recipe_source"),
+            "is_favourite": is_favourite,
+            "created_by": session["user"]
+        }
+        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, submit)
+        flash("Recipe successfully edited")
+
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
 
     level_of_difficulty = mongo.db.level_of_difficulty.find()
+    servings = mongo.db.servings.find()
     return render_template(
         "edit_recipe.html", recipe=recipe,
-        level_of_difficulty=level_of_difficulty)
+        level_of_difficulty=level_of_difficulty,
+        servings=servings)
 
 
 if __name__ == "__main__":

@@ -12,7 +12,10 @@
     <div class="row">
         <!-- Recipe title -->
         <div class="col s12">
-            <h1 class="title">{{ recipe.recipe_name }}</h1>
+            <h1 class="title">{% if recipe.is_favourite == "on" %}
+                <i class="fas fa-heart red-text tooltipped left"
+                    data-position="right" data-tooltip="Is a favourite"></i>
+            {% endif %}{{ recipe.recipe_name }}</h1>
         </div>
 
         <!-- Recipe description-->
@@ -26,23 +29,24 @@
             <img src="{{ url_for('file', filename=recipe['recipe_image']) }}" alt="">
 
             <!-- Recipe categories -->
-            <h3 class="recipea">Category:</h3>
-            <p class="recipea-text">{{ recipe.recipe_category }}</p>
+            <h3 class="recipea green-text text-darken-2">Category:</h3>
+            <textarea readonly id="recipe_category" name="recipe_category" class="materialize-textarea recipe-textarea">{{ recipe.recipe_category }}
+            </textarea>
 
             <!-- Recipe difficulty -->
-            <h3 class="recipea">Level of Difficulty:</h3>
+            <h3 class="recipea green-text text-darken-2">Level of Difficulty:</h3>
             <p class="recipea-text">{{ recipe.recipe_level_of_difficulty }}</p>
 
             <!-- Recipe source -->
-            <h3 class="recipea">Source:</h3>
-            <p class="recipea-text">{{ recipe.recipe_source }}</p>
+            <h3 class="recipea green-text text-darken-2">Source:</h3>
+            <textarea readonly id="recipe_source" name="recipe_source" class="materialize-textarea recipe-textarea">{{ recipe.recipe_source }}</textarea>
 
             <!-- Recipe added by -->
-            <h3 class="recipea">Added by:</h3>
+            <h3 class="recipea green-text text-darken-2">Added by:</h3>
             <p class="recipea-text">{{ recipe.created_by }}</p>
 
             <!-- Recipe servings -->
-            <h3 class="recipea">Servings:</h3>
+            <h3 class="recipea green-text text-darken-2">Servings:</h3>
             <p class="recipea-text" id="servings">{{ recipe.recipe_servings }}</p>
 
         </div>
@@ -51,182 +55,33 @@
             <div class="col s12 m8">
                 <!-- Recipe times -->
                 <div class="col s4 times-div">
-                    <h3 class="recipea recipea-times">Prep:</h3>
+                    <h3 class="recipea recipea-times green-text text-darken-2">Prep:</h3>
                     <p class="recipea-text">{{ recipe.recipe_prep_time }}</p>
                 </div>
                 <div class="col s4 times-div">
-                    <h3 class="recipea recipea-times">Cook:</h3>
+                    <h3 class="recipea recipea-times green-text text-darken-2">Cook:</h3>
                     <p class="recipea-text">{{ recipe.recipe_cooking_time }}</p>
                 </div>
                 <div class="col s4 times-div">
-                    <h3 class="recipea recipea-times">Total:</h3>
+                    <h3 class="recipea recipea-times green-text text-darken-2">Total:</h3>
                     <p class="recipea-text">{{ recipe.recipe_total_time }}</p>
                 </div>
             </div>
 
             <div class="col s12 m8">
                 <!-- Recipe ingredients -->
-                <h3 class="recipea">Ingredients:</h3>
-                <p class="recipea-text">{{ recipe.recipe_ingredients }}</p>
+                <h3 class="recipea green-text text-darken-2">Ingredients:</h3>
+                <textarea readonly id="recipe_ingredients" name="recipe_ingredients" class="materialize-textarea recipe-textarea">{{ recipe.recipe_ingredients }}</textarea>
 
                 <!-- Recipe preparation -->
-                <h3 class="recipea">Preparation:</h3>
-                <p class="recipea-text">{{ recipe.recipe_preparation }}</p>
+                <h3 class="recipea green-text text-darken-2">Preparation:</h3>
+                <textarea readonly id="recipe_preparation" name="recipe_preparation" class="materialize-textarea recipe-textarea">{{ recipe.recipe_preparation }}</textarea>
 
                 <!-- Recipe notes -->
-                <h3 class="recipea">Chef's notes:</h3>
-                <p class="recipea-text">{{ recipe.recipe_notes }}</p>
+                <h3 class="recipea green-text text-darken-2">Chef's notes:</h3>
+                <textarea readonly id="recipe_notes" name="recipe_notes" class="materialize-textarea recipe-textarea">{{ recipe.recipe_notes }}</textarea>
             </div>
         </div>
-
-        
-        
-        {{ recipe.is_favourite }}<br><br>
-
-        <!--<form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
-            <div class="row">
-
-                <div class="col s12 m4">
-                    {{ recipe.recipe_category }}<br>
-                    {{ recipe.recipe_level_of_difficulty }}<br>
-                    {{ recipe.recipe_servings }}<br>
-                    {{ recipe.recipe_prep_time }}<br>
-                    {{ recipe.recipe_cooking_time }}<br>
-                    {{ recipe.recipe_total_time }}<br><br>
-                    {{ recipe.recipe_source }}<br>
-                    {{ recipe.created_by }}<br><br>
-                    {{ recipe.is_favourite }}<br><br>
-                    {{ recipe.recipe_ingredients }}<br><br>
-                    {{ recipe.recipe_preparation }}<br><br>
-                    {{ recipe.recipe_notes }}<br><br>
-                    <img src="{{ url_for('file', filename=recipe['recipe_image']) }}" alt="">
-                    
-                    <!-- Recipe Level of Difficulty --
-                    <div class="input-field col s12">
-                        <i class="fas fa-ellipsis-v prefix green-text text-darken-2"></i>
-                        <select id="recipe_level_of_difficulty" name="recipe_level_of_difficulty" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>Choose Level of Difficulty</p></option>
-                            {% for level in level_of_difficulty %}
-                                <option value="{{ level.recipe_level_of_difficulty }}">{{ level.recipe_level_of_difficulty }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <!-- Recipe Servings --
-                    <div class="input-field col s12">
-                        <i class="fas fa-sort-numeric-down prefix green-text text-darken-2"></i>
-                        <select id="recipe_servings" name="recipe_servings" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>How Many Servings?</p></option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                        </select>
-                    </div>
-
-                    <!-- Recipe Preparation Time --
-                    <div class="input-field col s12">
-                        <i class="fas fa-user-clock prefix green-text text-darken-2"></i>
-                        <input id="recipe_prep_time" name="recipe_prep_time" minlength="5" maxlength="50" type="text" class="validate" required>
-                        <label for="recipe_prep_time">Prep Time (eg: 1 hour 30 mins)</label>
-                    </div>
-
-                    <!-- Recipe Cooking Time --
-                    <div class="input-field col s12">
-                        <i class="fas fa-hourglass-start prefix green-text text-darken-2"></i>
-                        <input id="recipe_cooking_time" name="recipe_cooking_time" minlength="5" maxlength="50" type="text" class="validate" required>
-                        <label for="recipe_cooking_time">Cooking Time (eg: 1 hour 30 mins)</label>
-                    </div>
-
-                    <!-- Recipe Source --
-                    <div class="input-field col s12">
-                        <i class="fas fa-laptop-house prefix green-text text-darken-2"></i>
-                        <input id="recipe_source" name="recipe_source" minlength="5" maxlength="150" type="text" class="validate" required>
-                        <label for="recipe_source">Recipea Source</label>
-                    </div>
-
-                    <!-- Is Favourite --
-                    <div class="input-field col s12">
-                        <div class="switch">
-                            <i class="fas fa-heart-broken prefix black-text"></i>
-                            <label for="is_favourite">
-                                <input type="checkbox" id="is_favourite" name="is_favourite">
-                                <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to add to favourites"></span>
-                            </label>
-                            <i class="fas fa-heart prefix red-text"></i>
-                        </div>
-                    </div>
-
-                    <!-- Image Uploader formatting --
-                    <!-- From https://www.webtrickshome.com/faq/how-to-display-uploaded-image-in-html-using-javascript--
-                    <div class="input-field col s12">
-                        <p><input type="file"  accept="image/*" name="recipe_image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
-                        <p>
-                            <label class="btn btn-block green darken-2 white-text" for="file" style="cursor: pointer;">
-                                <i class="fas fa-camera"></i> 
-                                Add Recipea Photo
-                            </label>
-                        </p>
-                        <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
-                        <p><img id="output" width="200" /></p>
-                    </div>
-                </div>
-
-                <div class="col s12 m8">
-
-                    <div class="input-field col s12">
-                        <i class="fas fa-flag prefix green-text text-darken-2"></i>
-                        <textarea id="recipe_category" name="recipe_category"
-                        class="materialize-textarea validate" required></textarea>
-                        <label for="recipe_category">Recipea category (separate each category with a new line)</label>
-                        <!--<select id="recipe_category" name="recipe_category" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>Choose Category</p></option>
-                            {% for category in categories %}
-                                <option value="{{ category.recipe_category }}">{{ category.recipe_category }}</option>
-                            {% endfor %}
-                        </select>--
-                    </div>
-
-                    <!-- Recipe Description --
-                    <div class="input-field col s12">
-                        <i class="fas fa-quote-right prefix green-text text-darken-2"></i>
-                        <textarea id="recipe_description" name="recipe_description" minlength="5" maxlength="200" 
-                        class="materialize-textarea validate" required></textarea>
-                        <label for="recipe_description">A brief description of your Recipea</label>
-                    </div>
-
-                    <!-- Recipe Ingredients --
-                    <div class="input-field col s12">
-                        <i class="fas fa-list-ul prefix green-text text-darken-2"></i>
-                        <textarea id="recipe_ingredients" name="recipe_ingredients" 
-                        class="materialize-textarea validate" required></textarea>
-                        <label for="recipe_ingredients">Ingredients (separate each ingredient with a new line)</label>
-                    </div>
-
-                    <!-- Recipe Instructions --
-                    <div class="input-field col s12">
-                        <i class="fas fa-list-ol prefix green-text text-darken-2"></i>
-                        <textarea id="recipe_preparation" name="recipe_preparation" 
-                        class="materialize-textarea validate" required></textarea>
-                        <label for="recipe_preparation">Preparation (separate each step with a new line)</label>
-                    </div>
-                </div>
-                <!-- Submit button --
-            
-                <div class="col s12 center-align">
-                    <button type="submit" class="btn btn-block btn-add-recipe green darken-2 text-shadow">
-                        Add Recipea  <i class="fas fa-plus-square"></i>
-                    </button>
-                </div>
-            
-                
-            </div>
-        </form>-->
     
     </div>
 

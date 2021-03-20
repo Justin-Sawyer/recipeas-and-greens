@@ -220,6 +220,16 @@ input:-webkit-autofill:active {
     margin-top: 0;
 }
 
+.recipe-textarea {
+    border: 0!important;
+    padding-bottom: 0!important;
+    margin-bottom: 0!important;
+}
+
+textarea.recipe-textarea:focus:not([readonly]) {
+    border-bottom: 0!important;
+}
+
 #servings {
     margin-bottom: 0;
 }
@@ -235,7 +245,7 @@ input:-webkit-autofill:active {
     }
 }
 
-/* -------------------------------------------------------------------- Edit Recipe */
+/* -------------------------------------------------------------------- Edit Recipe 
 .edit-recipe-prompt {
     border-bottom: 0!important;
 }
@@ -251,6 +261,7 @@ textarea {
 .edit-recipe {
     border-bottom: 1px solid #9e9e9e;
 }
+*/
 
 /* ------------------------------------------------------------------------- Footer */
 .copyright {

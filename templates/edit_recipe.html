@@ -20,8 +20,8 @@
                 <!-- Recipe name -->
                 <div class="input-field col s12">
                     <i class="fas fa-utensils prefix green-text text-darken-2"></i>
-                    <input class="edit-recipe-prompt validate" id="recipe_name" name="recipe_name" minlength="5" maxlength="150" type="text" required>
-                    <label class="edit-recipe" for="recipe_name">Name:<br>{{ recipe.recipe_name }}</label>
+                    <input class="edit-recipe-prompt validate" id="recipe_name" name="recipe_name" minlength="5" maxlength="150" value="{{ recipe.recipe_name }}" type="text" required>
+                    <label class="edit-recipe" for="recipe_name">Name:</label>
                 </div>
 
                 <div class="col s12 m4">
@@ -30,9 +30,13 @@
                     <div class="input-field col s12">
                         <i class="fas fa-ellipsis-v prefix green-text text-darken-2"></i>
                         <select id="recipe_level_of_difficulty" name="recipe_level_of_difficulty" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>Choose Level of Difficulty</p></option>
+                            <option value="" disabled><p>Choose Level of Difficulty</p></option>
                             {% for level in level_of_difficulty %}
-                                <option value="{{ level.recipe_level_of_difficulty }}">{{ level.recipe_level_of_difficulty }}</option>
+                                {% if level.recipe_level_of_difficulty == recipe.recipe_level_of_difficulty %}
+                                    <option value="{{ level.recipe_level_of_difficulty }}" selected>{{ level.recipe_level_of_difficulty }}</option>
+                                    {% else %}
+                                        <option value="{{ level.recipe_level_of_difficulty }}">{{ level.recipe_level_of_difficulty }}</option>
+                                    {% endif%}
                             {% endfor %}
                         </select>
                     </div>
@@ -41,7 +45,14 @@
                     <div class="input-field col s12">
                         <i class="fas fa-sort-numeric-down prefix green-text text-darken-2"></i>
                         <select id="recipe_servings" name="recipe_servings" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>How Many Servings?</p></option>
+                            <option value="" disabled><p>How Many Servings?</p></option>
+                            {% for serving in servings %}
+                                {% if serving.recipe_servings == recipe.recipe_servings %}
+                                    <option value="{{ serving.recipe_servings }}" selected>{{ serving.recipe_servings }}</option>
+                                    {% else %}
+                                        <option value="{{ serving.recipe_servings }}">{{ serving.recipe_servings }}</option>
+                                    {% endif%}
+                            {% endfor %}
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -57,31 +68,46 @@
                     <!-- Recipe Preparation Time -->
                     <div class="input-field col s12">
                         <i class="fas fa-user-clock prefix green-text text-darken-2"></i>
-                        <input class="edit-recipe-prompt validate" id="recipe_prep_time" name="recipe_prep_time" minlength="5" maxlength="50" type="text" required>
-                        <label class="edit-recipe" for="recipe_prep_time">Preparation Time:<br>{{ recipe.recipe_prep_time }}</label>
+                        <input class="edit-recipe-prompt validate" id="recipe_prep_time" name="recipe_prep_time" minlength="5" maxlength="50" value="{{ recipe.recipe_prep_time }}" type="text" required>
+                        <label class="edit-recipe" for="recipe_prep_time">Preparation Time:</label>
                     </div>
 
                     <!-- Recipe Cooking Time -->
                     <div class="input-field col s12">
                         <i class="fas fa-hourglass-start prefix green-text text-darken-2"></i>
-                        <input class="edit-recipe-prompt validate" id="recipe_cooking_time" name="recipe_cooking_time" minlength="5" maxlength="50" type="text" required>
-                        <label class="edit-recipe" for="recipe_cooking_time">Cooking Time:<br>{{ recipe.recipe_cooking_time }}</label>
+                        <input class="edit-recipe-prompt validate" id="recipe_cooking_time" name="recipe_cooking_time" minlength="5" maxlength="50" value="{{ recipe.recipe_cooking_time }}" type="text" required>
+                        <label class="edit-recipe" for="recipe_cooking_time">Cooking Time:</label>
+                    </div>
+
+                    <!-- Total Cooking Time -->
+                    <div class="input-field col s12">
+                        <i class="fas fa-hourglass-start prefix green-text text-darken-2"></i>
+                        <input id="recipe_total_time" name="recipe_total_time" minlength="5" maxlength="50" value="{{ recipe.recipe_total_time }}" type="text" class="validate" required>
+                        <label for="recipe_total_time">Total Time:</label>
                     </div>
 
                     <!-- Recipe Source -->
                     <div class="input-field col s12">
                         <i class="fas fa-laptop-house prefix green-text text-darken-2"></i>
-                        <input class="edit-recipe-prompt validate" id="recipe_source" name="recipe_source" minlength="5" maxlength="150" type="text" required>
-                        <label class="edit-recipe" for="recipe_source">Source:<br>{{ recipe.recipe_source }}</label>
+                        <input class="edit-recipe-prompt validate" id="recipe_source" name="recipe_source" minlength="5" maxlength="150" value="{{ recipe.recipe_source }}" type="text" required>
+                        <label class="edit-recipe" for="recipe_source">Source:</label>
                     </div>
 
                     <!-- Is Favourite -->
                     <div class="input-field col s12">
                         <div class="switch">
                             <i class="fas fa-heart-broken prefix black-text"></i>
-                            <label for="is_favourite">
+                            <!--<label for="is_favourite">
                                 <input type="checkbox" id="is_favourite" name="is_favourite">
                                 <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to add to favourites"></span>
+                            </label>-->
+                            <label for="is_favourite">
+                                {% if recipe.is_favourite == "on" %}
+                                    <input type="checkbox" id="is_favourite" name="is_favourite" checked>
+                                {% else %}
+                                    <input type="checkbox" id="is_favourite" name="is_favourite">
+                                {% endif %}
+                                <span class="lever"></span>
                             </label>
                             <i class="fas fa-heart prefix red-text"></i>
                         </div>
@@ -104,42 +130,55 @@
 
                 <div class="col s12 m8">
 
+                    <!-- Recipe Category -->
                     <div class="input-field col s12">
                         <i class="fas fa-flag prefix green-text text-darken-2"></i>
                         <textarea id="recipe_category" name="recipe_category"
-                        class="materialize-textarea edit-recipe-textarea-prompt validate" required></textarea>
-                        <label class="edit-recipe" for="recipe_category">Category:<br>{{ recipe.recipe_category }}</label>
+                        class="materialize-textarea edit-recipe-textarea-prompt validate" required>{{ recipe.recipe_category }}</textarea>
+                        <label class="edit-recipe" for="recipe_category">Category:</label>
                     </div>
 
                     <!-- Recipe Description -->
                     <div class="input-field col s12">
                         <i class="fas fa-quote-right prefix green-text text-darken-2"></i>
                         <textarea id="recipe_description" name="recipe_description" minlength="5" maxlength="200" 
-                        class="materialize-textarea edit-recipe-textarea-prompt validate" required></textarea>
-                        <label class="edit-recipe" for="recipe_description">Description:<br>{{ recipe.recipe_description }}</label>
+                        class="materialize-textarea edit-recipe-textarea-prompt validate" required>{{ recipe.recipe_description }}</textarea>
+                        <label class="edit-recipe" for="recipe_description">Description:</label>
                     </div>
 
                     <!-- Recipe Ingredients -->
                     <div class="input-field col s12">
                         <i class="fas fa-list-ul prefix green-text text-darken-2"></i>
                         <textarea id="recipe_ingredients" name="recipe_ingredients" 
-                        class="materialize-textarea edit-recipe-textarea-prompt validate" required></textarea>
-                        <label class="edit-recipe" for="recipe_ingredients">Ingredients:<br>{{ recipe.recipe_ingredients }}</label>
+                        class="materialize-textarea edit-recipe-textarea-prompt validate" required>{{ recipe.recipe_ingredients }}</textarea>
+                        <label class="edit-recipe" for="recipe_ingredients">Ingredients:</label>
                     </div>
 
                     <!-- Recipe Instructions -->
                     <div class="input-field col s12">
                         <i class="fas fa-list-ol prefix green-text text-darken-2"></i>
                         <textarea id="recipe_preparation" name="recipe_preparation" 
-                        class="materialize-textarea edit-recipe-textarea-prompt validate" required></textarea>
-                        <label class="edit-recipe" for="recipe_preparation">Preparation:<br>{{ recipe.recipe_preparation }}</label>
+                        class="materialize-textarea edit-recipe-textarea-prompt validate" required>{{ recipe.recipe_preparation }}</textarea>
+                        <label class="edit-recipe" for="recipe_preparation">Preparation:</label>
+                    </div>
+
+                    <!-- Chef's Notes -->
+                    <div class="input-field col s12">
+                        <i class="fas fa-list-ol prefix green-text text-darken-2"></i>
+                        <textarea id="recipe_notes" name="recipe_notes" 
+                        class="materialize-textarea validate">{{ recipe.recipe_notes }}</textarea>
+                        <label for="recipe_notes">Chef's notes & hints</label>
                     </div>
                 </div>
 
                 <!-- Submit Edit button -->           
                 <div class="col s12 center-align">
-                    <button type="submit" class="btn btn-block btn-add-recipe green darken-2 text-shadow">
-                        Edit Recipea  <i class="fas fa-edit"></i>
+                    <!-- Cancel button -->
+                    <a href="{{ url_for('get_recipes') }}" class="btn red text-shadow">
+                        Cancel Editing <i class="fas fa-times-circle right"></i>
+                    </a>
+                    <button type="submit" class="btn green darken-2 text-shadow">
+                        Edit Recipea <i class="fas fa-edit right"></i>
                     </button>
                 </div>
             

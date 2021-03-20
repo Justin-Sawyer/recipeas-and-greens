@@ -25,8 +25,7 @@
                     <label for="recipe_name">Recipea Name</label>
                 </div>
 
-                <div class="col s12 m4">
-                    
+                <div class="col s12 m4">                   
                     <!-- Recipe Level of Difficulty -->
                     <div class="input-field col s12">
                         <i class="fas fa-ellipsis-v prefix green-text text-darken-2"></i>
@@ -43,15 +42,9 @@
                         <i class="fas fa-sort-numeric-down prefix green-text text-darken-2"></i>
                         <select id="recipe_servings" name="recipe_servings" class="green-text text-darken-2 validate" required>
                             <option value="" disabled selected><p>How Many Servings?</p></option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
+                            {% for serving in servings %}
+                                <option value="{{ serving.recipe_servings }}">{{ serving.recipe_servings }}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
@@ -107,23 +100,18 @@
                             </label>
                         </p>
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
+                        <p>Please credit the image source (eg: yourself, a website) in the Chef's Notes section.</p>
                         <p><img id="output" width="100%" /></p>
                     </div>
                 </div>
 
                 <div class="col s12 m8">
-
+                    <!-- Recipe Category -->
                     <div class="input-field col s12">
                         <i class="fas fa-flag prefix green-text text-darken-2"></i>
                         <textarea id="recipe_category" name="recipe_category"
                         class="materialize-textarea validate" required></textarea>
                         <label for="recipe_category">Recipea category (separate each category with a new line)</label>
-                        <!--<select id="recipe_category" name="recipe_category" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>Choose Category</p></option>
-                            {% for category in categories %}
-                                <option value="{{ category.recipe_category }}">{{ category.recipe_category }}</option>
-                            {% endfor %}
-                        </select>-->
                     </div>
 
                     <!-- Recipe Description -->
@@ -154,12 +142,12 @@
                     <div class="input-field col s12">
                         <i class="fas fa-list-ol prefix green-text text-darken-2"></i>
                         <textarea id="recipe_notes" name="recipe_notes" 
-                        class="materialize-textarea validate" required></textarea>
+                        class="materialize-textarea validate"></textarea>
                         <label for="recipe_notes">Chef's notes & hints (separate each with a new line)</label>
                     </div>
                 </div>
-                <!-- Submit button -->
-            
+
+                <!-- Submit button -->            
                 <div class="col s12 center-align">
                     <button type="submit" class="btn btn-block btn-add-recipe green darken-2 text-shadow">
                         Add Recipea  <i class="fas fa-plus-square"></i>
