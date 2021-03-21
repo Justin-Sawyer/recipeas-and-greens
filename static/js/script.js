@@ -8,6 +8,7 @@ $(document).ready(function(){
     $('.collapsible').collapsible();
     $('.tooltipped').tooltip();
     $('select').formSelect();
+    $('.modal').modal();
 
 
 /* From Code Institute Materialize Form Validation video */

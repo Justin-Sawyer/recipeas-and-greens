@@ -234,6 +234,20 @@ def get_categories():
     return render_template("categories.html", categories=categories)
 
 
+@app.route("/edit_category/<category_id>", methods=["GET", "POST"])
+def edit_category(category_id):
+    if request.method == "POST":
+        submit = {
+            "recipe_category": request.form.get("recipe_category")
+        }
+        mongo.db.categories.update({"_id": ObjectId(category_id)}, submit)
+        flash("Category Successfully Updated")
+        return redirect(url_for("get_categories"))
+
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    return render_template("edit_category.html", category=category)
+
+
 @app.route("/get_difficulty_levels")
 def get_difficulty_levels():
     levels = list(mongo.db.level_of_difficulty.find())
