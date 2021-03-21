@@ -9,19 +9,19 @@
 {% block content %}
     <div class="row">
         <div class="col s12">
-            <h1 class="title">Edit Category</h1>
+            <h1 class="title">Edit Difficulty Levels</h1>
         </div>
     </div>
 
     <div class="row">
-        <form class="col s12" method="POST" action="{{ url_for('edit_category', category_id=category._id) }}">
+        <form class="col s12" method="POST" action="{{ url_for('edit_levels', level_id=level._id) }}">
 
             <!-- Category Name -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-folder-open prefix purple-text text-darken-4"></i>
-                    <input id="recipe_category" name="recipe_category" minlength="3" maxlength="25" type="text" class="validate" value="{{ category.recipe_category }}" required>
-                    <label for="recipe_category">Category Name</label>
+                    <input id="recipe_level_of_difficulty" name="recipe_level_of_difficulty" minlength="3" maxlength="25" type="text" class="validate" value="{{ level.recipe_level_of_difficulty }}" required>
+                    <label for="recipe_level_of_difficulty">Level of Difficulty</label>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <div class="col s12 center-align">
                     
                     <!-- Cancel button -->
-                    <a href="{{ url_for('get_categories') }}" class="btn-large red">
+                    <a href="{{ url_for('get_difficulty_levels') }}" class="btn-large red">
                         Cancel Edit <i class="fas fa-times-circle right"></i>
                     </a>
                     <!-- Edit button -->
@@ -46,7 +46,7 @@
 
     <div class="row">
         <div class="col s6">
-            <a class="btn btn-block" href="{{ url_for('get_difficulty_levels') }}">Manage Difficulty Levels</a>
+            <a class="btn btn-block" href="{{ url_for('get_categories') }}">Manage Difficulty Levels</a>
         </div>
         <div class="col s6">
             <a class="btn btn-block" href="{{ url_for('get_recipes') }}">Home</a>

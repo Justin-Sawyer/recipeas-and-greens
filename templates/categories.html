@@ -23,7 +23,8 @@
                     <div class="card-action col s12">
                         <a href="{{ url_for('edit_category', category_id=category._id)}}" class="btn cinnamon edit-button left">Edit</a>
 
-                        <a class="btn red right" href="#">Delete</a>
+                        
+                        <a href="{{ url_for('delete_category', category_id=category._id) }}" class="btn red edit-button right">Delete</a>
                     </div>
                 </div>
             </div>

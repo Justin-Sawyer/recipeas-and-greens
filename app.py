@@ -248,10 +248,33 @@ def edit_category(category_id):
     return render_template("edit_category.html", category=category)
 
 
+@app.route("/delete_category/<category_id>")
+def delete_category(category_id):
+    mongo.db.categories.remove({"_id": ObjectId(category_id)})
+    flash("Category Successfully Deleted")
+    return redirect(url_for("get_categories"))
+
+
 @app.route("/get_difficulty_levels")
 def get_difficulty_levels():
     levels = list(mongo.db.level_of_difficulty.find())
     return render_template("difficulty_levels.html", levels=levels)
+
+
+@app.route("/edit_levels/<level_id>", methods=["GET", "POST"])
+def edit_levels(level_id):
+    if request.method == "POST":
+        submit = {
+            "recipe_level_of_difficulty": request.form.get(
+                "recipe_level_of_difficulty")
+        }
+        mongo.db.level_of_difficulty.update(
+            {"_id": ObjectId(level_id)}, submit)
+        flash("Successfully Updated")
+        return redirect(url_for("get_difficulty_levels"))
+
+    level = mongo.db.level_of_difficulty.find_one({"_id": ObjectId(level_id)})
+    return render_template("edit_levels.html", level=level)
 
 
 if __name__ == "__main__":
