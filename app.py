@@ -24,7 +24,7 @@ def get_recipes():
     levels = list(mongo.db.level_of_difficulty.find())
     recipes = list(mongo.db.recipes.find())
     return render_template("recipes.html", recipes=recipes,
-            categories=categories, levels=levels)
+                           categories=categories, levels=levels)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -275,6 +275,13 @@ def edit_levels(level_id):
 
     level = mongo.db.level_of_difficulty.find_one({"_id": ObjectId(level_id)})
     return render_template("edit_levels.html", level=level)
+
+
+@app.route("/delete_level/<level_id>")
+def delete_level(level_id):
+    mongo.db.level_of_difficulty.remove({"_id": ObjectId(level_id)})
+    flash("Level Successfully Deleted")
+    return redirect(url_for("get_difficulty_levels"))
 
 
 if __name__ == "__main__":

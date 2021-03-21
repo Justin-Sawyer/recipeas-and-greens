@@ -266,7 +266,8 @@
             </div>
             <div class="footer-copyright">
                 <div class="container center-align">
-                    © 2014 Copyright Text
+                    <!-- From Code Institute Thorin project -->
+                    <p class="copyright text-muted">Copyright &copy; Recipeas and Greens <span id="copyright"></span></p>
                 </div>
             </div>
             </footer>
@@ -277,6 +278,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <!-- Site js script with jinja url_for method -->
         <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <!-- From Code Institute Thorin project -->
+        <script>
+            $("#copyright").text(new Date().getFullYear());
+        </script>
         <!-- Custom scripts jinja -->
         {% block scripts %}
 
