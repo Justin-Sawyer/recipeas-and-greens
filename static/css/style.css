@@ -202,6 +202,10 @@ input:-webkit-autofill:active {
     background-color: #bd6423!important;
 }
 
+.category-buttons {
+    margin-bottom: 8px;
+}
+
 /* --------------------------------------------------------------------- Add Recipe */
 .btn-add-recipe {
     width: 100%;

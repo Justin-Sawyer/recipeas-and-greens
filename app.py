@@ -20,8 +20,11 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
     recipes = list(mongo.db.recipes.find())
-    return render_template("recipes.html", recipes=recipes)
+    return render_template("recipes.html", recipes=recipes,
+            categories=categories, levels=levels)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -127,6 +130,10 @@ def add_recipe():
             recipe_image = request.files["recipe_image"]
             mongo.save_file(recipe_image.filename, recipe_image)
         is_favourite = "on" if request.form.get("is_favourite") else "off"
+        category = {
+            "recipe_category": request.form.get("recipe_category")
+        }
+        mongo.db.categories.insert_one(category)
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
             # multi select dropdown (like recipe ingredients) use:
@@ -219,6 +226,18 @@ def delete_recipe(recipe_id):
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted")
     return redirect(url_for("get_recipes"))
+
+
+@app.route("/get_categories")
+def get_categories():
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    return render_template("categories.html", categories=categories)
+
+
+@app.route("/get_difficulty_levels")
+def get_difficulty_levels():
+    levels = list(mongo.db.level_of_difficulty.find())
+    return render_template("difficulty_levels.html", levels=levels)
 
 
 if __name__ == "__main__":

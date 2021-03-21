@@ -104,7 +104,8 @@ the creator of the website intends to use the site to sell a range of kitchen ac
 
 	- #### Typography:
 		As the website is aimed towards the generation that uses paper or physical folders to store their personal recipes, the typography must be simple. 
-        For this reason, different weights of a single font are preferred over different fonts to discern between titles and text. 
+        For this reason, different weights of a single font are preferred over different fonts to discern between titles and text.
+        The font itself is the standard system font supplied within the Materialize framework.
         However, where called for, subtle uses of different fonts (a font designed to make the user think of desserts, 
         or of pasta or of a region such as Asia) may be used on the images for those particular categories.
 
@@ -188,8 +189,6 @@ the creator of the website intends to use the site to sell a range of kitchen ac
 
 	[Materialize](https://materializecss.com/) forms the vast majority of the formatting code, such as the grid system, containers, buttons, icons etc. 
     It has been heavily modified by the author of this project to suit the website's needs.
-
-	[Google Fonts](https://fonts.google.com/) was used to import the different fonts used on this website.
 
 	[Font Awesome v4.7.0](https://fontawesome.com/v4.7.0/) was used for the social icons used on this site, since they are so easily recognisable.
 

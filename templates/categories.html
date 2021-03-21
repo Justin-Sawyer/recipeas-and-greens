@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block banner %}
+    <div class="parallax-container">
+        <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
+        <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg"></div>
+    </div>   
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col s12">
+            <h1 class="title">Manage Categories</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for category in categories %}
+            <div class="col s4">
+                <div class="card blue-grey darken-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">{{ category.recipe_category}}</span>
+                    </div>
+                    <div class="card-action col s12">
+                        <a class="btn cinnamon left" href="#">Edit</a>
+                        <a class="btn red right" href="#">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col s6">
+            <a class="btn btn-block" href="{{ url_for('get_difficulty_levels') }}">Manage Difficulty Levels</a>
+        </div>
+        <div class="col s6">
+            <a class="btn btn-block" href="{{ url_for('get_recipes') }}">Home</a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Log out of Admin account -->
+        <div class="col s6">
+            <a class="btn btn-block" href="{{ url_for('logout') }}">Log Out Of Admin Account</a>
+        </div>
+        <!-- Go to Admin Profile -->
+        <div class="col s6">
+            <a class="btn btn-block" href="{{ url_for('profile', username=session['user']) }}">Admin Profile</a>
+        </div>
+    </div>
+{% endblock %}

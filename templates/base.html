@@ -61,8 +61,8 @@
             </ul>
 
             {% block banner %}
-
             {% endblock %}
+
         </header>
 
         <main>
@@ -80,9 +80,14 @@
                 {% endwith %}
             </section>
             
-            <section class="container">
-                {% block content %}
-                    
+            <section class="container" style="margin-top:8px">
+                {% block categories %}
+                {% endblock %}
+
+                {% block difficulty_level %}
+                {% endblock %}
+
+                {% block content %}                   
                 {% endblock %}
             </section>
 
