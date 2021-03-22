@@ -14,21 +14,22 @@
     <div class="row">
         <div class="col s12">
             {% if session.user|lower == "administration"|lower %}
-                <h1 class="title">{{ username }}'s Profile</h1>
+                <h1 class="title">{{ user.username }}'s Profile</h1>
             {% else %}
-                <h1 class="title">{{ first_name }}'s Profile</h1>
+                <h1 class="title">{{ user.first_name }}'s Profile</h1>
             {% endif %}
         </div>
 
         <div class="col s12 m4"> 
-   
-            <p><i class="far fa-id-card small green-text text-darken-2"></i><span class="right">{{ first_name }} {{ last_name }}</span></p>
-            <p><i class="far fa-user small green-text text-darken-2"></i><span class="right">{{ username }}</span></p>
-            <p><i class="fas fa-at small green-text text-darken-2"></i><span class="right">{{ email }}</span></p>
+            
+            <p><i class="far fa-id-card small green-text text-darken-2"></i><span class="right">{{ user.first_name }} {{ user.last_name }}</span></p>
+            <p><i class="far fa-user small green-text text-darken-2"></i><span class="right">{{ user.username }}</span></p>
+            <p><i class="fas fa-at small green-text text-darken-2"></i><span class="right">{{ user.email }}</span></p>
+            <img src="{{ url_for('file', filename=user['profile_image']) }}" alt="">
 
             <p>Want to change your profile details? Even add a photo?</p>
             <!-- Edit recipe -->
-            <a href="{{ url_for('edit_user', user_id=username._id) }}" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
+            <a href="" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
 
         </div>
     
@@ -47,7 +48,7 @@
             <div class="row">
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
-                    {% if username == recipe.created_by %}
+                    {% if user.username == recipe.created_by %}
                     <li class="col s12 m6 recipe-list-item">
                         <div class="card">
                             <a class="btn-floating halfway-fab waves-effect waves-light red">

@@ -14,21 +14,23 @@
     </div>
 
     <div class="row">
+        <div class="col s12">
+            <h2>Search by Category:</h2>
+        </div>
         {% for category in categories %}
             <div class="col s4">
-                <a class="btn btn-block category-buttons green darken-2" href="#">{{ category.recipe_category}}</a>
+                <a class="btn btn-block category-buttons green darken-2" href="{{ url_for('category', category_id=category._id)}}">{{ category.recipe_category}}</a>
             </div>
         {% endfor %}
     </div>
 
-    {% if session.user|lower == "admin"|lower %}
-    <h3 class="green-text text-darken-2 center-align">Manage Difficulty Levels</h3>
-    {% endif %}
-
     <div class="row">
+        <div class="col s12">
+            <h2>Search by Level of Difficulty:</h2>
+        </div>
         {% for level in levels %}
             <div class="col s4">
-                <a class="btn btn-block green darken-2" href="#">{{ level.recipe_level_of_difficulty }}</a>
+                <a class="btn btn-block green darken-2" href="{{ url_for('level', level_id=level._id)}}">{{ level.recipe_level_of_difficulty }}</a>
             </div>
         {% endfor %}
     </div>

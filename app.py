@@ -82,8 +82,8 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
     """
     if request.method == "POST":
         # Credit: Pretty Printed (https://courses.prettyprinted.com/)
@@ -93,7 +93,7 @@ def profile(username):
             mongo.save_file(profile_image.filename, profile_image)
             mongo.db.users.insert_one({"username": session["user"]}[
                 "profile_image", profile_image.filename])
-    """
+
     # Grab the session user's username from the database
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
@@ -104,23 +104,31 @@ def profile(username):
     email = mongo.db.users.find_one(
         {"username": session["user"]})["email"]
     recipes = mongo.db.recipes.find()
+    """
+    user = mongo.db.users.find_one({"username": session["user"]})
+    # username = user["username"]
+    # first_name = user["first_name"]
+    # last_name = user["last_name"]
+    # email = user["email"]
+    recipes = mongo.db.recipes.find()
 
     # If session cookie exists
     if session["user"]:
         return render_template(
-            "profile.html", username=username, first_name=first_name,
-            last_name=last_name, email=email,
+            "profile.html", user=user,
             recipes=recipes)
 
-    return render_template("profile.html", username=username)
+    return render_template("profile.html")
 
 
-@app.route("/edit_user/<user_id>", methods=["GET", "POST"])
-def edit_user(user_id):
+"""
+@app.route("/edit_user/<username>", methods=["GET", "POST"])
+def edit_user(username):
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
 
     return render_template(
         "edit_user.html", user=user)
+"""
 
 
 @app.route("/logout")
@@ -145,6 +153,7 @@ def add_recipe():
         category = {
             "recipe_category": request.form.get("recipe_category")
         }
+        print(category)
         mongo.db.categories.insert_one(category)
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
@@ -192,13 +201,14 @@ def recipe(recipe_id):
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if request.method == "POST":
-        """ # Credit: Pretty Printed (https://courses.prettyprinted.com/)
+        # Credit: Pretty Printed (https://courses.prettyprinted.com/)
         # via YouTube video (https://www.youtube.com/watch?v=DsgAuceHha4)
         if "recipe_image" in request.files:
             recipe_image = request.files["recipe_image"]
             mongo.save_file(recipe_image.filename, recipe_image)
-        """
+
         is_favourite = "on" if request.form.get("is_favourite") else "off"
+        print(dir(request.form.get("recipe_image")))
         submit = {
             "recipe_name": request.form.get("recipe_name"),
             # multi select dropdown (like recipe ingredients) use:
@@ -215,13 +225,14 @@ def edit_recipe(recipe_id):
                 "recipe_level_of_difficulty"),
             "recipe_servings": request.form.get("recipe_servings"),
             # Credit to Cormac from Sudent Support for the next line of code
-            # "recipe_image": recipe_image.filename,
+            "recipe_image": request.form.get("recipe_image.filename"),
             "recipe_source": request.form.get("recipe_source"),
             "is_favourite": is_favourite,
             "created_by": session["user"]
         }
         mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, submit)
         flash("Recipe successfully edited")
+        return redirect(url_for('get_recipes'))
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
 
@@ -244,6 +255,17 @@ def delete_recipe(recipe_id):
 def get_categories():
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     return render_template("categories.html", categories=categories)
+
+
+@app.route("/category/<category_id>")
+def category(category_id):
+    levels = mongo.db.level_of_difficulty.find()
+    categories = mongo.db.categories.find().sort("recipe_category", 1)
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    recipes = mongo.db.recipes.find()
+    return render_template("category.html", category=category,
+                           recipes=recipes, levels=levels,
+                           categories=categories)
 
 
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
@@ -271,6 +293,17 @@ def delete_category(category_id):
 def get_difficulty_levels():
     levels = list(mongo.db.level_of_difficulty.find())
     return render_template("difficulty_levels.html", levels=levels)
+
+
+@app.route("/level/<level_id>")
+def level(level_id):
+    levels = mongo.db.level_of_difficulty.find()
+    categories = mongo.db.categories.find().sort("recipe_category", 1)
+    level = mongo.db.level_of_difficulty.find_one({"_id": ObjectId(level_id)})
+    recipes = mongo.db.recipes.find()
+    return render_template("level.html", level=level,
+                           recipes=recipes, levels=levels,
+                           categories=categories)
 
 
 @app.route("/edit_levels/<level_id>", methods=["GET", "POST"])
