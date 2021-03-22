@@ -153,7 +153,7 @@ def add_recipe():
         category = {
             "recipe_category": request.form.get("recipe_category")
         }
-        print(category)
+        print(category)        
         mongo.db.categories.insert_one(category)
         recipe = {
             "recipe_name": request.form.get("recipe_name"),

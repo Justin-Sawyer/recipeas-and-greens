@@ -9,6 +9,9 @@ $(document).ready(function(){
     $('.tooltipped').tooltip();
     $('select').formSelect();
     $('.modal').modal();
+    $('#display-cats').click(function(){
+        $('#cats').toggle(500)
+    });
 
 
 /* From Code Institute Materialize Form Validation video */
