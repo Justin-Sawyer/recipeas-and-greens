@@ -35,6 +35,18 @@ img {
     color: #bd6423
 }
 
+.recipe-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-left: 0;
+}
+
+.recipe-list-item {
+    margin-left: 0!important;
+}
+
 /* ------------------------------------------------------------------------ Navigation & Parralax */
 nav .brand-logo {
     padding: 0 0 0 8px;

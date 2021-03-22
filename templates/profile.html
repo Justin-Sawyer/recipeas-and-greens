@@ -20,11 +20,11 @@
             {% endif %}
         </div>
 
-        <div class="col s12 m4">
-            
-            <h2><i class="far fa-id-card small green-text text-darken-2"></i><span class="right">{{ first_name }} {{ last_name }}</span></h2>
-            <h2><i class="far fa-user small green-text text-darken-2"></i><span class="right">{{ username }}</span></h2>
-            <h2><i class="fas fa-at small green-text text-darken-2"></i><span class="right">{{ email }}</span></h2>
+        <div class="col s12 m4"> 
+   
+            <p><i class="far fa-id-card small green-text text-darken-2"></i><span class="right">{{ first_name }} {{ last_name }}</span></p>
+            <p><i class="far fa-user small green-text text-darken-2"></i><span class="right">{{ username }}</span></p>
+            <p><i class="fas fa-at small green-text text-darken-2"></i><span class="right">{{ email }}</span></p>
 
             <p>Want to change your profile details? Even add a photo?</p>
             <!-- Edit recipe -->
@@ -43,50 +43,58 @@
                     </div>
                 </div>
             {% endif %}
-            <div class="card-panel user-recipeas cinnamon">
-                <div class="card-panel white">
-                    <h3 class="recipeas center-align green-text text-darken-2">
-                        {{ first_name }}'s Recipeas
-                    </h3>
-                </div>
-            </div>
-            
+         
             <div class="row">
-                <div class="col s12 m6">
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>First</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>Second</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>Third</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col s12 m6">
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>First</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>Second</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header white-text green darken-2 text-shadow"><i class="fas fa-caret-down"></i>Third</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="recipe-list">
+                    {% for recipe in recipes %}
+                    {% if username == recipe.created_by %}
+                    <li class="col s12 m6 recipe-list-item">
+                        <div class="card">
+                            <a class="btn-floating halfway-fab waves-effect waves-light red">
+                                <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Add to Favourites!">
+                                </i>
+                            </a>
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="{{ url_for('file', filename=recipe['recipe_image']) }}" alt="">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator cinnamon-text">
+                                    <i class="fas fa-ellipsis-v right"></i><strong>{{ recipe.recipe_name }}</strong></span>
+                                <p><a href="{{ url_for('recipe', recipe_id=recipe._id)}}">Go to Recipea</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title cinnamon-text">
+                                    <i class="far fa-times-circle right"></i>
+                                    <strong>{{ recipe.recipe_name }}</strong>
+                                </span>
+                                <p class="category green-text text-darken-2">Category: <span
+                                        class="right">{{ recipe.recipe_category }}</span></p>
+                                <p class="category green-text text-darken-2">Level: <span
+                                        class="right">{{ recipe.recipe_level_of_difficulty }}</span></p>
+                                <!--<p>{{ recipe.recipe_description }}</p>-->
+                                <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
+                                <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
+            
+                                <!-- Open recipe -->
+                                <a href="{{ url_for('recipe', recipe_id=recipe._id)}}"
+                                    class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>
+            
+                                {% if session.user|lower == recipe.created_by %}
+                                <!-- Edit recipe -->
+                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}"
+                                    class="col s5 left btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
+            
+                                <!-- Delete recipe -->
+                                <a href="{{ url_for('delete_recipe', recipe_id=recipe._id)}}"
+                                    class="col s5 right btn-small recipe-action red">Delete</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
             </div>
-        
 
             <div class="card-panel cinnamon">
                 <div class="card-panel white">
@@ -107,3 +115,5 @@
     </div>
 
 {% endblock%}
+
+

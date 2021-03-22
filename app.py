@@ -84,6 +84,16 @@ def login():
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
+    """
+    if request.method == "POST":
+        # Credit: Pretty Printed (https://courses.prettyprinted.com/)
+        # via YouTube video (https://www.youtube.com/watch?v=DsgAuceHha4)
+        if "profile_image" in request.files:
+            profile_image = request.files["profile_image"]
+            mongo.save_file(profile_image.filename, profile_image)
+            mongo.db.users.insert_one({"username": session["user"]}[
+                "profile_image", profile_image.filename])
+    """
     # Grab the session user's username from the database
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
@@ -93,12 +103,14 @@ def profile(username):
         {"username": session["user"]})["last_name"]
     email = mongo.db.users.find_one(
         {"username": session["user"]})["email"]
+    recipes = mongo.db.recipes.find()
 
     # If session cookie exists
     if session["user"]:
         return render_template(
             "profile.html", username=username, first_name=first_name,
-            last_name=last_name, email=email)
+            last_name=last_name, email=email,
+            recipes=recipes)
 
     return render_template("profile.html", username=username)
 
