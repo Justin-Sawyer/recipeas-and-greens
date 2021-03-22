@@ -68,33 +68,27 @@
     <div class="row">
         <div class="col s12">
             <h2>Search Other Categories:</h2>
+            {% for category in categories %}
+                 <a class="btn category-buttons green darken-2" href="{{ url_for('category', category_id=category._id)}}">{{ category.recipe_category}}</a>
+            {% endfor %}
         </div>
-        {% for category in categories %}
-            <div class="col s4">
-                <a class="btn btn-block category-buttons green darken-2" href="{{ url_for('category', category_id=category._id)}}">{{ category.recipe_category}}</a>
-            </div>
-        {% endfor %}
     </div>
 
     <!-- List of Difficulty Level -->
     <div class="row">
         <div class="col s12">
             <h2>Search Other Levels of Difficulty:</h2>
+            {% for level in levels %}
+                <a class="btn category-buttons green darken-2" href="{{ url_for('level', level_id=level._id)}}">{{ level.recipe_level_of_difficulty }}</a>
+            {% endfor %}
         </div>
-        {% for level in levels %}
-            <div class="col s4">
-                <a class="btn btn-block green darken-2" href="{{ url_for('level', level_id=level._id)}}">{{ level.recipe_level_of_difficulty }}</a>
-            </div>
-        {% endfor %}
     </div>
 
     {% if session.user|lower == "administration"|lower %}
         <div class="row">
-            <div class="col s6">
-                <a class="btn btn-block" href="{{ url_for('get_categories') }}">Manage Categories</a>
-            </div>
-            <div class="col s6">
-                <a class="btn btn-block" href="{{ url_for('get_difficulty_levels') }}">Manage Levels of Difficulty</a>
+            <div class="col s12">
+                <a class="btn" href="{{ url_for('get_categories') }}">Manage Categories</a>
+                <a class="btn" href="{{ url_for('get_difficulty_levels') }}">Manage Levels of Difficulty</a>
             </div>
         </div>
     {% endif %}
