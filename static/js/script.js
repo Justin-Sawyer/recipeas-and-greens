@@ -12,6 +12,9 @@ $(document).ready(function(){
     $('#display-cats').click(function(){
         $('#cats').toggle(500)
     });
+    $('#display-levs').click(function(){
+        $('#levs').toggle(500)
+    });
 
 
 /* From Code Institute Materialize Form Validation video */
