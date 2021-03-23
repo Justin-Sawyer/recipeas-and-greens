@@ -85,4 +85,23 @@
     
     </div>
 
+    <!-- Search by category / level -->
+    <div class="row">
+        <div class="col s12">
+            <h2>Something Else?</h2>
+            <button class="btn category-buttons green darken-2" id="display-cats">Search by Category</button>
+            <button class="btn category-buttons green darken-2" id="display-levs">Search by Level of Difficulty</button>
+        </div>
+        <div class="col s12" id="cats" style="display:none">
+            {% for category in categories %}
+                <a class="btn category-button-links cinnamon" href="{{ url_for('category', category_id=category._id)}}">{{ category.recipe_category}}</a>
+            {% endfor %}
+        </div>
+        <div class="col s12" id="levs" style="display:none">
+            {% for level in levels %}
+                <a class="btn category-button-links cinnamon" href="{{ url_for('level', level_id=level._id)}}">{{ level.recipe_level_of_difficulty }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}

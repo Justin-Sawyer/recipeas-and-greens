@@ -96,8 +96,8 @@
                     <!-- Is Favourite -->
                     <div class="input-field col s12">
                         <div class="switch">
-                            <i class="fas fa-heart-broken prefix black-text"></i>
                             <label for="is_favourite">
+                                Is favourite? 
                                 {% if recipe.is_favourite == "on" %}
                                     <input type="checkbox" id="is_favourite" name="is_favourite" checked>
                                 {% else %}
@@ -105,7 +105,7 @@
                                 {% endif %}
                                 <span class="lever"></span>
                             </label>
-                            <i class="fas fa-heart prefix red-text"></i>
+                            <i class="fas fa-heart loved prefix red-text"></i>
                         </div>
                     </div>
 
@@ -120,6 +120,7 @@
                             </label>
                         </p>
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
+                        <p><img src="{{ url_for('file', filename=recipe['recipe_image']) }}" width="200" alt=""></p>
                         <p><img id="output" width="200" /></p>
                     </div>
                 </div>
@@ -170,13 +171,27 @@
                 <!-- Submit buttons -->           
                 <div class="col s12 center-align">
                     <!-- Cancel button -->
-                    <a href="{{ url_for('get_recipes') }}" class="btn red text-shadow">
+                    <a href="{{ url_for('get_recipes') }}" class="btn cinnamon">
                         Cancel Editing <i class="fas fa-times-circle right"></i>
                     </a>
                     <!-- Edit button -->
-                    <button type="submit" class="btn green darken-2 text-shadow">
+                    <button type="submit" class="btn green darken-2">
                         Edit Recipea <i class="fas fa-edit right"></i>
                     </button>
+                    <!-- Delete button -->
+                    <button data-target="delete-recipe-modal" class="btn red modal-trigger">Delete Recipea <i class="fas fa-trash-alt right"></i></button>
+
+                    <div id="delete-recipe-modal" class="modal">
+                        <div class="modal-content">
+                            <h4>Are you sure you want to delete this recipe?</h4>
+                            <p>This action is permanent!</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="btn modal-close green darken-2">Do Not Delete <i class="fas fa-times-circle right"></i></a>
+                            <a href="{{ url_for('delete_recipe', recipe_id=recipe._id)}}" class="btn red">
+                                Yes, Delete Recipea <i class="fas fa-trash-alt right"></i></a>
+                        </div>
+                    </div>
                 </div>
             
                 

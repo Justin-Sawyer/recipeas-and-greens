@@ -210,17 +210,28 @@ input:-webkit-autofill:active {
 .edit-button:focus-within,
 .edit-button:hover,
 .edit-button:visited,
-.edit-button:focus-visible {
+.edit-button:focus-visible,
+.category-button-links:active,
+.category-button-links:focus,
+.category-button-links:focus-within,
+.category-button-links:hover,
+.category-button-links:visited,
+.category-button-links:focus-visible {
     background-color: #bd6423!important;
 }
 
-.category-buttons {
+.category-buttons,
+.category-button-links {
     margin-bottom: 8px;
 }
 
-/* --------------------------------------------------------------------- Add Recipe */
+/* --------------------------------------------------------------------- Add / Edit Recipe */
 .btn-add-recipe {
     width: 100%;
+}
+
+.loved {
+    top: 0!important;
 }
 
 /* ------------------------------------------------------------------------- Recipe */

@@ -9,6 +9,7 @@ $(document).ready(function(){
     $('.tooltipped').tooltip();
     $('select').formSelect();
     $('.modal').modal();
+    $('.fixed-action-btn').floatingActionButton();
     $('#display-cats').click(function(){
         $('#cats').toggle(500)
     });

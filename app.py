@@ -187,26 +187,28 @@ def add_recipe():
         servings=servings)
 
 
-@app.route("/file/<filename>")
-def file(filename):
-    return mongo.send_file(filename)
-
 
 @app.route("/recipe/<recipe_id>")
 def recipe(recipe_id):
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    return render_template("recipe.html", recipe=recipe)
+    return render_template("recipe.html", recipe=recipe, categories=categories,
+                           levels=levels)
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if request.method == "POST":
+        """
         # Credit: Pretty Printed (https://courses.prettyprinted.com/)
         # via YouTube video (https://www.youtube.com/watch?v=DsgAuceHha4)
         if "recipe_image" in request.files:
+            image_to_delete = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+            image_to_delete.delete_one({"recipe_image"})
             recipe_image = request.files["recipe_image"]
             mongo.save_file(recipe_image.filename, recipe_image)
-
+        """
         is_favourite = "on" if request.form.get("is_favourite") else "off"
         print(dir(request.form.get("recipe_image")))
         submit = {
@@ -225,7 +227,7 @@ def edit_recipe(recipe_id):
                 "recipe_level_of_difficulty"),
             "recipe_servings": request.form.get("recipe_servings"),
             # Credit to Cormac from Sudent Support for the next line of code
-            "recipe_image": request.form.get("recipe_image.filename"),
+            # "recipe_image": recipe_image.filename,
             "recipe_source": request.form.get("recipe_source"),
             "is_favourite": is_favourite,
             "created_by": session["user"]
@@ -244,11 +246,28 @@ def edit_recipe(recipe_id):
         servings=servings)
 
 
+@app.route("/file/<filename>")
+def file(filename):
+    return mongo.send_file(filename)
+
+
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted")
     return redirect(url_for("get_recipes"))
+
+"""
+@app.route("/add_to_favourites/<recipe_id>", methods=["GET", "POST"])
+def add_to_favourites(recipe_id):
+    user = mongo.db.users.find_one({"username": session["user"]})
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
+    if request.method == "POST":
+        user = "loves" if request.form.get("is_user_favourite") else "off"
+
+    return render_template("profile.html", user=user, recipe=recipe)
+"""
 
 
 @app.route("/get_categories")
