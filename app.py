@@ -1,4 +1,5 @@
 import os
+# import cloudinary as Cloudinary
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -13,6 +14,14 @@ app = Flask(__name__)
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
+
+"""
+Cloudinary.config.update = ({
+    'cloud_name': os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    'api_key': os.environ.get("CLOUDINARY_API_KEY"),
+    'api_secret': os.environ.get("CLOUDINARY_API_SECRET")
+})
+"""
 
 mongo = PyMongo(app)
 
@@ -144,16 +153,18 @@ def logout():
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "POST":
+        """
         # Credit: Pretty Printed (https://courses.prettyprinted.com/)
         # via YouTube video (https://www.youtube.com/watch?v=DsgAuceHha4)
         if "recipe_image" in request.files:
-            recipe_image = request.files["recipe_image"]
-            mongo.save_file(recipe_image.filename, recipe_image)
+            recipe_image = request.form.get["recipe_image"]
+            # mongo.save_file(recipe_image.filename, recipe_image)
+        """
         is_favourite = "on" if request.form.get("is_favourite") else "off"
         category = {
             "recipe_category": request.form.get("recipe_category")
         }
-        print(category)        
+        print(category)      
         mongo.db.categories.insert_one(category)
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
@@ -171,7 +182,8 @@ def add_recipe():
                 "recipe_level_of_difficulty"),
             "recipe_servings": request.form.get("recipe_servings"),
             # Credit to Cormac from Sudent Support for the next line of code
-            "recipe_image": recipe_image.filename,
+            # "recipe_image": request.form.get("file-upload1"),
+            "image_url": request.form.get("recipe_image_url"),
             "recipe_source": request.form.get("recipe_source"),
             "is_favourite": is_favourite,
             "created_by": session["user"]
@@ -245,11 +257,11 @@ def edit_recipe(recipe_id):
         level_of_difficulty=level_of_difficulty,
         servings=servings)
 
-
+"""
 @app.route("/file/<filename>")
 def file(filename):
     return mongo.send_file(filename)
-
+"""
 
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):

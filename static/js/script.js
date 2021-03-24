@@ -1,6 +1,5 @@
 /* From Materialize (Mobile collapse Button) https://materializecss.com/navbar.html 
 and from Code Institute Backend Development Mini Project */
-
 $(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
     $('.parallax').parallax();
@@ -17,6 +16,40 @@ $(document).ready(function(){
         $('#levs').toggle(500)
     });
 
+/* Add files to cloudinary and display them online
+From Learn with Coffee https://www.youtube.com/watch?v=6uHfIv4981U */
+const CLOUDINRY_URL = "https://api.cloudinary.com/v1_1/recipeas-and-greens/upload";
+const CLOUDINARY_UPLOAD_PRESET = "b4an3d8o";
+
+var imgPreview = document.getElementById("img-preview");
+var fileUpload = document.getElementById("file-upload");
+var fileUpload1 = document.getElementById("file-upload1");
+
+fileUpload.addEventListener("change", function(event) {
+    console.log(event);
+    var file = event.target.files[0];
+    console.log(file)
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET)
+
+    axios({
+        url: CLOUDINRY_URL,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data: formData
+    }).then(function(res) {
+        console.log(res.data.secure_url)
+        imgPreview.src = res.data.secure_url;
+        /*document.getElementById("img-preview")*/
+        /*fileUpload.value = res.data.secure_url;*/
+        fileUpload1.value = res.data.secure_url;
+    }).catch(function(err) {
+        console.log(err)
+    })
+});
 
 /* From Code Institute Materialize Form Validation video */
 validateMaterializeSelect();

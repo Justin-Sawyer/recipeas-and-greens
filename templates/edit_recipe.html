@@ -2,7 +2,7 @@
 {% block banner %}
 
     <div class="parallax-container">
-        <div class="parallax"><img src="{{ url_for('file', filename=recipe['recipe_image']) }}" alt="Recipe banner"></div>
+        <div class="parallax"><img class="activator" src="{{ recipe.image_url }}" alt="Recipe banner"></div>
     </div>
 
 {% endblock%}
@@ -53,15 +53,6 @@
                                         <option value="{{ serving.recipe_servings }}">{{ serving.recipe_servings }}</option>
                                     {% endif%}
                             {% endfor %}
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
                         </select>
                     </div>
 
@@ -120,7 +111,7 @@
                             </label>
                         </p>
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
-                        <p><img src="{{ url_for('file', filename=recipe['recipe_image']) }}" width="200" alt=""></p>
+                        <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
                         <p><img id="output" width="200" /></p>
                     </div>
                 </div>
