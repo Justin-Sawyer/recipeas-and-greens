@@ -1,5 +1,4 @@
 import os
-# import cloudinary as Cloudinary
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -14,14 +13,6 @@ app = Flask(__name__)
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
-
-"""
-Cloudinary.config.update = ({
-    'cloud_name': os.environ.get("CLOUDINARY_CLOUD_NAME"),
-    'api_key': os.environ.get("CLOUDINARY_API_KEY"),
-    'api_secret': os.environ.get("CLOUDINARY_API_SECRET")
-})
-"""
 
 mongo = PyMongo(app)
 
@@ -93,16 +84,15 @@ def login():
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
-    """
+    
     if request.method == "POST":
-        # Credit: Pretty Printed (https://courses.prettyprinted.com/)
-        # via YouTube video (https://www.youtube.com/watch?v=DsgAuceHha4)
-        if "profile_image" in request.files:
-            profile_image = request.files["profile_image"]
-            mongo.save_file(profile_image.filename, profile_image)
-            mongo.db.users.insert_one({"username": session["user"]}[
-                "profile_image", profile_image.filename])
+        submit = {
+            "image_url": request.form.get("profile_image_url")
+        }
+        mongo.db.users.find_one({"username": session["user"]}, submit)
+        flash("hi")
 
+    """
     # Grab the session user's username from the database
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
@@ -114,7 +104,9 @@ def profile():
         {"username": session["user"]})["email"]
     recipes = mongo.db.recipes.find()
     """
+
     user = mongo.db.users.find_one({"username": session["user"]})
+    
     # username = user["username"]
     # first_name = user["first_name"]
     # last_name = user["last_name"]
@@ -161,11 +153,20 @@ def add_recipe():
             # mongo.save_file(recipe_image.filename, recipe_image)
         """
         is_favourite = "on" if request.form.get("is_favourite") else "off"
-        category = {
+        """category = {
             "recipe_category": request.form.get("recipe_category")
         }
         print(category)      
-        mongo.db.categories.insert_one(category)
+        """
+        # Check if category exists in Database
+        existing_category = mongo.db.categories.find_one(
+            {"recipe_category": request.form.get("recipe_category")})
+        if existing_category:
+            mongo.db.categories.find_one(
+                {"recipe_category": request.form.get("recipe_category")})
+        else:
+            mongo.db.categories.insert_one(category)
+
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
             # multi select dropdown (like recipe ingredients) use:
@@ -257,11 +258,6 @@ def edit_recipe(recipe_id):
         level_of_difficulty=level_of_difficulty,
         servings=servings)
 
-"""
-@app.route("/file/<filename>")
-def file(filename):
-    return mongo.send_file(filename)
-"""
 
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):

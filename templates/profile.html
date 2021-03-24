@@ -25,10 +25,21 @@
             <p><i class="far fa-id-card small green-text text-darken-2"></i><span class="right">{{ user.first_name }} {{ user.last_name }}</span></p>
             <p><i class="far fa-user small green-text text-darken-2"></i><span class="right">{{ user.username }}</span></p>
             <p><i class="fas fa-at small green-text text-darken-2"></i><span class="right">{{ user.email }}</span></p>
-            <img src="" alt="">
 
+            <p><img src="" id="img-preview" /></p>
+            <form method="POST" action="{{ url_for('profile') }}">
+                <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
+                    <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
+                        Change Recipea Photo <i class="fas fa-camera"></i>
+                    </label>
+                    <input id="file-upload1" type="hidden" name="profile_image_url" style="display:none;">
+                </p>
+                <button type="submit" class="btn green darken-2 text-shadow">
+                        Add Recipea  <i class="fas fa-plus-square"></i>
+                </button>
+            </form>
+            <!-- Edit Profile -->
             <p>Want to change your profile details? Even add a photo?</p>
-            <!-- Edit recipe -->
             <a href="" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
 
         </div>
