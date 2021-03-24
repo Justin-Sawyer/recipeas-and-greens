@@ -103,7 +103,7 @@
                     <!-- Image Uploader formatting -->
                     <!-- From https://www.webtrickshome.com/faq/how-to-display-uploaded-image-in-html-using-javascript-->
                     <div class="input-field col s12">
-                        <p><input type="file"  accept="image/*" name="recipe_image" id="file" value="{{ recipe.recipe_image }}" onchange="loadFile(event)" style="display: none;"></p>
+                        <!--<p><input type="file"  accept="image/*" name="recipe_image" id="file" value="{{ recipe.recipe_image }}" onchange="loadFile(event)" style="display: none;"></p>
                         <p>
                             <label class="btn btn-block green darken-2 white-text" for="file" style="cursor: pointer;">
                                 <i class="fas fa-camera"></i> 
@@ -112,7 +112,14 @@
                         </p>
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
                         <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
-                        <p><img id="output" width="200" /></p>
+                        <p><img id="output" width="200" /></p>-->
+                        <p><img src="" id="img-preview" /></p>
+                        <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
+                            <input id="file-upload" type="file" name="previous_recipe_image_url" style="display:none;"> 
+                                Change Recipea Photo <i class="fas fa-camera"></i>
+                            </label>
+                            <input id="file-upload1" type="hidden" name="recipe_image_url" style="display:none;">
+                        </p>
                     </div>
                 </div>
 
