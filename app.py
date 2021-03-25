@@ -164,7 +164,7 @@ def add_recipe():
         # Credit: Pretty Printed (https://courses.prettyprinted.com/)
         # via YouTube video (https://www.youtube.com/watch?v=DsgAuceHha4)
         if "recipe_image" in request.files:
-            recipe_image = request.form.get["recipe_image"]
+            recipe_image = request.form.get["recipe_image_url"]
             # mongo.save_file(recipe_image.filename, recipe_image)
         """
         is_favourite = "on" if request.form.get("is_favourite") else "off"
@@ -227,21 +227,21 @@ def recipe(recipe_id):
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if request.method == "POST":
-        """
-        # Credit: Pretty Printed (https://courses.prettyprinted.com/)
-        # via YouTube video (https://www.youtube.com/watch?v=DsgAuceHha4)
-        if "recipe_image" in request.files:
-            image_to_delete = mongo.db.recipes.find_one(
-                {"_id": ObjectId(recipe_id)})
-            image_to_delete.delete_one({"recipe_image"})
-            recipe_image = request.files["recipe_image"]
-            mongo.save_file(recipe_image.filename, recipe_image)
-        """
         is_favourite = "on" if request.form.get("is_favourite") else "off"
+
+        category = {
+            "recipe_category": request.form.get("recipe_category")
+        }
+        existing_category = mongo.db.categories.find_one(
+            {"recipe_category": request.form.get("recipe_category")})
+        if existing_category:
+            mongo.db.categories.find_one(
+                {"recipe_category": request.form.get("recipe_category")})
+        else:
+            mongo.db.categories.insert_one(category)
+
         submit = {
             "recipe_name": request.form.get("recipe_name"),
-            # multi select dropdown (like recipe ingredients) use:
-            # "recipe_ingredients": request.form.getlist("recipe_ingredients"),
             "recipe_ingredients": request.form.get("recipe_ingredients"),
             "recipe_preparation": request.form.get("recipe_preparation"),
             "recipe_notes": request.form.get("recipe_notes"),
@@ -253,13 +253,13 @@ def edit_recipe(recipe_id):
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
             "recipe_servings": request.form.get("recipe_servings"),
-            # Credit to Cormac from Sudent Support for the next line of code
             # "recipe_image": recipe_image.filename,
             "image_url": request.form.get("recipe_image_url"),
             "recipe_source": request.form.get("recipe_source"),
             "is_favourite": is_favourite,
             "created_by": session["user"]
         }
+
         mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, submit)
         flash("Recipe successfully edited")
         return redirect(url_for('get_recipes'))
