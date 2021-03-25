@@ -84,14 +84,16 @@ def login():
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
-    
     if request.method == "POST":
-        submit = {
-            "image_url": request.form.get("profile_image_url")
-        }
-        mongo.db.users.find_one({"username": session["user"]}, submit)
-        flash("hi")
-
+        submit = {"$set": {"image_url": request.form.get("profile_image_url")}}
+        # mongo.db.users.find_one({"username": session["user"]}, submit)
+        # mongo.db.users.insert({"username": session["user"]})["image_url"]
+        mongo.db.users.update_one({"username": session["user"]}, submit)
+        user = mongo.db.users.find_one({"username": session["user"]})
+        recipes = mongo.db.recipes.find()
+        return render_template(
+            "profile.html", user=user,
+            recipes=recipes)
     """
     # Grab the session user's username from the database
     username = mongo.db.users.find_one(
@@ -123,6 +125,22 @@ def profile():
 
 
 """
+@app.route("/add_profile_image", methods=["GET", "POST"])
+def add_profile_image():
+    if request.method == "POST":
+        submit = {"$set": {"image_url": request.form.get("profile_image_url")}}
+        # mongo.db.users.find_one({"username": session["user"]}, submit)
+        # mongo.db.users.insert({"username": session["user"]})["image_url"]
+        mongo.db.users.update_one({"username": session["user"]}, submit)
+        flash("hi")
+        user = mongo.db.users.find_one({"username": session["user"]})
+        recipes = mongo.db.recipes.find()
+        return render_template(
+            "profile.html", user=user,
+            recipes=recipes, submit=submit)
+
+
+
 @app.route("/edit_user/<username>", methods=["GET", "POST"])
 def edit_user(username):
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
