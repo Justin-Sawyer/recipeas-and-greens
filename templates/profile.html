@@ -26,6 +26,8 @@
             <p><i class="far fa-user small green-text text-darken-2"></i><span class="right">{{ user.username }}</span></p>
             <p><i class="fas fa-at small green-text text-darken-2"></i><span class="right">{{ user.email }}</span></p>
 
+            <!-- Admin's image credit: Icon by <a href="https://freeicons.io/profile/3054">Nine One</a> 
+            on <a href="https://freeicons.io">freeicons.io</a> -->
             <p><img src="{{ user.image_url }}" id="img-preview" /></p>
             <form method="POST" action="{{ url_for('profile') }}">
                 <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
