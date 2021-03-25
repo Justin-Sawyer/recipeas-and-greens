@@ -29,7 +29,7 @@
             <!-- Admin's image credit: Icon by <a href="https://freeicons.io/profile/3054">Nine One</a> 
             on <a href="https://freeicons.io">freeicons.io</a> -->
             <p><img src="{{ user.image_url }}" id="img-preview" /></p>
-            <form method="POST" action="{{ url_for('profile') }}">
+            <!--<form method="POST" action="{{ url_for('profile') }}">
                 <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                     <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
                         Change Recipea Photo <i class="fas fa-camera"></i>
@@ -39,10 +39,10 @@
                 <button type="submit" class="btn green darken-2 text-shadow">
                         Add Recipea  <i class="fas fa-plus-square"></i>
                 </button>
-            </form>
+            </form>-->
             <!-- Edit Profile -->
             <p>Want to change your profile details? Even add a photo?</p>
-            <a href="" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
+            <a href="{{ url_for('edit_profile', username=session['user']) }}" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
 
         </div>
     

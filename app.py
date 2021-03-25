@@ -123,30 +123,28 @@ def profile():
     return render_template("profile.html")
 
 
-"""
-@app.route("/add_profile_image", methods=["GET", "POST"])
-def add_profile_image():
+@app.route("/edit_profile", methods=["GET", "POST"])
+def edit_profile():
     if request.method == "POST":
         submit = {"$set": {"image_url": request.form.get("profile_image_url")}}
-        # mongo.db.users.find_one({"username": session["user"]}, submit)
-        # mongo.db.users.insert({"username": session["user"]})["image_url"]
         mongo.db.users.update_one({"username": session["user"]}, submit)
-        flash("hi")
         user = mongo.db.users.find_one({"username": session["user"]})
         recipes = mongo.db.recipes.find()
-        return render_template(
+        return redirect(url_for('profile', username=session["user"]))
+        """return render_template(
             "profile.html", user=user,
-            recipes=recipes, submit=submit)
+            recipes=recipes)"""
 
+    user = mongo.db.users.find_one({"username": session["user"]})
+    recipes = mongo.db.recipes.find()
 
+    # If session cookie exists
+    if session["user"]:
+        return render_template(
+            "edit_profile.html", user=user,
+            recipes=recipes)
 
-@app.route("/edit_user/<username>", methods=["GET", "POST"])
-def edit_user(username):
-    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-
-    return render_template(
-        "edit_user.html", user=user)
-"""
+    return render_template("edit_profile.html")
 
 
 @app.route("/logout")

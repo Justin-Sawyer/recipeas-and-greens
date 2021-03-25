@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block banner %}
+
+    <div class="parallax-container">
+        <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
+        <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg"></div>
+    </div>
+    
+{% endblock %}
+
+{% block content %}
+
+    
+    <div class="row">
+        <div class="col s12">
+            {% if session.user|lower == "administration"|lower %}
+                <h1 class="title">{{ user.username }}'s Profile</h1>
+            {% else %}
+                <h1 class="title">Edit {{ user.first_name }}'s Profile</h1>
+            {% endif %}
+        </div>
+
+        <div class="col s12 m4">
+
+            <form method="POST" action="{{ url_for('edit_profile', user=session['user']) }}">
+            <div class="card-panel cinnamon">
+                <!-- Add a profile photo -->
+                <p><img src="{{ user.image_url }}" id="img-preview" /></p>
+                <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
+                    <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
+                        Add/Change Photo <i class="fas fa-camera"></i>
+                    </label>
+                    <input id="file-upload1" type="hidden" name="profile_image_url" style="display:none;">
+                </p>
+
+                <!-- Change First Name -->
+                <div class="row registration" id="first-name-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                        <input id="first_name" name="first_name" value="{{ user.first_name }}" type="text" minlength="3" class="validate" required>
+                        <label for="first_name">Change First Name</label>
+                    </div>
+                </div>
+
+                <!-- Change Last Name -->
+                <div class="row registration" id="last-name-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                        <input id="last_name" name="last_name" value="{{ user.last_name }}" type="text" minlength="3" class="validate" required>
+                        <label for="last_name">Change Last Name</label>
+                    </div>
+                </div>
+
+                <!-- Change User Name -->
+                <div class="row registration" id="username-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                        <input id="username" name="username" value="{{ user.username }}" type="text" minlength="6" maxlength="24" pattern="^[a-zA-Z0-9]{6,24}$" class="validate" required>
+                        <label for="username">Change Your Username</label>
+                    </div>
+                </div>
+
+                <!-- Change email -->
+                <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                <div class="row registration" id="email-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-at prefix green-text text-darken-2"></i>
+                        <input id="email" name="email" value="{{ user.email }}" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="validate" required>
+                        <label for="email">Change Email</label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="row" id="submit-button">
+                    <button type="submit" class="col s12 btn-large register-button green darken-2 text-shadow">
+                        Update <i class="fas fa-sign-in-alt"></i>
+                    </button>
+                </div>
+            </div>          
+        </form>
+        </div>
+    
+        <div class="col s12 m8">
+            {% if session.user|lower == "administration"|lower %}
+                <div class="row">
+                    <div class="col s6">
+                        <a class="btn btn-block" href="{{ url_for('get_categories') }}">Manage Categories</a>
+                    </div>
+                    <div class="col s6">
+                        <a class="btn btn-block" href="{{ url_for('get_difficulty_levels') }}">Manage Levels of Difficulty</a>
+                    </div>
+                </div>
+            {% endif %}
+         
+            <div class="row">
+                <ul class="recipe-list">
+                    {% for recipe in recipes %}
+                        {% if user.username == recipe.created_by %}
+                        <li class="col s12 m6 recipe-list-item">
+                            <div class="card">
+                                <a class="btn-floating halfway-fab waves-effect waves-light red">
+                                    <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Add to Favourites!">
+                                    </i>
+                                </a>
+                                <div class="card-image waves-effect waves-block waves-light">
+                                    <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title activator cinnamon-text">
+                                        <i class="fas fa-ellipsis-v right"></i><strong>{{ recipe.recipe_name }}</strong></span>
+                                    <p><a href="{{ url_for('recipe', recipe_id=recipe._id)}}">Go to Recipea</a></p>
+                                </div>
+                                <div class="card-reveal">
+                                    <span class="card-title cinnamon-text">
+                                        <i class="far fa-times-circle right"></i>
+                                        <strong>{{ recipe.recipe_name }}</strong>
+                                    </span>
+                                    <p class="category green-text text-darken-2">Category: <span
+                                            class="right">{{ recipe.recipe_category }}</span></p>
+                                    <p class="category green-text text-darken-2">Level: <span
+                                            class="right">{{ recipe.recipe_level_of_difficulty }}</span></p>
+                                    <!--<p>{{ recipe.recipe_description }}</p>-->
+                                    <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
+                                    <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
+                
+                                    <!-- Open recipe -->
+                                    <a href="{{ url_for('recipe', recipe_id=recipe._id)}}"
+                                        class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>
+                
+                                    {% if session.user|lower == recipe.created_by %}
+                                    <!-- Edit recipe -->
+                                    <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}"
+                                        class="col s5 left btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
+                
+                                    <!-- Delete recipe -->
+                                    <a href="{{ url_for('delete_recipe', recipe_id=recipe._id)}}"
+                                        class="col s5 right btn-small recipe-action red">Delete</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}
+
+
