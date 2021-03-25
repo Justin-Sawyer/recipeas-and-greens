@@ -108,7 +108,6 @@ def profile():
     """
 
     user = mongo.db.users.find_one({"username": session["user"]})
-    
     # username = user["username"]
     # first_name = user["first_name"]
     # last_name = user["last_name"]
@@ -171,11 +170,11 @@ def add_recipe():
             # mongo.save_file(recipe_image.filename, recipe_image)
         """
         is_favourite = "on" if request.form.get("is_favourite") else "off"
-        """category = {
+        category = {
             "recipe_category": request.form.get("recipe_category")
         }
-        print(category)      
-        """
+        print(category)
+        
         # Check if category exists in Database
         existing_category = mongo.db.categories.find_one(
             {"recipe_category": request.form.get("recipe_category")})
@@ -218,7 +217,6 @@ def add_recipe():
         servings=servings)
 
 
-
 @app.route("/recipe/<recipe_id>")
 def recipe(recipe_id):
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
@@ -235,7 +233,8 @@ def edit_recipe(recipe_id):
         # Credit: Pretty Printed (https://courses.prettyprinted.com/)
         # via YouTube video (https://www.youtube.com/watch?v=DsgAuceHha4)
         if "recipe_image" in request.files:
-            image_to_delete = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+            image_to_delete = mongo.db.recipes.find_one(
+                {"_id": ObjectId(recipe_id)})
             image_to_delete.delete_one({"recipe_image"})
             recipe_image = request.files["recipe_image"]
             mongo.save_file(recipe_image.filename, recipe_image)
@@ -282,6 +281,7 @@ def delete_recipe(recipe_id):
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted")
     return redirect(url_for("get_recipes"))
+
 
 """
 @app.route("/add_to_favourites/<recipe_id>", methods=["GET", "POST"])

@@ -11,7 +11,10 @@
 
     <div class="row">
         <div class="col s12">
-            <h1 class="title">Edit Recipea</h1>
+            <h1 class="title">Edit / Delete Recipea</h1>
+            <p>To Edit this Recipea, just change the inserted values and click the green "Edit Recipea" button.</p>
+            <p>To Delete this Recipea, scroll down and click the red "Delete Recipea" button. 
+                Deleting a Recipea is permanent!</p>
         </div>
 
         <form class="col s12" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
@@ -113,7 +116,7 @@
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
                         <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
                         <p><img id="output" width="200" /></p>-->
-                        <p><img src="" id="img-preview" /></p>
+                        <p><img src="{{ recipe.image_url }}" id="img-preview" /></p>
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                             <input id="file-upload" type="file" name="previous_recipe_image_url" style="display:none;"> 
                                 Change Recipea Photo <i class="fas fa-camera"></i>
@@ -169,7 +172,7 @@
                 <!-- Submit buttons -->           
                 <div class="col s12 center-align">
                     <!-- Cancel button -->
-                    <a href="{{ url_for('get_recipes') }}" class="btn cinnamon">
+                    <a href="{{ url_for('get_recipes') }}" class="btn edit-button cinnamon">
                         Cancel Editing <i class="fas fa-times-circle right"></i>
                     </a>
                     <!-- Edit button -->
