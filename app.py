@@ -126,8 +126,22 @@ def profile():
 @app.route("/edit_profile", methods=["GET", "POST"])
 def edit_profile():
     if request.method == "POST":
-        submit = {"$set": {"image_url": request.form.get("profile_image_url")}}
-        mongo.db.users.update_one({"username": session["user"]}, submit)
+        submit = {"$set": {"image_url": request.form.get("profile_image_url")}}   
+        mongo.db.users.update_one(
+            {"username": session["user"]}, submit)
+        
+        first_name = {"$set": {"first_name": request.form.get("first_name")}}
+        mongo.db.users.update_one(
+            {"username": session["user"]}, first_name)
+        
+        last_name = {"$set": {"last_name": request.form.get("last_name")}}
+        mongo.db.users.update_one(
+            {"username": session["user"]}, last_name)
+        
+        email = {"$set": {"email": request.form.get("email")}}
+        mongo.db.users.update_one(
+            {"username": session["user"]}, email)
+
         user = mongo.db.users.find_one({"username": session["user"]})
         recipes = mongo.db.recipes.find()
         return redirect(url_for('profile', username=session["user"]))
