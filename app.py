@@ -27,6 +27,16 @@ def get_recipes():
                            categories=categories, levels=levels)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+    recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
+    return render_template("recipes.html", recipes=recipes,
+                           categories=categories, levels=levels)
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -85,10 +95,6 @@ def login():
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
     if request.method == "POST":
-        submit = {"$set": {"image_url": request.form.get("profile_image_url")}}
-        # mongo.db.users.find_one({"username": session["user"]}, submit)
-        # mongo.db.users.insert({"username": session["user"]})["image_url"]
-        mongo.db.users.update_one({"username": session["user"]}, submit)
         user = mongo.db.users.find_one({"username": session["user"]})
         recipes = mongo.db.recipes.find()
         return render_template(
@@ -126,18 +132,18 @@ def profile():
 @app.route("/edit_profile", methods=["GET", "POST"])
 def edit_profile():
     if request.method == "POST":
-        submit = {"$set": {"image_url": request.form.get("profile_image_url")}}   
+        submit = {"$set": {"image_url": request.form.get("profile_image_url")}}
         mongo.db.users.update_one(
             {"username": session["user"]}, submit)
-        
+
         first_name = {"$set": {"first_name": request.form.get("first_name")}}
         mongo.db.users.update_one(
             {"username": session["user"]}, first_name)
-        
+
         last_name = {"$set": {"last_name": request.form.get("last_name")}}
         mongo.db.users.update_one(
             {"username": session["user"]}, last_name)
-        
+
         email = {"$set": {"email": request.form.get("email")}}
         mongo.db.users.update_one(
             {"username": session["user"]}, email)
@@ -145,9 +151,6 @@ def edit_profile():
         user = mongo.db.users.find_one({"username": session["user"]})
         recipes = mongo.db.recipes.find()
         return redirect(url_for('profile', username=session["user"]))
-        """return render_template(
-            "profile.html", user=user,
-            recipes=recipes)"""
 
     user = mongo.db.users.find_one({"username": session["user"]})
     recipes = mongo.db.recipes.find()
@@ -186,7 +189,7 @@ def add_recipe():
             "recipe_category": request.form.get("recipe_category")
         }
         print(category)
-        
+
         # Check if category exists in Database
         existing_category = mongo.db.categories.find_one(
             {"recipe_category": request.form.get("recipe_category")})
@@ -267,7 +270,6 @@ def edit_recipe(recipe_id):
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
             "recipe_servings": request.form.get("recipe_servings"),
-            # "recipe_image": recipe_image.filename,
             "image_url": request.form.get("recipe_image_url"),
             "recipe_source": request.form.get("recipe_source"),
             "is_favourite": is_favourite,
