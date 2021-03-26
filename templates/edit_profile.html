@@ -21,17 +21,21 @@
         </div>
 
         <div class="col s12 m4">
-
             <form method="POST" action="{{ url_for('edit_profile', user=session['user']) }}">
             <div class="card-panel cinnamon">
-                <!-- Add a profile photo -->
-                <p><img src="{{ user.image_url }}" id="img-preview" /></p>
-                <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
-                    <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
-                        Add/Change Photo <i class="fas fa-camera"></i>
-                    </label>
-                    <input id="file-upload1" type="hidden" name="profile_image_url" value="{{ user.image_url }}" style="display:none;">
-                </p>
+                <div class="row registration" id="photo-row">
+                    <div class="input-field col s12">
+                        <!-- Add a profile photo -->
+                        <p><img src="{{ user.image_url }}" id="img-preview" /></p>
+                        <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
+                            <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
+                                Add/Change Photo <i class="fas fa-camera"></i>
+                            </label>
+                            <input id="file-upload1" type="hidden" name="profile_image_url" value="{{ user.image_url }}" style="display:none;">
+                        </p>
+                        <p>Just adding or changing your photo? Remember to click "Update" below!</p>
+                    </div>
+                </div>
 
                 <!-- Change First Name -->
                 <div class="row registration" id="first-name-row">
@@ -50,15 +54,6 @@
                         <label for="last_name">Change Last Name</label>
                     </div>
                 </div>
-
-                <!-- Change User Name -->
-                <!--<div class="row registration" id="username-row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
-                        <input id="username" name="username" value="{{ user.username }}" type="text" minlength="6" maxlength="24" pattern="^[a-zA-Z0-9]{6,24}$" class="validate" required>
-                        <label for="username">Change Your Username</label>
-                    </div>
-                </div>-->
 
                 <!-- Change email -->
                 <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
