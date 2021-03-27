@@ -30,7 +30,7 @@
                     <div class="input-field col s12">
                         <i class="fas fa-ellipsis-v prefix green-text text-darken-2"></i>
                         <select id="recipe_level_of_difficulty" name="recipe_level_of_difficulty" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>Choose Level of Difficulty</p></option>
+                            <option value="" disabled selected><p>Level</p></option>
                             {% for level in level_of_difficulty %}
                                 <option value="{{ level.recipe_level_of_difficulty }}">{{ level.recipe_level_of_difficulty }}</option>
                             {% endfor %}
@@ -41,7 +41,7 @@
                     <div class="input-field col s12">
                         <i class="fas fa-sort-numeric-down prefix green-text text-darken-2"></i>
                         <select id="recipe_servings" name="recipe_servings" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>How Many Servings?</p></option>
+                            <option value="" disabled selected><p>Servings</p></option>
                             {% for serving in servings %}
                                 <option value="{{ serving.recipe_servings }}">{{ serving.recipe_servings }}</option>
                             {% endfor %}
@@ -98,14 +98,14 @@
                                 <i class="fas fa-camera"></i> 
                                 Add Recipea Photo
                             </label>
-                        </p>
+                        </p>-->
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
                         <p>Please credit the image source (eg: yourself, a website) in the Chef's Notes section.</p>
-                        <p><img id="output" width="100%" /></p>-->
+                        <!--<p><img id="output" width="100%" /></p>-->
                         <p><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" id="img-preview" /></p>
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                             <input id="file-upload" type="file" name="recipe_image_url" style="display:none;"> 
-                                Add Recipea Photo <i class="fas fa-camera"></i>
+                                Add Photo <i class="fas fa-camera"></i>
                             </label>
                             <input id="file-upload1" type="hidden" name="recipe_image_url" style="display:none;">
                         </p>
@@ -118,7 +118,7 @@
                         <i class="fas fa-flag prefix green-text text-darken-2"></i>
                         <textarea id="recipe_category" name="recipe_category"
                         class="materialize-textarea validate" required></textarea>
-                        <label for="recipe_category">Recipea category (separate each category with a new line)</label>
+                        <label for="recipe_category">Recipea category (separate each with a new line)</label>
                     </div>
 
                     <!-- Recipe Description -->
