@@ -302,14 +302,20 @@ def delete_recipe(recipe_id):
     return redirect(url_for("get_recipes"))
 
 
-"""
-@app.route("/add_to_favourites", methods=["GET", "POST"])
-def add_to_favourites:
+@app.route("/add_to_favourites<recipe_id>")
+def add_to_favourites(recipe_id):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
     recipe_name = mongo.db.recipes.find_one(
         {"_id": ObjectId(recipe_id)})["recipe_name"]
 
+    favourite = {
+        "username": username,
+        "recipe_name": recipe_name
+    }
+    mongo.db.favourites.insert_one(favourite)
+    return redirect(url_for("get_recipes"))
+    """
     if request.method == "POST":
         favourite = {
             "username" = username,
@@ -319,7 +325,8 @@ def add_to_favourites:
         return redirect(url_for("get_recipes"))
 
     return render_template("profile.html", user=user, recipe=recipe)
-"""
+    """
+
 
 
 @app.route("/get_categories")

@@ -3,7 +3,8 @@
 
     <div class="parallax-container">
         <div class="parallax">
-                        <img class="activator" src="{{ recipe.image_url }}" alt="Recipe banner"></div>
+            <img class="activator" src="{{ recipe.image_url }}" alt="Recipe banner">
+        </div>
     </div>
 
 {% endblock %}
@@ -14,14 +15,22 @@
         <!-- Recipe title -->
         <div class="col s12">
             {% if session.user|lower == recipe.created_by %}
-                {% if recipe.is_favourite == "on" %}
-                    <h1 class="title">
+                    <h1 class="title">{{ recipe.recipe_name }}
+                        {% if recipe.is_favourite == "on" %}
                         <button class="btn-floating">
-                            <i class="fas fa-heart white-text red tooltipped left" data-position="right" data-tooltip="Is a favourite"></i>
+                            <i class="fas fa-heart white-text red tooltipped right" data-position="right" data-tooltip="Is a favourite"></i>
                         </button>
-                {% endif %}{{ recipe.recipe_name }}</h1>
+                        {% else %}
+                        <button class="btn-floating">
+                            <i class="fas fa-plus white-text green tooltipped right" data-position="right" data-tooltip="Add to favourites"></i>
+                        </button>
+                        {% endif %}
+                    </h1>
             {% else %}
-                <h1 class="title">{{ recipe.recipe_name }}</h1>
+                <h1 class="title">{{ recipe.recipe_name }} 
+                    <button class="btn-floating">
+                        <i class="fas fa-plus white-text green tooltipped right" data-position="right" data-tooltip="Add to favourites"></i>
+                    </button></h1>
             {% endif %}
         </div>
         
@@ -91,6 +100,16 @@
             </div>
         </div>
     
+    </div>
+
+    <!-- Add to favourites -->
+    <div class="row">
+        <div class="col s12">
+            <h2>Enjoyed this Recipea? Add it to your favourites!</h2>
+            <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons green darken-2">
+                Add to Favourites <i class="fas fa-heart right"></i>
+            </a>
+        </div>
     </div>
 
     <!-- Search by category / level -->
