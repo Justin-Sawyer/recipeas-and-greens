@@ -13,11 +13,18 @@
     <div class="row">
         <!-- Recipe title -->
         <div class="col s12">
-            <h1 class="title">{% if recipe.is_favourite == "on" %}
-                <i class="fas fa-heart red-text tooltipped left"
-                    data-position="right" data-tooltip="Is a favourite"></i>
-            {% endif %}{{ recipe.recipe_name }}</h1>
+            {% if session.user|lower == recipe.created_by %}
+                {% if recipe.is_favourite == "on" %}
+                    <h1 class="title">
+                        <button class="btn-floating">
+                            <i class="fas fa-heart white-text red tooltipped left" data-position="right" data-tooltip="Is a favourite"></i>
+                        </button>
+                {% endif %}{{ recipe.recipe_name }}</h1>
+            {% else %}
+                <h1 class="title">{{ recipe.recipe_name }}</h1>
+            {% endif %}
         </div>
+        
 
         <!-- Recipe description-->
         <div class="col s12">           

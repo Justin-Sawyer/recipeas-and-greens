@@ -16,13 +16,13 @@
     <!-- General Search -->
     <div class="row">
         <div class="col s12">
-            <h2>Looking for a specific recipe?</h2>
+            <h2>Looking for a specific Recipea?</h2>
             <form action="{{ url_for('search') }}" method="post">
                 <div class="row center-align">
                     <div class="input-field col s12">
                         <i class="fas fa-search prefix green-text text-darken-2"></i>
                         <input type="text" name="query" id="query" minlength="3" class="validate" required>
-                        <label for="query">Search Recipes</label>
+                        <label for="query">Search Recipeas</label>
                     </div>
                 </div>
                 <button type="submit" class="btn green darken-2">
@@ -36,7 +36,7 @@
     <!-- Search by category/level of difficulty only -->
     <div class="row">
         <div class="col s12">
-            <h2>Looking for recipe ideas?</h2>
+            <h2>Looking for Recipea ideas?</h2>
             <button class="btn category-buttons green darken-2" id="display-cats">Search by Category</button>
             <button class="btn category-buttons green darken-2" id="display-levs">Search by Level of Difficulty</button>
         </div>
@@ -94,11 +94,20 @@
                         <a href="{{ url_for('recipe', recipe_id=recipe._id)}}" class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>                       
 
                         {% if session.user|lower == recipe.created_by %}
-                        <!-- Edit recipe -->
-                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="left btn-small btn-block recipe-action edit-button cinnamon">Edit</a>                       
-
-                        <!-- Delete recipe -->
-                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="right btn-small recipe-action red">Delete</a>
+                            <!-- Edit recipe -->
+                            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="left btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
+                            <!-- Delete recipe -->
+                            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="right btn-small recipe-action red">Delete</a>
+                        {% else %}
+                        <div>
+                            <a href="" class="btn-small recipe-action edit-button cinnamon">Love</a>
+                            <button class="btn-floating halfway-fab waves-effect waves-light green darken-2">
+                            <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
+                        </button>
+                        </div>
+                        <div>
+                            <a href="" class="btn-small recipe-action red">Dislike</a>
+                        </div>
                         {% endif %}
                     </div>
                 </div>

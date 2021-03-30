@@ -23,8 +23,10 @@ def get_recipes():
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
     recipes = list(mongo.db.recipes.find())
+    favourites = list(mongo.db.favourites.find())
     return render_template("recipes.html", recipes=recipes,
-                           categories=categories, levels=levels)
+                           categories=categories, levels=levels,
+                           favourites=favourites)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -32,9 +34,11 @@ def search():
     query = request.form.get("query")
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
-    recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
+    recipes = list(mongo.db.recipes.find())
+    favourites = list(mongo.db.favourites.find())
     return render_template("recipes.html", recipes=recipes,
-                           categories=categories, levels=levels)
+                           categories=categories, levels=levels,
+                           favourites=favourites, query=query)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -114,17 +118,18 @@ def profile():
     """
 
     user = mongo.db.users.find_one({"username": session["user"]})
+    other_user = list(mongo.db.users.find())
     # username = user["username"]
     # first_name = user["first_name"]
     # last_name = user["last_name"]
     # email = user["email"]
-    recipes = mongo.db.recipes.find()
+    recipes = list(mongo.db.recipes.find())
 
     # If session cookie exists
     if session["user"]:
         return render_template(
             "profile.html", user=user,
-            recipes=recipes)
+            recipes=recipes, other_user=other_user)
 
     return render_template("profile.html")
 
@@ -298,13 +303,20 @@ def delete_recipe(recipe_id):
 
 
 """
-@app.route("/add_to_favourites/<recipe_id>", methods=["GET", "POST"])
-def add_to_favourites(recipe_id):
-    user = mongo.db.users.find_one({"username": session["user"]})
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+@app.route("/add_to_favourites", methods=["GET", "POST"])
+def add_to_favourites:
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    recipe_name = mongo.db.recipes.find_one(
+        {"_id": ObjectId(recipe_id)})["recipe_name"]
 
     if request.method == "POST":
-        user = "loves" if request.form.get("is_user_favourite") else "off"
+        favourite = {
+            "username" = username,
+            "recipe_name" = recipe_name
+        }
+        mongo.db.favourites.insert_one(favourite)
+        return redirect(url_for("get_recipes"))
 
     return render_template("profile.html", user=user, recipe=recipe)
 """

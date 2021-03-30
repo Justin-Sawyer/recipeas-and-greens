@@ -36,10 +36,10 @@
                     <a href="{{ url_for('get_recipes') }}" class="brand-logo left">Recipeas & Greens</a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
+                        <li><a href="{{ url_for('get_recipes') }}">Recipeas</a></li>
                         {% if session.user %}
                             <li><a class="white-text" href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                            <li><a class="white-text" href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
+                            <li><a class="white-text" href="{{ url_for('add_recipe') }}">Add Recipea</a></li>
                             <li><a class="white-text" href="{{ url_for('logout') }}">Log Out</a></li>
                         {% else %}
                             <li><a class="white-text" href="{{ url_for('login') }}">Log In</a></li>
@@ -52,10 +52,10 @@
             <!-- Mobile side bar -->
             <ul class="sidenav" id="mobile-demo">
                 <li><h4 class="center-align"><a href="{{ url_for('get_recipes') }}" class="green-text text-darken-2">Recipeas & Greens</a></h4></li>
-                <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
+                <li><a href="{{ url_for('get_recipes') }}">Recipeas</a></li>
                 {% if session.user %}
                     <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                    <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
+                    <li><a href="{{ url_for('add_recipe') }}">Add Recipea</a></li>
                     <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                 {% else %}
                     <li><a href="{{ url_for('login') }}">Log In</a></li>
@@ -94,15 +94,15 @@
                 <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg"></div>
             </section>
 
-            <section class="container">
+            <!--<section class="container">
                 <h2 class="center-align">Try our range of cooking utensils:</h2>
                 <div class="row">
 
-                    <!-- Sauce pans -->
+                    <!-- Sauce pans --
                     <div class="col s6 m3">
                         <div class="card">
                             <div class="card-image waves-effect waves-block waves-light">
-                                <!-- Photo by Justus Menke from Pexels https://www.pexels.com/photo/food-pot-kitchen-chrome-5782042/ -->
+                                <!-- Photo by Justus Menke from Pexels https://www.pexels.com/photo/food-pot-kitchen-chrome-5782042/ --
                                 <img class="activator" src="../static/media/images/products/pexels-justus-menke-5782042-squared.png" alt="Recipeas and Greens Sauce Pan Collection">
                             </div>
                             <div class="card-content">
@@ -132,11 +132,11 @@
                         </div>
                     </div>
 
-                    <!-- Frying pans -->
+                    <!-- Frying pans --
                     <div class="col s6 m3">
                         <div class="card">
                             <div class="card-image waves-effect waves-block waves-light">
-                                <!-- Photo by Toa Heftiba Şinca from Pexels https://www.pexels.com/photo/silver-steel-sauce-pot-1194434/ -->
+                                <!-- Photo by Toa Heftiba Şinca from Pexels https://www.pexels.com/photo/silver-steel-sauce-pot-1194434/ --
                                 <img class="activator" src="../static/media/images/products/pexels-toa-heftiba-şinca-1194434-squared.png" alt="Recipeas and Greens Frying Pan Collection">
                             </div>
                             <div class="card-content">
@@ -166,11 +166,11 @@
                         </div>
                     </div>
 
-                    <!-- Cutlery -->
+                    <!-- Cutlery --
                     <div class="col s6 m3">
                         <div class="card">
                             <div class="card-image waves-effect waves-block waves-light">
-                                <!-- Photo by Toa Heftiba Şinca from Pexels https://www.pexels.com/photo/black-fork-and-knife-clip-art-940302/ -->
+                                <!-- Photo by Toa Heftiba Şinca from Pexels https://www.pexels.com/photo/black-fork-and-knife-clip-art-940302/ --
                                 <img class="activator" src="../static/media/images/products/pexels-toa-heftiba-şinca-squared.png" alt="Recipeas and Greens Sauce Pan Collection">
                             </div>
                             <div class="card-content">
@@ -200,11 +200,11 @@
                         </div>
                     </div>
 
-                    <!-- China -->
+                    <!-- China --
                     <div class="col s6 m3">
                         <div class="card">
                             <div class="card-image waves-effect waves-block waves-light">
-                                <!-- Photo by Skitterphoto from Pexels https://www.pexels.com/photo/white-ceramic-teacups-with-saucers-705190/ -->
+                                <!-- Photo by Skitterphoto from Pexels https://www.pexels.com/photo/white-ceramic-teacups-with-saucers-705190/ --
                                 <img class="activator" src="../static/media/images/products/pexels-skitterphoto-squared.png" alt="Recipeas and Greens Frying Pan Collection">
                             </div>
                             <div class="card-content">
@@ -234,7 +234,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>-->
         </main>
 
         <footer class="page-footer green darken-2">
@@ -248,10 +248,10 @@
                     <div class="col l4 offset-l2 s12">
                         <h5 class="white-text">Links</h5>
                         <ul>
-                            <li><a class="white-text" href="{{ url_for('get_recipes') }}">Recipes</a></li>
+                            <li><a class="white-text" href="{{ url_for('get_recipes') }}">Recipeas</a></li>
                             {% if session.user %}
                                 <li><a class="white-text" href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                                <li><a class="white-text" href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
+                                <li><a class="white-text" href="{{ url_for('add_recipe') }}">Add Recipea</a></li>
                                 <li><a class="white-text" href="{{ url_for('logout') }}">Log Out</a></li>
                             {% else %}
                                 <li><a class="white-text" href="{{ url_for('login') }}">Log In</a></li>
@@ -263,7 +263,7 @@
             </div>
             <div class="footer-copyright">
                 <div class="container center-align">
-                    <a class="white-text" href='https://pngtree.com/so/peas-clipart'>iOS icon from pngtree.com</a>
+                    <a class="white-text" href="https://pngtree.com/so/peas-clipart">iOS icon from pngtree.com</a>
                     <!-- From Code Institute Thorin project -->
                     <p class="copyright text-muted">Copyright &copy; Recipeas and Greens <span id="copyright"></span></p>
                 </div>
