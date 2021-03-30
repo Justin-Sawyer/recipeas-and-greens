@@ -304,6 +304,10 @@ def delete_recipe(recipe_id):
 
 @app.route("/add_to_favourites<recipe_id>")
 def add_to_favourites(recipe_id):
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
     recipe_name = mongo.db.recipes.find_one(
@@ -314,7 +318,10 @@ def add_to_favourites(recipe_id):
         "recipe_name": recipe_name
     }
     mongo.db.favourites.insert_one(favourite)
-    return redirect(url_for("get_recipes"))
+    flash("Recipe added to your list of favourites!")
+    # return redirect(url_for("get_recipes"))
+    return render_template("recipe.html", categories=categories,
+                           levels=levels, recipe=recipe)
     """
     if request.method == "POST":
         favourite = {
