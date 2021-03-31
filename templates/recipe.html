@@ -15,22 +15,35 @@
         <!-- Recipe title -->
         <div class="col s12">
             {% if session.user|lower == recipe.created_by %}
-                    <h1 class="title">{{ recipe.recipe_name }}
-                        {% if recipe.is_favourite == "on" %}
-                        <button class="btn-floating">
-                            <i class="fas fa-heart white-text red tooltipped right" data-position="right" data-tooltip="Is a favourite"></i>
-                        </button>
-                        {% else %}
-                        <button class="btn-floating">
-                            <i class="fas fa-plus white-text green tooltipped right" data-position="right" data-tooltip="Add to favourites"></i>
-                        </button>
-                        {% endif %}
-                    </h1>
+                <h1 class="title">{{ recipe.recipe_name }}
+                    {% if recipe.is_favourite == "on" or recipe.created_by in recipe.favourite_of %}
+                    <button class="btn-floating">
+                        <i class="fas fa-heart white-text red tooltipped right" data-position="right" data-tooltip="Is a favourite"></i>
+                    </button>
+                    {% else %}
+                    <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-floating green darken-2">
+                        <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
+                    </a>
+                    {% endif %}
+                </h1>
+            {% elif session.user|lower != recipe.created_by %}
+                <h1 class="title">{{ recipe.recipe_name }}
+                    {% if session.user|lower in recipe.favourite_of %}
+                    <button class="btn-floating">
+                        <i class="fas fa-heart white-text red tooltipped right" data-position="right" data-tooltip="Is a favourite"></i>
+                    </button>
+                    {% else %}
+                    <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-floating green darken-2">
+                        <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
+                    </a>
+                    {% endif %}
+                </h1>
             {% else %}
                 <h1 class="title">{{ recipe.recipe_name }} 
-                    <button class="btn-floating">
-                        <i class="fas fa-plus white-text green tooltipped right" data-position="right" data-tooltip="Add to favourites"></i>
-                    </button></h1>
+                    <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-floating green darken-2">
+                        <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
+                    </a>
+                </h1>
             {% endif %}
         </div>
         
