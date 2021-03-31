@@ -301,10 +301,11 @@ def delete_recipe(recipe_id):
     return redirect(url_for("get_recipes"))
 
 
-@app.route("/add_to_favourites<recipe_id>")
+@app.route("/add_to_favourites/<recipe_id>")
 def add_to_favourites(recipe_id):
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
+    recipes = list(mongo.db.recipes.find())
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
 
     username = mongo.db.users.find_one(
@@ -312,11 +313,12 @@ def add_to_favourites(recipe_id):
 
     mongo.db.recipes.update(
         {"_id": ObjectId(recipe_id)},
-        {"$addToSet": {"favourite_of": [username]}})
-    print(recipe)
+        {"$addToSet": {"favourite_of": username}})
     flash("Recipe added to your list of favourites!")
-    return render_template("recipes.html", categories=categories,
-                           levels=levels, recipe=recipe)
+    """return render_template("recipes.html", categories=categories,
+                           levels=levels, recipe=recipe,
+                           recipes=recipes)"""
+    return redirect(url_for("get_recipes"))
     """
     favourite = {
         "username": username,

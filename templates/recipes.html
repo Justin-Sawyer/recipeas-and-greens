@@ -59,14 +59,21 @@
             {% for recipe in recipes %}
             <li class="col s12 m6 l4 recipe-list-item">
                 <div class="card">
-                    {% if session.user|lower == recipe.created_by %}
+                    {% if session.user|lower in recipe.created_by and recipe.is_favourite == "on" %}
+                        <button class="btn-floating halfway-fab waves-effect waves-light red">
+                            <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Is Favourite!"> </i>
+                        </button>
+                    {% elif session.user|lower in recipe.favourite_of %}
                         <button class="btn-floating halfway-fab waves-effect waves-light red">
                             <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Is Favourite!"> </i>
                         </button>
                     {% else %}
-                        <button class="btn-floating halfway-fab waves-effect waves-light green darken-2">
+                        <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-floating halfway-fab waves-effect waves-light green darken-2">
                             <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
-                        </button>
+                        </a>
+                        <!--<a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action edit-button cinnamon">
+                                Love <i class="fas fa-heart"></i>
+                            </a>-->
                     {% endif %}
 
                     <div class="card-image waves-effect waves-block waves-light">
@@ -103,8 +110,8 @@
                             <!--<a href="" class="btn-small recipe-action edit-button cinnamon">Love</a>
                             <button class="btn-floating halfway-fab waves-effect waves-light green darken-2">
                             <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>-->
-                            <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons green darken-2">
-                                Love <i class="fas fa-heart right"></i>
+                            <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action edit-button cinnamon">
+                                Love <i class="fas fa-heart"></i>
                             </a>
                         </button>
                         </div>
