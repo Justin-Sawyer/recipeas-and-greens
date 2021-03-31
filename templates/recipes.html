@@ -100,9 +100,12 @@
                             <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="right btn-small recipe-action red">Delete</a>
                         {% else %}
                         <div>
-                            <a href="" class="btn-small recipe-action edit-button cinnamon">Love</a>
+                            <!--<a href="" class="btn-small recipe-action edit-button cinnamon">Love</a>
                             <button class="btn-floating halfway-fab waves-effect waves-light green darken-2">
-                            <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
+                            <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>-->
+                            <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons green darken-2">
+                                Love <i class="fas fa-heart right"></i>
+                            </a>
                         </button>
                         </div>
                         <div>

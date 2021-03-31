@@ -23,10 +23,8 @@ def get_recipes():
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
     recipes = list(mongo.db.recipes.find())
-    favourites = list(mongo.db.favourites.find())
     return render_template("recipes.html", recipes=recipes,
-                           categories=categories, levels=levels,
-                           favourites=favourites)
+                           categories=categories, levels=levels)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -35,10 +33,9 @@ def search():
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
     recipes = list(mongo.db.recipes.find())
-    favourites = list(mongo.db.favourites.find())
     return render_template("recipes.html", recipes=recipes,
                            categories=categories, levels=levels,
-                           favourites=favourites, query=query)
+                           query=query)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -118,18 +115,19 @@ def profile():
     """
 
     user = mongo.db.users.find_one({"username": session["user"]})
-    other_user = list(mongo.db.users.find())
+    #other_user = list(mongo.db.users.find())
     # username = user["username"]
     # first_name = user["first_name"]
     # last_name = user["last_name"]
     # email = user["email"]
     recipes = list(mongo.db.recipes.find())
+    # favourites = list(mongo.db.favourites.find())
 
     # If session cookie exists
     if session["user"]:
         return render_template(
             "profile.html", user=user,
-            recipes=recipes, other_user=other_user)
+            recipes=recipes)
 
     return render_template("profile.html")
 
@@ -224,7 +222,8 @@ def add_recipe():
             "image_url": request.form.get("recipe_image_url"),
             "recipe_source": request.form.get("recipe_source"),
             "is_favourite": is_favourite,
-            "created_by": session["user"]
+            "created_by": session["user"],
+            "favourite_of": []
         }
         mongo.db.recipes.insert(recipe)
         flash("Recipe added to the Recipeas and Greens community!")
@@ -310,9 +309,15 @@ def add_to_favourites(recipe_id):
 
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    recipe_name = mongo.db.recipes.find_one(
-        {"_id": ObjectId(recipe_id)})["recipe_name"]
 
+    mongo.db.recipes.update(
+        {"_id": ObjectId(recipe_id)},
+        {"$addToSet": {"favourite_of": [username]}})
+    print(recipe)
+    flash("Recipe added to your list of favourites!")
+    return render_template("recipes.html", categories=categories,
+                           levels=levels, recipe=recipe)
+    """
     favourite = {
         "username": username,
         "recipe_name": recipe_name
@@ -322,6 +327,7 @@ def add_to_favourites(recipe_id):
     # return redirect(url_for("get_recipes"))
     return render_template("recipe.html", categories=categories,
                            levels=levels, recipe=recipe)
+    """
     """
     if request.method == "POST":
         favourite = {
