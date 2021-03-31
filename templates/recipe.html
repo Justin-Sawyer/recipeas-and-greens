@@ -103,6 +103,7 @@
     </div>
 
     <!-- Add to favourites -->
+    {% if session.user|lower != recipe.created_by and not session.user|lower in recipe.favourite_of %}
     <div class="row">
         <div class="col s12">
             <h2>Enjoyed this Recipea? Add it to your favourites!</h2>
@@ -111,6 +112,7 @@
             </a>
         </div>
     </div>
+    {% endif %}
 
     <!-- Search by category / level -->
     <div class="row">
