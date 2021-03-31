@@ -32,7 +32,7 @@ def search():
     query = request.form.get("query")
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
-    recipes = list(mongo.db.recipes.find())
+    recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
     return render_template("recipes.html", recipes=recipes,
                            categories=categories, levels=levels,
                            query=query)
