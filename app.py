@@ -48,7 +48,7 @@ def register():
         if existing_user:
             flash("Username already exists")
             return redirect(url_for("register"))
-
+        
         register = {
             "first_name": request.form.get("first_name"),
             "last_name": request.form.get("last_name"),
@@ -176,15 +176,50 @@ def logout():
     # session.clear()
     return redirect(url_for("login"))
 
-
-@app.route("/delete_account")
-def delete_account():
-    user = mongo.db.users.find_one({"username": session["user"]})
-
+"""
+@app.route("/delete_account/<user_id>")
+def delete_account(user_id):
+    # user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    # user = mongo.db.users.find_one({"username": session["user"]})
+    # pull = {"$pull": {"favourite_of": user}}
+    # mongo.db.recipes.updateMany({}, pull)
+    ""recipes = mongo.db.recipes.find()
+    recipes.updateMany(
+        {"$pull": {"favourite_of": session["user"]}})""
     
-    mongo.db.users.remove({"username": session["user"]})
-    flash("Account Successfully Deleted")
+    # mongo.db.users.remove({"username": session["user"]})
+    # favourites = mongo.db.recipes.find_one({"favourite_of": session["user"]})
+    # print(favourites)
+    # if existing_favourites:
+        # existing_favourites.remove_one(
+    #       {"favourite_of": session["user"]})
+    # recipes = mongo.db.recipes.find()
+    # recipes.remove({"favourite_of": session["user"]})
+    # username = mongo.db.users.find_one(
+    #    {"username": session["user"]})["username"]
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    print(user)
+    mongo.db.recipes.update(
+        {},
+        {"$pull": {"favourite_of": user}})
     session.pop("user")
+    # flash("Account Successfully Deleted")
+    return redirect(url_for("get_recipes"))"""
+
+
+@app.route("/delete_account/<user_id>")
+def delete_account(user_id):
+    user = mongo.db.users.find_one({"username": session["user"]})
+    print(user)
+    """ This deletes the whole account: """
+    # mongo.db.users.remove({"_id": ObjectId(user_id)})
+    flash("Account Successfully Deleted")
+    """ This removes the cookie: """
+    # session.pop("user")
+    """ This finds all recipes that session["user”] has favourited """
+    for all in mongo.db.recipes.find({"favourite_of": "dhsqjkqh"}):
+        print(all)
+    # print(recipes)
     return redirect(url_for("get_recipes"))
 
 

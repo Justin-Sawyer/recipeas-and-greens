@@ -257,11 +257,12 @@
             <div id="delete-account-modal" class="modal">
                         <div class="modal-content">
                             <h4>Are you sure you want to delete your account and no longer be part of the Recipeas and Greens community?</h4>
-                            <p>This action is permanent!</p>
+                            <p>Delete your account but retain your preferences and keep your recipeas online</p>
+                            <p>This action is best if you think you might change your mind and return. !</p>
                         <!--</div>
                         <div class="modal-footer">-->
                             <a href="#!" class="btn edit-buttons modal-close green darken-2">Do Not Delete <i class="fas fa-times-circle right"></i></a>
-                            <a href="{{ url_for('delete_account') }}" class="btn edit-buttons red">
+                            <a href="{{ url_for('delete_account', user_id=user._id) }}" class="btn edit-buttons red">
                                 Yes, Delete My Account <i class="fas fa-trash-alt right"></i></a>
                         </div>
                     </div>
