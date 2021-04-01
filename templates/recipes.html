@@ -75,9 +75,6 @@
                         <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-floating halfway-fab waves-effect waves-light green darken-2">
                             <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
                         </a>
-                        <!--<a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action edit-button cinnamon">
-                                Love <i class="fas fa-heart"></i>
-                            </a>-->
                     {% endif %}
 
                     <div class="card-image waves-effect waves-block waves-light">
@@ -109,19 +106,6 @@
                             <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="left btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
                             <!-- Delete recipe -->
                             <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="right btn-small recipe-action red">Delete</a>
-                        {% else %}
-                        <div>
-                            <!--<a href="" class="btn-small recipe-action edit-button cinnamon">Love</a>
-                            <button class="btn-floating halfway-fab waves-effect waves-light green darken-2">
-                            <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>-->
-                            <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action edit-button cinnamon">
-                                Love <i class="fas fa-heart"></i>
-                            </a>
-                        </button>
-                        </div>
-                        <div>
-                            <a href="" class="btn-small recipe-action red">Dislike</a>
-                        </div>
                         {% endif %}
                     </div>
                 </div>
