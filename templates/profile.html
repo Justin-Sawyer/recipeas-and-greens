@@ -43,6 +43,9 @@
             <!-- Edit Profile -->
             <p>Want to change your profile details? Even add a photo?</p>
             <a href="{{ url_for('edit_profile', username=session['user']) }}" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
+            <br>
+            <br>
+            <p>You can also <a class="modal-trigger" href="#delete-account-modal">delete your profile</a> if you no longer want to be part of the Recipeas and Greens community.</p>
 
         </div>
     
@@ -248,6 +251,20 @@
                     {% endfor %}
                 </ul>
             </div>
+        </div>
+
+        <div class="col s12">
+            <div id="delete-account-modal" class="modal">
+                        <div class="modal-content">
+                            <h4>Are you sure you want to delete your account and no longer be part of the Recipeas and Greens community?</h4>
+                            <p>This action is permanent!</p>
+                        <!--</div>
+                        <div class="modal-footer">-->
+                            <a href="#!" class="btn edit-buttons modal-close green darken-2">Do Not Delete <i class="fas fa-times-circle right"></i></a>
+                            <a href="{{ url_for('delete_account') }}" class="btn edit-buttons red">
+                                Yes, Delete My Account <i class="fas fa-trash-alt right"></i></a>
+                        </div>
+                    </div>
         </div>
     </div>
 

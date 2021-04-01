@@ -177,6 +177,17 @@ def logout():
     return redirect(url_for("login"))
 
 
+@app.route("/delete_account")
+def delete_account():
+    user = mongo.db.users.find_one({"username": session["user"]})
+
+    
+    mongo.db.users.remove({"username": session["user"]})
+    flash("Account Successfully Deleted")
+    session.pop("user")
+    return redirect(url_for("get_recipes"))
+
+
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "POST":
