@@ -198,6 +198,11 @@
                                                 <!-- Open recipe -->
                                                 <a href="{{ url_for('recipe', recipe_id=recipe._id)}}"
                                                     class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>
+
+                                                <!-- Remove from "favourite_of" array in MongoDB -->
+                                                <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="s12 btn-small recipe-action red">Remove from Favourites 
+                                                    <i class="fas fa-heart-broken"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     </li>

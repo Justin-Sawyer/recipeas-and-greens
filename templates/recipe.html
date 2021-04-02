@@ -127,6 +127,18 @@
     </div>
     {% endif %}
 
+    <!-- Remove from "favourite_of" array in MongoDB -->
+    {% if not session.user|lower in recipe.created_by and session.user|lower in recipe.favourite_of %}
+    <div class="row">
+        <div class="col s12">
+            <h2>Changed your mind? Remove if from your favourites!</h2>
+            <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons red">Remove from Favourites 
+                <i class="fas fa-heart-broken"></i>
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
     <!-- Search by category / level -->
     <div class="row">
         <div class="col s12">
