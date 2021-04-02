@@ -208,18 +208,33 @@ def delete_account(user_id):
 
 
 @app.route("/delete_account/<user_id>")
-def delete_account(user_id):
+def delete_account(user_id, recipe_id):
     user = mongo.db.users.find_one({"username": session["user"]})
     print(user)
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
     """ This deletes the whole account: """
     # mongo.db.users.remove({"_id": ObjectId(user_id)})
-    flash("Account Successfully Deleted")
+    # flash("Account Successfully Deleted")
+
     """ This removes the cookie: """
     # session.pop("user")
+
     """ This finds all recipes that session["user”] has favourited """
     for all in mongo.db.recipes.find({"favourite_of": "dhsqjkqh"}):
         print(all)
-    # print(recipes)
+    for all in mongo.db.recipes.find({"favourite_of": user}):
+        print(all)
+    
+    favourite_recipes = mongo.db.recipes.find({"favourite_of": "dhsqjkqh"})
+    print(favourite_recipes)
+
+    pulled_values = {"$pull": {"favourite_of": "dhsqjkqh"}}
+    """ AttributeError: 'Cursor' object has no attribute 'updateMany' """
+    # favourite_recipes.updateMany(pulled_values)
+    """ TypeError: 'Collection' object is not callable. 
+    If you meant to call the 'updateMany' method on a 'Collection' object it is failing because no such method exists."""
+    # mongo.db.recipes.updateMany(pulled_values)
     return redirect(url_for("get_recipes"))
 
 
@@ -360,7 +375,7 @@ def add_to_favourites(recipe_id):
     mongo.db.recipes.update(
         {"_id": ObjectId(recipe_id)},
         {"$addToSet": {"favourite_of": username}})
-    flash("Recipe added to your list of favourites!")
+    flash("Recipea added to your list of favourites!")
     """return render_template("recipes.html", categories=categories,
                            levels=levels, recipe=recipe,
                            recipes=recipes)"""
@@ -388,6 +403,22 @@ def add_to_favourites(recipe_id):
     return render_template("profile.html", user=user, recipe=recipe)
     """
 
+
+@app.route("/remove_from_favourites/<recipe_id>")
+def remove_from_favourites(recipe_id):
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+    recipes = list(mongo.db.recipes.find())
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+
+    mongo.db.recipes.update(
+        {"_id": ObjectId(recipe_id)},
+        {"$pull": {"favourite_of": username}})
+    flash("Recipea removed from your list of favourites!")
+    return redirect(url_for("get_recipes"))
 
 
 @app.route("/get_categories")
