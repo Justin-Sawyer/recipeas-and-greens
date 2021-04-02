@@ -88,7 +88,7 @@
                     </div>
 
                     <!-- Is Favourite -->
-                    <div class="input-field col s12">
+                    <!--<div class="input-field col s12">
                         <div class="switch">
                             <label for="is_favourite">
                                 Is favourite? 
@@ -100,6 +100,22 @@
                                 <span class="lever"></span>
                             </label>
                             <i class="fas fa-heart loved prefix red-text"></i>
+                        </div>
+                    </div>-->
+
+                    <!-- Favourite Of -->
+                    <div class="input-field col s12">
+                        <div class="switch">
+                            <label for="favourite_of">
+                                Is favourite?
+                                {% if session.user|lower in recipe.favourite_of %}
+                                <input type="checkbox" id="favourite_of" name="favourite_of">
+                                {% else %}
+                                    <input type="checkbox" id="favourite_of" name="favourite_of">
+                                {% endif %}
+                                <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to add to favourites"></span>
+                                <i class="fas fa-heart prefix loved red-text"></i>
+                            </label>
                         </div>
                     </div>
 
