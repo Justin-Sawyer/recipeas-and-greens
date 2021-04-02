@@ -510,3 +510,28 @@ if __name__ == "__main__":
             port=int(os.environ.get("PORT")),
             # set to False prior to project submission
             debug=True)
+
+# Delete account and favourites only
+@app.route("/remove_all_from_favourites_and_delete_account")
+def remove_all_from_favourites_and_delete_account():
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    """recipe = mongo.db.recipes.find_one(
+        {"_id": ObjectId(recipe_id)})"""
+    # return render_template("profile.html", user=user, recipe=recipe)
+    """
+    mongo.db.recipes.update_many(
+        {"_id": ObjectId(recipe_id)},
+        {"$pull": {"favourite_of": user}})
+    for all in mongo.db.recipes.find({"_id": ObjectId(recipe_id)}):
+        mongo.db.recipes.update_one(
+            {"_id": ObjectId(recipe_id)},
+            {"$pull": {"favourite_of": user}})
+    flash("Recipea removed from your list of favourites!")"""
+    recipes = mongo.db.recipes
+    myquery = {"favourite_of": user}
+    newvalues = {"$pull": {"favourite_of": user}}
+    recipes.update_many(myquery, newvalues)
+    #for all in recipes.find()
+    return redirect(url_for("get_recipes"))
+

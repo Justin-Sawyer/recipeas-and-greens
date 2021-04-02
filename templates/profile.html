@@ -277,13 +277,28 @@
             <div id="delete-account-modal" class="modal">
                         <div class="modal-content">
                             <h4>Are you sure you want to delete your account and no longer be part of the Recipeas and Greens community?</h4>
-                            <p>Delete your account but retain your preferences and keep your recipeas online</p>
-                            <p>This action is best if you think you might change your mind and return. !</p>
-                        <!--</div>
-                        <div class="modal-footer">-->
+                            <p><strong>Please choose one of the following options:</strong></p>
+                            <p>1: Delete your account but keep your Recipeas online</p>
+                            
+                            <a href="{{ url_for('remove_all_from_favourites_and_delete_account')}}" class="btn edit-buttons red">
+                                Delete Account Only <i class="fas fa-trash-alt right"></i></a>
+                            
+                            <p>(This action is best if you want the Recipeas and Greens community to still have access to Recipeas that you have published. 
+                                Recipeas will be credited to "Former Member".
+                                Community Recipeas you have added as favourites will be "un-favourited".)</p>
+                            
+                            <p>2: Delete your account and remove your Recipeas</p>
+                            
+                            <a href="{{ url_for('remove_all_from_favourites_and_delete_recipes_and_delete_account')}}" class="btn edit-buttons red">
+                                Delete Account And Recipeas <i class="fas fa-trash-alt right"></i></a>
+                            
+                            <p>(This action is best if you want to delete everything you posted to the Recipeas and Greens community.)</p>
+                            
+                            <p>3: Do not delete your account</p>
                             <a href="#!" class="btn edit-buttons modal-close green darken-2">Do Not Delete <i class="fas fa-times-circle right"></i></a>
-                            <a href="{{ url_for('delete_account', user_id=user._id) }}" class="btn edit-buttons red">
-                                Yes, Delete My Account <i class="fas fa-trash-alt right"></i></a>
+
+                                
+                            
                         </div>
                     </div>
         </div>

@@ -157,11 +157,12 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/delete_account/<user_id>")
-def delete_account(user_id, recipe_id):
+@app.route("/delete_account")
+def delete_account():
     user = mongo.db.users.find_one({"username": session["user"]})
-    print(user)
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    # print(user)
+    # recipe = list(mongo.db.recipes.find({"_id": ObjectId}))
+    # print(recipe)
 
     """ This deletes the whole account: """
     # mongo.db.users.remove({"_id": ObjectId(user_id)})
@@ -170,18 +171,21 @@ def delete_account(user_id, recipe_id):
     """ This removes the cookie: """
     # session.pop("user")
 
-    """ This finds all recipes that session["user”] has favourited """
+    """ This finds all recipes that session["user”] has favourited
     for all in mongo.db.recipes.find({"favourite_of": "dhsqjkqh"}):
+        print(all) """
+    for all in mongo.db.recipes.find({"favourite_of": session["user"]}):
         print(all)
-    for all in mongo.db.recipes.find({"favourite_of": user}):
-        print(all)
+        all.update({"$pull": {"favourite_of": session["user"]}})
 
-    favourite_recipes = mongo.db.recipes.find({"favourite_of": "dhsqjkqh"})
-    print(favourite_recipes)
+    # favourite_recipes = mongo.db.recipes.find({"favourite_of": "dhsqjkqh"})
+    # print(favourite_recipes)
 
-    pulled_values = {"$pull": {"favourite_of": "dhsqjkqh"}}
+    # pulled_values = {"$pull": {"favourite_of": "dhsqjkqh"}}
     """ AttributeError: 'Cursor' object has no attribute 'updateMany' """
     # favourite_recipes.updateMany(pulled_values)
+    """ """
+    # recipe.update_many(pulled_values)
     """ TypeError: 'Collection' object is not callable.
     If you meant to call the 'updateMany' method on a 'Collection'
     object it is failing because no such method exists."""
@@ -328,6 +332,55 @@ def remove_from_favourites(recipe_id):
         {"_id": ObjectId(recipe_id)},
         {"$pull": {"favourite_of": username}})
     flash("Recipea removed from your list of favourites!")
+    return redirect(url_for("get_recipes"))
+
+
+@app.route("/remove_all_from_favourites_and_delete_account")
+def remove_all_from_favourites_and_delete_account():
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})["_id"]
+
+    """ This deletes all recipes favourited_by the user """
+    recipes = mongo.db.recipes
+    existing_favourite_of = {"favourite_of": username}
+    remove_favourite_of = {"$pull": {"favourite_of": username}}
+    recipes.update_many(existing_favourite_of, remove_favourite_of)
+
+    """ This deletes the whole account: """
+    mongo.db.users.delete_one({"_id": ObjectId(user)})
+
+    """ This removes the cookie: """
+    session.pop("user")
+
+    return redirect(url_for("get_recipes"))
+
+
+@app.route("/remove_all_from_favourites_and_delete_recipes_and_delete_account")
+def remove_all_from_favourites_and_delete_recipes_and_delete_account():
+    """ This deletes all recipes favourited_by the user """
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+
+    recipes = mongo.db.recipes
+    existing_favourite_of = {"favourite_of": username}
+    remove_favourite_of = {"$pull": {"favourite_of": username}}
+    recipes.update_many(existing_favourite_of, remove_favourite_of)
+
+    """ This deletes all recipes created by the user """
+    created_by = {"created_by": session["user"]}
+    recipes.delete_many(created_by)
+
+    """ This deletes the whole account: """
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})["_id"]
+
+    mongo.db.users.delete_one({"_id": ObjectId(user)})
+
+    """ This removes the cookie: """
+    session.pop("user")
+
     return redirect(url_for("get_recipes"))
 
 
