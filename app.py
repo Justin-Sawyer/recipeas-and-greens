@@ -157,42 +157,6 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/delete_account")
-def delete_account():
-    user = mongo.db.users.find_one({"username": session["user"]})
-    # print(user)
-    # recipe = list(mongo.db.recipes.find({"_id": ObjectId}))
-    # print(recipe)
-
-    """ This deletes the whole account: """
-    # mongo.db.users.remove({"_id": ObjectId(user_id)})
-    # flash("Account Successfully Deleted")
-
-    """ This removes the cookie: """
-    # session.pop("user")
-
-    """ This finds all recipes that session["user”] has favourited
-    for all in mongo.db.recipes.find({"favourite_of": "dhsqjkqh"}):
-        print(all) """
-    for all in mongo.db.recipes.find({"favourite_of": session["user"]}):
-        print(all)
-        all.update({"$pull": {"favourite_of": session["user"]}})
-
-    # favourite_recipes = mongo.db.recipes.find({"favourite_of": "dhsqjkqh"})
-    # print(favourite_recipes)
-
-    # pulled_values = {"$pull": {"favourite_of": "dhsqjkqh"}}
-    """ AttributeError: 'Cursor' object has no attribute 'updateMany' """
-    # favourite_recipes.updateMany(pulled_values)
-    """ """
-    # recipe.update_many(pulled_values)
-    """ TypeError: 'Collection' object is not callable.
-    If you meant to call the 'updateMany' method on a 'Collection'
-    object it is failing because no such method exists."""
-    # mongo.db.recipes.updateMany(pulled_values)
-    return redirect(url_for("get_recipes"))
-
-
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "POST":
