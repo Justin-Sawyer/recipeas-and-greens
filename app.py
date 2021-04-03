@@ -134,7 +134,6 @@ def edit_profile():
             {"username": session["user"]}, email)
 
         user = mongo.db.users.find_one({"username": session["user"]})
-        recipes = mongo.db.recipes.find()
         return redirect(url_for('profile', username=session["user"]))
 
     user = mongo.db.users.find_one({"username": session["user"]})
@@ -167,6 +166,7 @@ def add_recipe():
         category = {
             "recipe_category": request.form.get("recipe_category")
         }
+        categories = category["recipe_category"].split("\r\\")
 
         # Check if category exists in Database
         existing_category = mongo.db.categories.find_one(
@@ -186,7 +186,8 @@ def add_recipe():
             "recipe_cooking_time": request.form.get("recipe_cooking_time"),
             "recipe_total_time": request.form.get("recipe_total_time"),
             "recipe_description": request.form.get("recipe_description"),
-            "recipe_category": request.form.get("recipe_category"),
+            # "recipe_category": request.form.get("recipe_category"),
+            "recipe_category": categories,
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
             "recipe_servings": request.form.get("recipe_servings"),
@@ -301,21 +302,28 @@ def remove_from_favourites(recipe_id):
 
 @app.route("/remove_all_from_favourites_and_delete_account")
 def remove_all_from_favourites_and_delete_account():
+    # This deletes all recipes favourited_by the user
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    user = mongo.db.users.find_one(
-        {"username": session["user"]})["_id"]
 
-    """ This deletes all recipes favourited_by the user """
     recipes = mongo.db.recipes
     existing_favourite_of = {"favourite_of": username}
     remove_favourite_of = {"$pull": {"favourite_of": username}}
     recipes.update_many(existing_favourite_of, remove_favourite_of)
 
-    """ This deletes the whole account: """
+    # This re-credits all recipes created by the user as "created by Former Member"
+    existing_created_by = {"created_by": session["user"]}
+    recredited_created_by = {"$set": {"created_by": "Former Member"}}
+    recipes.update_many(existing_created_by, recredited_created_by)
+    # recipes.delete_many(created_by)
+
+    # This deletes the user account
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})["_id"]
+
     mongo.db.users.delete_one({"_id": ObjectId(user)})
 
-    """ This removes the cookie: """
+    # This removes the cookie
     session.pop("user")
 
     return redirect(url_for("get_recipes"))
@@ -323,7 +331,7 @@ def remove_all_from_favourites_and_delete_account():
 
 @app.route("/remove_all_from_favourites_and_delete_recipes_and_delete_account")
 def remove_all_from_favourites_and_delete_recipes_and_delete_account():
-    """ This deletes all recipes favourited_by the user """
+    # This deletes all recipes favourited_by the user
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
 
@@ -332,17 +340,17 @@ def remove_all_from_favourites_and_delete_recipes_and_delete_account():
     remove_favourite_of = {"$pull": {"favourite_of": username}}
     recipes.update_many(existing_favourite_of, remove_favourite_of)
 
-    """ This deletes all recipes created by the user """
+    # This deletes all recipes created by the user
     created_by = {"created_by": session["user"]}
     recipes.delete_many(created_by)
 
-    """ This deletes the whole account: """
+    # This deletes the user account
     user = mongo.db.users.find_one(
         {"username": session["user"]})["_id"]
 
     mongo.db.users.delete_one({"_id": ObjectId(user)})
 
-    """ This removes the cookie: """
+    # This removes the cookie
     session.pop("user")
 
     return redirect(url_for("get_recipes"))
