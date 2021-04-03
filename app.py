@@ -159,16 +159,27 @@ def add_recipe():
         category = {
             "recipe_category": request.form.get("recipe_category")
         }
-        categories = category["recipe_category"].split("\r\\")
+
+        # Sends EACH cat in category to categories collection
+        categories = category["recipe_category"].split("\r\n")
+
+        for cat in categories:
+            new_cats = {"recipe_category": cat}
+            categories_collection = mongo.db.categories
+            # Check if category exists in Database
+            existing_category = mongo.db.categories.find_one(
+                {"recipe_category": cat})
+            if not existing_category:
+                categories_collection.insert_one(new_cats)
 
         # Check if category exists in Database
-        existing_category = mongo.db.categories.find_one(
+        """existing_category = mongo.db.categories.find_one(
             {"recipe_category": request.form.get("recipe_category")})
         if existing_category:
             mongo.db.categories.find_one(
                 {"recipe_category": request.form.get("recipe_category")})
         else:
-            mongo.db.categories.insert_one(category)
+            mongo.db.categories.insert_one(category)"""
 
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
@@ -179,8 +190,9 @@ def add_recipe():
             "recipe_cooking_time": request.form.get("recipe_cooking_time"),
             "recipe_total_time": request.form.get("recipe_total_time"),
             "recipe_description": request.form.get("recipe_description"),
-            # "recipe_category": request.form.get("recipe_category"),
-            "recipe_category": categories,
+            # Ensures categories are displayed as list on recipe pages
+            "recipe_category": request.form.get("recipe_category"),
+            # "recipe_category": categories,
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
             "recipe_servings": request.form.get("recipe_servings"),
@@ -221,13 +233,17 @@ def edit_recipe(recipe_id):
             "recipe_category": request.form.get("recipe_category")
         }
 
-        existing_category = mongo.db.categories.find_one(
-            {"recipe_category": request.form.get("recipe_category")})
-        if existing_category:
-            mongo.db.categories.find_one(
-                {"recipe_category": request.form.get("recipe_category")})
-        else:
-            mongo.db.categories.insert_one(category)
+        # Sends EACH cat in category to categories collection
+        categories = category["recipe_category"].split("\r\n")
+
+        for cat in categories:
+            new_cats = {"recipe_category": cat}
+            categories_collection = mongo.db.categories
+            # Check if category exists in Database
+            existing_category = mongo.db.categories.find_one(
+                {"recipe_category": cat})
+            if not existing_category:
+                categories_collection.insert_one(new_cats)
 
         submit = {
             "recipe_name": request.form.get("recipe_name"),
@@ -238,6 +254,7 @@ def edit_recipe(recipe_id):
             "recipe_cooking_time": request.form.get("recipe_cooking_time"),
             "recipe_total_time": request.form.get("recipe_total_time"),
             "recipe_description": request.form.get("recipe_description"),
+            # Ensures categories are displayed as list on recipe pages
             "recipe_category": request.form.get("recipe_category"),
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
