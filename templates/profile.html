@@ -65,7 +65,7 @@
             <div class="row">
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
-                        {% if user.username in recipe.created_by %}
+                        {% if session.user|lower in recipe.created_by %}
                         <li class="col s12 m6 recipe-list-item">
                             <div class="card">
                                 {% if session.user|lower in recipe.favourite_of %}
@@ -79,7 +79,11 @@
                                     </a>
                                 {% endif %}
                                 <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
+                                    {% if recipe.image_url %}
+                                        <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
+                                    {% else %}
+                                        <img class="activator" src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe photo">
+                                    {% endif %}
                                 </div>
                                 <div class="card-content">
                                     <span class="card-title activator cinnamon-text">
@@ -186,7 +190,11 @@
                                             </i>
                                         </a>
                                         <div class="card-image waves-effect waves-block waves-light">
-                                            <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
+                                            {% if recipe.image_url %}
+                                                <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
+                                            {% else %}
+                                                <img class="activator" src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe photo">
+                                            {% endif %}
                                         </div>
                                         <div class="card-content">
                                             <span class="card-title activator cinnamon-text">
@@ -243,7 +251,11 @@
                                                 <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
                                             </a>
                                             <div class="card-image waves-effect waves-block waves-light">
-                                                <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
+                                                {% if recipe.image_url %}
+                                                    <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
+                                                {% else %}
+                                                    <img class="activator" src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe photo">
+                                                {% endif %}
                                             </div>
                                             <div class="card-content">
                                                 <span class="card-title activator cinnamon-text">

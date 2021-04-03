@@ -3,7 +3,11 @@
 
     <div class="parallax-container">
         <div class="parallax">
-            <img class="activator" src="{{ recipe.image_url }}" alt="Recipe banner">
+            {% if recipe.image_url %}
+                <img src="{{ recipe.image_url }}" alt="Recipe banner">
+            {% else %}
+                <img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe banner"></div>
+            {% endif %}
         </div>
     </div>
 
@@ -56,7 +60,11 @@
 
         <div class="col s12 m4">
             <!-- Recipe photo -->
-            <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
+            {% if recipe.image_url %}
+                <img src="{{ recipe.image_url }}" alt="Recipe photo">
+            {% else %}
+                <img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe photo">
+            {% endif %}
 
             <!-- Recipe categories -->
             <h3 class="recipea green-text text-darken-2">Category:</h3>

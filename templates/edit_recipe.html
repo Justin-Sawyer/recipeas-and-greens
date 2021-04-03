@@ -2,7 +2,11 @@
 {% block banner %}
 
     <div class="parallax-container">
-        <div class="parallax"><img class="activator" src="{{ recipe.image_url }}" alt="Recipe banner"></div>
+        {% if recipe.image_url %}
+            <div class="parallax"><img src="{{ recipe.image_url }}" alt="Recipe banner"></div>
+        {% else %}
+            <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe banner"></div>
+        {% endif %}
     </div>
 
 {% endblock%}
@@ -124,9 +128,13 @@
                     <div class="input-field col s12">
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
                         <p>Please credit the image source (eg: yourself, a website) in the Chef's Notes section.</p>
-                        <p><img src="{{ recipe.image_url }}" id="img-preview" /></p>
+                        {% if recipe.image_url %}
+                            <p><img src="{{ recipe.image_url }}" id="img-preview" /></p>
+                        {% else %}
+                            <p><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" id="img-preview" /></p>
+                        {% endif %}
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
-                            <input id="file-upload" type="file" name="previous_recipe_image_url" style="display:none;"> 
+                            <input id="file-upload" type="file" name="previous_recipe_image_url" style="display:none;" > 
                                 Change Photo? <i class="fas fa-camera"></i>
                             </label>
                             <input id="file-upload1" type="hidden" name="recipe_image_url" value="{{ recipe.image_url }}" style="display:none;">
