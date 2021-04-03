@@ -97,10 +97,11 @@ def login():
 def profile():
     if request.method == "POST":
         user = mongo.db.users.find_one({"username": session["user"]})
+        creator = mongo.db.recipes.find()
         recipes = mongo.db.recipes.find()
         return render_template(
             "profile.html", user=user,
-            recipes=recipes)
+            recipes=recipes, creator=creator)
 
     user = mongo.db.users.find_one({"username": session["user"]})
 
