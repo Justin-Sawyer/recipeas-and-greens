@@ -10,8 +10,7 @@
     <!-- Page title -->
     <div class="row">
         <div class="col s12">
-            <h1 class="title">{{category.recipe_category }}</h1>
-
+            <h1 class="title">{{ category }}</h1>
         </div>
     </div>
 
@@ -35,66 +34,62 @@
 
     <div class="row">
         <ul class="recipe-list">
-            {% for recipe in recipes %}
-                {% if recipe.recipe_category == category.recipe_category %}
-                <li class="col s12 m6 l4 recipe-list-item">
-                    <div class="card">
-                        {% if session.user|lower == recipe.created_by %}
-                            <button class="btn-floating halfway-fab waves-effect waves-light red">
-                                <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Is Favourite!"> </i>
-                            </button>
-                        {% else %}
-                            <button class="btn-floating halfway-fab waves-effect waves-light green darken-2">
-                                <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
-                            </button>
-                        {% endif %}
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator cinnamon-text">
-                                <i class="fas fa-ellipsis-v right"></i><strong>{{ recipe.recipe_name }}</strong></span>
-                            <p><a href="{{ url_for('recipe', recipe_id=recipe._id)}}">Go to Recipea</a></p>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title cinnamon-text">
-                                <i class="far fa-times-circle right"></i>
-                                <strong>{{ recipe.recipe_name }}</strong>
-                                    </span>
-                            <p class="category green-text text-darken-2">Category: <span
-                                    class="right">{{ recipe.recipe_category }}</span></p>
-                            <p class="category green-text text-darken-2">Level: <span
-                                    class="right">{{ recipe.recipe_level_of_difficulty }}</span></p>
-                            <!--<p>{{ recipe.recipe_description }}</p>-->
-                            <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
-                            <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
-
-                            <!-- Open recipe -->
-                            <a href="{{ url_for('recipe', recipe_id=recipe._id)}}" class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>                       
-
+            {% if recipes|length > 0 %}
+                {% for recipe in recipes %}
+                    <li class="col s12 m6 l4 recipe-list-item">
+                        <div class="card">
                             {% if session.user|lower == recipe.created_by %}
-                            <!-- Edit recipe -->
-                            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="col s5 left btn-small btn-block recipe-action edit-button cinnamon">Edit</a>                       
-
-                            <!-- Delete recipe -->
-                            <a href="{{ url_for('delete_recipe', recipe_id=recipe._id)}}" class="col s5 right btn-small recipe-action red">Delete</a>
+                                <button class="btn-floating halfway-fab waves-effect waves-light red">
+                                    <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Is Favourite!"> </i>
+                                </button>
+                            {% else %}
+                                <button class="btn-floating halfway-fab waves-effect waves-light green darken-2">
+                                    <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
+                                </button>
                             {% endif %}
+                            <div class="card-image waves-effect waves-block waves-light">
+                                {% if recipe.image_url %}
+                                    <img class="activator" src="{{ recipe.image_url }}" alt="Recipe photo">
+                                {% else %}
+                                    <img class="activator" src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe photo">
+                                {% endif %}
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator cinnamon-text">
+                                    <i class="fas fa-ellipsis-v right"></i><strong>{{ recipe.recipe_name }}</strong></span>
+                                <p><a href="{{ url_for('recipe', recipe_id=recipe._id)}}">Go to Recipea</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title cinnamon-text">
+                                    <i class="far fa-times-circle right"></i>
+                                    <strong>{{ recipe.recipe_name }}</strong>
+                                        </span>
+                                <p class="category green-text text-darken-2">Category: <span
+                                        class="right">{{ recipe.recipe_category }}</span></p>
+                                <p class="category green-text text-darken-2">Level: <span
+                                        class="right">{{ recipe.recipe_level_of_difficulty }}</span></p>
+                                <!--<p>{{ recipe.recipe_description }}</p>-->
+                                <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
+                                <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
+
+                                <!-- Open recipe -->
+                                <a href="{{ url_for('recipe', recipe_id=recipe._id)}}" class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>                       
+
+                                {% if session.user|lower == recipe.created_by %}
+                                <!-- Edit recipe -->
+                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="col s5 left btn-small btn-block recipe-action edit-button cinnamon">Edit</a>                       
+
+                                <!-- Delete recipe -->
+                                <a href="{{ url_for('delete_recipe', recipe_id=recipe._id)}}" class="col s5 right btn-small recipe-action red">Delete</a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-        <div class="row">
-            <div class="col s12">
-            {% if not category.recipe_category in recipes %}
-                <h3>Hmm. It seems that there are no Recipeas in this category. Why not add one?</h3>
-                <a class="btn category-buttons green darken-2" href="{{ url_for('add_recipe') }}">Add a Recipea <i class="fas fa-file-alt"></i></a>
-                <h3>Alternatively, you can return to the main Recipeas and Greens Recipea listings:</h3>
-                <a class="btn category-buttons green darken-2" href="{{ url_for('get_recipes') }}">Go to Home Page <i class="fas fa-home"></i></a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p>There shouldn't be any recipes listed now</p>
             {% endif %}
-            </div>
-        </div>
+        </ul>
     </div>
 
     {% if session.user|lower == "administration"|lower %}

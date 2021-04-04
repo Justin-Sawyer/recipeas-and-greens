@@ -97,11 +97,10 @@ def login():
 def profile():
     if request.method == "POST":
         user = mongo.db.users.find_one({"username": session["user"]})
-        creator = mongo.db.recipes.find()
         recipes = mongo.db.recipes.find()
         return render_template(
             "profile.html", user=user,
-            recipes=recipes, creator=creator)
+            recipes=recipes)
 
     user = mongo.db.users.find_one({"username": session["user"]})
 
@@ -369,19 +368,46 @@ def remove_all_from_favourites_and_delete_recipes_and_delete_account():
 
 @app.route("/get_categories")
 def get_categories():
-    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    categories = mongo.db.categories.find().sort("recipe_category", 1)
     return render_template("categories.html", categories=categories)
 
 
 @app.route("/category/<category_id>")
 def category(category_id):
+    # This gets the category in the categories collection by its ID
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})["recipe_category"]
+    # category = mongo.db.categories.find_one({"recipe_category": category_id})
+    # This gets the levels of difficulty for the search by level of difficulty
     levels = mongo.db.level_of_difficulty.find()
-    categories = mongo.db.categories.find().sort("recipe_category", 1)
-    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-    recipes = mongo.db.recipes.find()
+    # This gets the category name from the categories collection
+    # category_name = mongo.db.categories.find_one({},
+    #    {"recipe_category": 1})
+    # print(category_name)
+     # This gets the categories for the search by category and sorts them alphabetically button
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    recipes = list(mongo.db.recipes.find({"recipe_category": category}))
     return render_template("category.html", category=category,
-                           recipes=recipes, levels=levels,
+                           levels=levels, recipes=recipes,
                            categories=categories)
+
+"""
+@app.route("/category/<category_name>")
+def category(category_name):
+    # This gets the category in the categories collection by its name for the browser address
+    category = mongo.db.categories.find_one({"recipe_category": category_name})
+
+    # This gets the levels of difficulty for the search by level of difficulty button
+    levels = mongo.db.level_of_difficulty.find()
+    # This gets the categories for the search by category and sorts them alphabetically button
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+
+    # This gets all the recipes
+    recipes = mongo.db.recipes.find()
+    # This gets all the categories
+    category_names = mongo.db.categories.find()
+    return render_template("category.html", category=category, levels=levels,
+                           categories=categories, recipes=recipes,
+                           category_names=category_names)"""
 
 
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
@@ -413,10 +439,15 @@ def get_difficulty_levels():
 
 @app.route("/level/<level_id>")
 def level(level_id):
+    # This gets the level of difficulty key from its Id
+    # level = mongo.db.level_of_difficulty.find_one({"_id": ObjectId(level_id)})
+    level = mongo.db.level_of_difficulty.find_one({"_id": ObjectId(level_id)})["recipe_level_of_difficulty"]
+    # This gets the levels of difficulty for the search by level of difficulty
     levels = mongo.db.level_of_difficulty.find()
-    categories = mongo.db.categories.find().sort("recipe_category", 1)
-    level = mongo.db.level_of_difficulty.find_one({"_id": ObjectId(level_id)})
-    recipes = mongo.db.recipes.find()
+    # This gets the categories for the search by category and sorts them alphabetically button
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    # recipes = mongo.db.recipes.find()
+    recipes = list(mongo.db.recipes.find({"recipe_level_of_difficulty": level}))
     return render_template("level.html", level=level,
                            recipes=recipes, levels=levels,
                            categories=categories)
