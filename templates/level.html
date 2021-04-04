@@ -87,7 +87,10 @@
                 </li>
                 {% endfor %}
                 {% else %}
-                <p>There shouldn't be any recipes listed now</p>
+                <li class="col s12">
+                    <h2>No Recipeas yet? Go ahead and create one. Make sure it's {{ level|lower }}!</h2>
+                    <a href="{{ url_for('add_recipe')}}" class="btn edit-buttons green darken-2">Add a Recipea <i class="fas fa-file-alt right"></i></a>
+                </li>
             {% endif %}
         </ul>
     </div>
