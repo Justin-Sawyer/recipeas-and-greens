@@ -503,6 +503,15 @@ def delete_level(level_id):
     return redirect(url_for("get_difficulty_levels"))
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+    # note that we set the 404 status explicitly
+    return render_template("404.html", categories=categories,
+                           levels=levels), 404
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

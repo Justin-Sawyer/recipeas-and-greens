@@ -20,6 +20,10 @@ h5 {
 }
 
 img {
+    width: 100%;
+}
+
+.img-in-card {
     /* max-height: 200px; */
     height: 200px;
     min-width: 100%;
