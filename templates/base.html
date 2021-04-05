@@ -14,9 +14,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
         <!-- Site CSS with jinja url_for method-->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
-        <!-- Apple touch icon credit: <a href='https://pngtree.com/so/peas-clipart'>peas clipart png from pngtree.com</a>
-        (Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ - photo cropped -->
+        <!-- Apple touch / Android / Favicon icon credit: <a href='https://pngtree.com/so/peas-clipart'>peas clipart png from pngtree.com</a>-->
         <link rel="apple-touch-icon" href="{{ url_for('static', filename='media/apple-touch-icon/apple-touch-icon.png') }}">
+        <link rel="shortcut-icon" href="{{ url_for('static', filename='media/apple-touch-icon/apple-touch-icon.png') }}">
         <!-- Custom styles or scripts jinja -->
         {% block styles %}
         {% endblock %}
@@ -241,12 +241,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col l6 s12">
-                        <h5 class="white-text">Footer Content</h5>
-                        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.
-                        </p>
+                        <h5 class="white-text">Contact:</h5>
+                        <ul>
+                            <li class="white-text">Recipeas and Greens</li>
+                            <li class="white-text">Pie Cottage, The Greens</li>
+                            <li class="white-text">Peas Pottage, UK</li>
+                            <li><a class="white-text" href = "mailto:recipeasandgreens@icloud.com">Email Us</a></li>
+                        </ul>
                     </div>
                     <div class="col l4 offset-l2 s12">
-                        <h5 class="white-text">Links</h5>
+                        <h5 class="white-text">Links:</h5>
                         <ul>
                             <li><a class="white-text" href="{{ url_for('get_recipes') }}">Recipeas</a></li>
                             {% if session.user %}
@@ -263,7 +267,7 @@
             </div>
             <div class="footer-copyright">
                 <div class="container center-align">
-                    <a class="white-text" href="https://pngtree.com/so/peas-clipart">iOS icon from pngtree.com</a>
+                    <a class="white-text" href="https://pngtree.com/so/peas-clipart">iOS/Android icon from pngtree.com</a>
                     <!-- From Code Institute Thorin project -->
                     <p class="copyright text-muted">Copyright &copy; Recipeas and Greens <span id="copyright"></span></p>
                 </div>

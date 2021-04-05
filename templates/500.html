@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block banner %}
+
+    <div class="parallax-container">
+        <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
+        <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg"></div>
+    </div>
+    
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col s12">
+            <h1 class="title">500 Internal Server Error</h1>
+            <h2>We've been a victim of our success: it seems too many people are trying to access this site at the same time!</h2>
+            <h2>You can either try again later, or try one of these:</h2>
+        </div>
+    </div>
+
+    <!-- Search by category/level of difficulty only -->
+    <div class="row">
+        <div class="col s12">
+            <button class="btn category-buttons green darken-2" id="display-cats">Search by Category</button>
+            <button class="btn category-buttons green darken-2" id="display-levs">Search by Level of Difficulty</button>
+            <a class="btn category-buttons green darken-2" id="go-home" href="{{ url_for('get_recipes')}}">Go to Home Page <i class="fas fa-home"></i></a>
+        </div>
+        <div class="col s12" id="cats" style="display:none">
+            {% for category in categories %}
+                <a class="btn category-button-links cinnamon" href="{{ url_for('category', category_id=category._id)}}">{{ category.recipe_category}}</a>
+            {% endfor %}
+        </div>
+        <div class="col s12" id="levs" style="display:none">
+            {% for level in levels %}
+                <a class="btn category-button-links cinnamon" href="{{ url_for('level', level_id=level._id)}}">{{ level.recipe_level_of_difficulty }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

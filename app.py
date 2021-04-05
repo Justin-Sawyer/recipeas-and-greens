@@ -511,6 +511,14 @@ def page_not_found(e):
     return render_template("404.html", categories=categories,
                            levels=levels), 404
 
+@app.errorhandler(410)
+def page_not_found(e):
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+    # note that we set the 404 status explicitly
+    return render_template("404.html", categories=categories,
+                           levels=levels), 410
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
