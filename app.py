@@ -103,13 +103,24 @@ def profile():
             recipes=recipes)
 
     user = mongo.db.users.find_one({"username": session["user"]})
+    print(user)
+    
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    print(username)
+    recipes_created_by = list(mongo.db.recipes.find({"created_by": username}))
+    favourites_of = list(mongo.db.recipes.find({"favourite_of": username}))
+    # user_id = mongo.db.users.find_one({"_id": ObjectId(username)})
+    # print(user_id)
 
     recipes = list(mongo.db.recipes.find())
 
     if session["user"]:
         return render_template(
             "profile.html", user=user,
-            recipes=recipes)
+            recipes=recipes, username=username,
+            recipes_created_by=recipes_created_by,
+            favourites_of=favourites_of)
 
     return render_template("profile.html")
 
