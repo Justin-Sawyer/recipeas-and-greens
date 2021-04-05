@@ -21,7 +21,7 @@
         </div>
 
         <div class="col s12 m4"> 
-            <h2>{{ user.first_name }}'s Profile</h2>
+            <h2>{{ user.first_name }}'s Profile:</h2>
             <p><i class="far fa-id-card small green-text text-darken-2"></i><span class="right">{{ user.first_name }} {{ user.last_name }}</span></p>
             <p><i class="far fa-user small green-text text-darken-2"></i><span class="right">{{ user.username }}</span></p>
             <p><i class="fas fa-at small green-text text-darken-2"></i><span class="right">{{ user.email }}</span></p>
@@ -61,7 +61,7 @@
                 </div>
             {% endif %}
          
-            <h2>{{ user.first_name }}'s Own Recipeas</h2>
+            <h2>{{ user.first_name }}'s Own Recipeas:</h2>
             <div class="row">
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
@@ -95,10 +95,6 @@
                                         <i class="far fa-times-circle right"></i>
                                         <strong>{{ recipe.recipe_name }}</strong>
                                     </span>
-                                    <p class="category green-text text-darken-2">Category: <span
-                                            class="right">{{ recipe.recipe_category }}</span></p>
-                                    <p class="category green-text text-darken-2">Level: <span
-                                            class="right">{{ recipe.recipe_level_of_difficulty }}</span></p>
                                     <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
                                     <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
                 
@@ -177,7 +173,7 @@
             </div>-->
 
             <!--<h2>{{ user.first_name }}'s Favourite Community Recipeas</h2>-->
-            <h2>Community Recipeas I Love</h2>
+            <h2>Community Recipeas I Love:</h2>
             <div class="row">
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
@@ -206,10 +202,6 @@
                                                 <i class="far fa-times-circle right"></i>
                                                 <strong>{{ recipe.recipe_name }}</strong>
                                             </span>
-                                            <p class="category green-text text-darken-2">Category: <span
-                                                    class="right">{{ recipe.recipe_category }}</span></p>
-                                            <p class="category green-text text-darken-2">Level: <span
-                                                    class="right">{{ recipe.recipe_level_of_difficulty }}</span></p>
                                             <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
                                             <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
                         
@@ -238,7 +230,7 @@
 
 
             <!--<h2>{{ user.first_name }}'s Untried Community Recipeas</h2>-->
-            <h2>Community Recipeas Not Yet Tried</h2>
+            <h2>Community Recipeas Not Yet Tried:</h2>
             <div class="row">
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
@@ -267,10 +259,6 @@
                                                     <i class="far fa-times-circle right"></i>
                                                     <strong>{{ recipe.recipe_name }}</strong>
                                                 </span>
-                                                <p class="category green-text text-darken-2">Category: <span
-                                                        class="right">{{ recipe.recipe_category }}</span></p>
-                                                <p class="category green-text text-darken-2">Level: <span
-                                                        class="right">{{ recipe.recipe_level_of_difficulty }}</span></p>
                                                 <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
                                                 <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
                             

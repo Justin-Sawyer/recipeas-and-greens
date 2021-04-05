@@ -68,8 +68,9 @@
 
             <!-- Recipe categories -->
             <h3 class="recipea green-text text-darken-2">Category:</h3>
-            <textarea readonly id="recipe_category" name="recipe_category" class="materialize-textarea recipe-textarea">{{ recipe.recipe_category }}
-            </textarea>
+            {% for cat in recipe.recipe_category %}
+                <p class="recipea-category-text">{{ cat }}</p>
+            {% endfor %}
 
             <!-- Recipe difficulty -->
             <h3 class="recipea green-text text-darken-2">Level of Difficulty:</h3>

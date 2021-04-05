@@ -146,9 +146,11 @@
 
                     <!-- Recipe Category -->
                     <div class="input-field col s12">
-                        <i class="fas fa-flag prefix green-text text-darken-2"></i>
-                        <textarea id="recipe_category" name="recipe_category"
-                        class="materialize-textarea edit-recipe-textarea-prompt validate" required>{{ recipe.recipe_category }}</textarea>
+                        <i class="fas fa-flag prefix green-text text-darken-2"></i>  
+                        {% for cat in recipe.recipe_category %}  
+                            <textarea id="recipe_category" name="recipe_category"
+                                class="materialize-textarea edit-recipe-textarea-prompt validate">{{ cat }}</textarea>
+                        {% endfor %}
                         <label class="edit-recipe" for="recipe_category">Category:</label>
                     </div>
 

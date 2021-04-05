@@ -191,8 +191,8 @@ def add_recipe():
             "recipe_total_time": request.form.get("recipe_total_time"),
             "recipe_description": request.form.get("recipe_description"),
             # Ensures categories are displayed as list on recipe pages
-            "recipe_category": request.form.get("recipe_category"),
-            # "recipe_category": categories,
+            # "recipe_category": request.form.get("recipe_category"),
+            "recipe_category": categories,
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
             "recipe_servings": request.form.get("recipe_servings"),
@@ -255,7 +255,8 @@ def edit_recipe(recipe_id):
             "recipe_total_time": request.form.get("recipe_total_time"),
             "recipe_description": request.form.get("recipe_description"),
             # Ensures categories are displayed as list on recipe pages
-            "recipe_category": request.form.get("recipe_category"),
+            #"recipe_category": request.form.get("recipe_category"),
+            "recipe_category": categories,
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
             "recipe_servings": request.form.get("recipe_servings"),

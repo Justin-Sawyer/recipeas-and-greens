@@ -248,6 +248,10 @@ input:-webkit-autofill:active {
     margin-top: 0;
 }
 
+.recipea-category-text {
+    margin: 0;
+}
+
 .recipe-textarea {
     border: 0!important;
     padding-bottom: 0!important;
