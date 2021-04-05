@@ -62,6 +62,7 @@
             {% endif %}
          
             <h2>{{ user.first_name }}'s Own Recipeas:</h2>
+            {% if recipes|length > 0 %}
             <div class="row">
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
@@ -128,6 +129,12 @@
                     {% endfor %}
                 </ul>
             </div>
+            {% else %}
+                <div class="row">
+                    <h3>No Recipeas yet? Go ahead and create one!</h3>
+                    <a href="{{ url_for('get_recipes')}}" class="btn edit-buttons green darken-2">Add a Recipea <i class="fas fa-file-alt right"></i></a>
+                </div>
+            {% endif %}
 
             <!--<h2>{{ user.first_name }}'s Untried Community Recipeas</h2>-->
             <!--<h2>All Community Recipes except mine</h2>
@@ -221,12 +228,6 @@
                     {% endfor %}
                 </ul>
             </div>
-            {% if not user.username in recipes.favourite_of %}
-            <div class="row">
-                <h3>No Recipeas yet? Go ahead and create one!</h3>
-                <a href="{{ url_for('get_recipes')}}" class="btn edit-buttons green darken-2">Add a Recipea <i class="fas fa-file-alt right"></i></a>
-            </div>
-            {% endif %}
 
 
             <!--<h2>{{ user.first_name }}'s Untried Community Recipeas</h2>-->

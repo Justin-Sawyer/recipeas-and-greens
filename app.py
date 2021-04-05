@@ -255,7 +255,7 @@ def edit_recipe(recipe_id):
             "recipe_total_time": request.form.get("recipe_total_time"),
             "recipe_description": request.form.get("recipe_description"),
             # Ensures categories are displayed as list on recipe pages
-            #"recipe_category": request.form.get("recipe_category"),
+            # "recipe_category": request.form.get("recipe_category"),
             "recipe_category": categories,
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
@@ -322,7 +322,8 @@ def remove_all_from_favourites_and_delete_account():
     remove_favourite_of = {"$pull": {"favourite_of": username}}
     recipes.update_many(existing_favourite_of, remove_favourite_of)
 
-    # This re-credits all recipes created by the user as "created by Former Member"
+    # This re-credits all recipes created by the user as
+    # "created by Former Member"
     existing_created_by = {"created_by": session["user"]}
     recredited_created_by = {"$set": {"created_by": "Former Member"}}
     recipes.update_many(existing_created_by, recredited_created_by)
@@ -376,7 +377,8 @@ def get_categories():
 @app.route("/category/<category_id>")
 def category(category_id):
     # This gets the category in the categories collection by its ID
-    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})["recipe_category"]
+    category = mongo.db.categories.find_one(
+        {"_id": ObjectId(category_id)})["recipe_category"]
     # category = mongo.db.categories.find_one({"recipe_category": category_id})
     # This gets the levels of difficulty for the search by level of difficulty
     levels = mongo.db.level_of_difficulty.find()
@@ -384,22 +386,27 @@ def category(category_id):
     # category_name = mongo.db.categories.find_one({},
     #    {"recipe_category": 1})
     # print(category_name)
-     # This gets the categories for the search by category and sorts them alphabetically button
+    # This gets the categories for the search by category and
+    # sorts them alphabetically button
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     recipes = list(mongo.db.recipes.find({"recipe_category": category}))
     return render_template("category.html", category=category,
                            levels=levels, recipes=recipes,
                            categories=categories)
 
+
 """
 @app.route("/category/<category_name>")
 def category(category_name):
-    # This gets the category in the categories collection by its name for the browser address
+    # This gets the category in the categories
+    # collection by its name for the browser address
     category = mongo.db.categories.find_one({"recipe_category": category_name})
 
-    # This gets the levels of difficulty for the search by level of difficulty button
+    # This gets the levels of difficulty for the
+    # search by level of difficulty button
     levels = mongo.db.level_of_difficulty.find()
-    # This gets the categories for the search by category and sorts them alphabetically button
+    # This gets the categories for the search by category
+    # and sorts them alphabetically button
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
 
     # This gets all the recipes
@@ -441,14 +448,18 @@ def get_difficulty_levels():
 @app.route("/level/<level_id>")
 def level(level_id):
     # This gets the level of difficulty key from its Id
-    # level = mongo.db.level_of_difficulty.find_one({"_id": ObjectId(level_id)})
-    level = mongo.db.level_of_difficulty.find_one({"_id": ObjectId(level_id)})["recipe_level_of_difficulty"]
+    # level = mongo.db.level_of_difficulty.find_one(
+    # {"_id": ObjectId(level_id)})
+    level = mongo.db.level_of_difficulty.find_one(
+        {"_id": ObjectId(level_id)})["recipe_level_of_difficulty"]
     # This gets the levels of difficulty for the search by level of difficulty
     levels = mongo.db.level_of_difficulty.find()
-    # This gets the categories for the search by category and sorts them alphabetically button
+    # This gets the categories for the search by
+    # category and sorts them alphabetically button
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     # recipes = mongo.db.recipes.find()
-    recipes = list(mongo.db.recipes.find({"recipe_level_of_difficulty": level}))
+    recipes = list(mongo.db.recipes.find(
+        {"recipe_level_of_difficulty": level}))
     return render_template("level.html", level=level,
                            recipes=recipes, levels=levels,
                            categories=categories)
