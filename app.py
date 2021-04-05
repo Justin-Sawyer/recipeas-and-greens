@@ -103,15 +103,12 @@ def profile():
             recipes=recipes)
 
     user = mongo.db.users.find_one({"username": session["user"]})
-    print(user)
-    
+
+    # Get username for displaying user's recipes and favourites
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    print(username)
     recipes_created_by = list(mongo.db.recipes.find({"created_by": username}))
     favourites_of = list(mongo.db.recipes.find({"favourite_of": username}))
-    # user_id = mongo.db.users.find_one({"_id": ObjectId(username)})
-    # print(user_id)
 
     recipes = list(mongo.db.recipes.find())
 
@@ -141,13 +138,20 @@ def edit_profile():
         return redirect(url_for('profile', username=session["user"]))
 
     user = mongo.db.users.find_one({"username": session["user"]})
+
+    # Get username for displaying user's recipes
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    recipes_created_by = list(mongo.db.recipes.find({"created_by": username}))
+
     recipes = mongo.db.recipes.find()
 
     # If session cookie exists
     if session["user"]:
         return render_template(
             "edit_profile.html", user=user,
-            recipes=recipes)
+            recipes=recipes, username=username,
+            recipes_created_by=recipes_created_by)
 
     return render_template("edit_profile.html")
 

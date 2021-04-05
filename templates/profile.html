@@ -25,11 +25,16 @@
             <p><i class="far fa-id-card small green-text text-darken-2"></i><span class="right">{{ user.first_name }} {{ user.last_name }}</span></p>
             <p><i class="far fa-user small green-text text-darken-2"></i><span class="right">{{ user.username }}</span></p>
             <p><i class="fas fa-at small green-text text-darken-2"></i><span class="right">{{ user.email }}</span></p>
+            {% if user.image_url %}
+                <p><img src="{{ user.image_url }}" id="img-preview" /></p>
+            {% else %}
+                <p><img src="../static/media/images/profile-photo/profile_avatar_placeholder_large.png" id="img-preview" /></p>
+            {% endif %}
 
             <!-- Admin's image credit: Icon by <a href="https://freeicons.io/profile/3054">Nine One</a> 
-            on <a href="https://freeicons.io">freeicons.io</a> -->
+            on <a href="https://freeicons.io">freeicons.io</a> --
             <p><img src="{{ user.image_url }}" id="img-preview" /></p>
-            <!--<form method="POST" action="{{ url_for('profile') }}">
+            !--<form method="POST" action="{{ url_for('profile') }}">
                 <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                     <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
                         Change Recipea Photo <i class="fas fa-camera"></i>

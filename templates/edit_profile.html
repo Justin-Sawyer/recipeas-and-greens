@@ -27,7 +27,11 @@
                 <div class="row registration" id="photo-row">
                     <div class="input-field col s12">
                         <!-- Add a profile photo -->
-                        <p><img src="{{ user.image_url }}" id="img-preview" /></p>
+                        {% if user.image_url %}
+                            <p><img src="{{ user.image_url }}" id="img-preview" /></p>
+                        {% else %}
+                            <p><img src="../static/media/images/profile-photo/profile_avatar_placeholder_large.png" id="img-preview" /></p>
+                        {% endif %}
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                             <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
                                 Add/Change Photo <i class="fas fa-camera"></i>
@@ -89,6 +93,7 @@
             {% endif %}
          
             <h2>Edit Recipeas:</h2>
+            {% if recipes_created_by|length > 0 %}
             <div class="row">
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
@@ -155,6 +160,17 @@
                     {% endfor %}
                 </ul>
             </div>
+            {% else %}
+                <div class="row">
+                    <ul class="recipe-List">
+                        <li class="col s12 recipe-list-item">
+                    <h3>No Recipeas yet? Go ahead and create one!</h3>
+                    <a href="{{ url_for('get_recipes')}}" class="btn edit-buttons green darken-2">Add a Recipea <i class="fas fa-file-alt right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+
         </div>
     </div>
 
