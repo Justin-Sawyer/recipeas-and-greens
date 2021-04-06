@@ -1,7 +1,7 @@
 import os
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for, abort)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -287,6 +287,14 @@ def edit_recipe(recipe_id):
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
 
+    # Redirect to home page if user who did not create recipe tries to force edit recipe
+    recipe_created_by = mongo.db.recipes.find_one(
+        {"_id": ObjectId(recipe_id)})["created_by"]
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    if username not in recipe_created_by:
+        return redirect("/")
+
     level_of_difficulty = mongo.db.level_of_difficulty.find()
     servings = mongo.db.servings.find()
     return render_template(
@@ -342,7 +350,6 @@ def remove_all_from_favourites_and_delete_account():
     existing_created_by = {"created_by": session["user"]}
     recredited_created_by = {"$set": {"created_by": "Former Member"}}
     recipes.update_many(existing_created_by, recredited_created_by)
-    # recipes.delete_many(created_by)
 
     # This deletes the user account
     user = mongo.db.users.find_one(
@@ -394,43 +401,20 @@ def category(category_id):
     # This gets the category in the categories collection by its ID
     category = mongo.db.categories.find_one(
         {"_id": ObjectId(category_id)})["recipe_category"]
-    # category = mongo.db.categories.find_one({"recipe_category": category_id})
     # This gets the levels of difficulty for the search by level of difficulty
     levels = mongo.db.level_of_difficulty.find()
-    # This gets the category name from the categories collection
-    # category_name = mongo.db.categories.find_one({},
-    #    {"recipe_category": 1})
-    # print(category_name)
     # This gets the categories for the search by category and
     # sorts them alphabetically button
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     recipes = list(mongo.db.recipes.find({"recipe_category": category}))
+    # all_the_category = mongo.db.categories.find_one(
+    #   {"_id": ObjectId(category_id)})["_id"]
+    # all_the_category = mongo.db.categories.find()
+    # if category not in category:
+    #    abort(404)
     return render_template("category.html", category=category,
                            levels=levels, recipes=recipes,
                            categories=categories)
-
-
-"""
-@app.route("/category/<category_name>")
-def category(category_name):
-    # This gets the category in the categories
-    # collection by its name for the browser address
-    category = mongo.db.categories.find_one({"recipe_category": category_name})
-
-    # This gets the levels of difficulty for the
-    # search by level of difficulty button
-    levels = mongo.db.level_of_difficulty.find()
-    # This gets the categories for the search by category
-    # and sorts them alphabetically button
-    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
-
-    # This gets all the recipes
-    recipes = mongo.db.recipes.find()
-    # This gets all the categories
-    category_names = mongo.db.categories.find()
-    return render_template("category.html", category=category, levels=levels,
-                           categories=categories, recipes=recipes,
-                           category_names=category_names)"""
 
 
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
@@ -462,19 +446,17 @@ def get_difficulty_levels():
 
 @app.route("/level/<level_id>")
 def level(level_id):
-    # This gets the level of difficulty key from its Id
-    # level = mongo.db.level_of_difficulty.find_one(
-    # {"_id": ObjectId(level_id)})
+
     level = mongo.db.level_of_difficulty.find_one(
         {"_id": ObjectId(level_id)})["recipe_level_of_difficulty"]
-    # This gets the levels of difficulty for the search by level of difficulty
+
     levels = mongo.db.level_of_difficulty.find()
-    # This gets the categories for the search by
-    # category and sorts them alphabetically button
+
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
-    # recipes = mongo.db.recipes.find()
+
     recipes = list(mongo.db.recipes.find(
         {"recipe_level_of_difficulty": level}))
+
     return render_template("level.html", level=level,
                            recipes=recipes, levels=levels,
                            categories=categories)
@@ -503,21 +485,29 @@ def delete_level(level_id):
     return redirect(url_for("get_difficulty_levels"))
 
 
-@app.errorhandler(404)
+@app.errorhandler(404,)
 def page_not_found(e):
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
-    # note that we set the 404 status explicitly
-    return render_template("404.html", categories=categories,
+    return render_template("404.html",
+                           categories=categories,
                            levels=levels), 404
 
+
 @app.errorhandler(410)
-def page_not_found(e):
+def page_not_there(e):
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
-    # note that we set the 404 status explicitly
     return render_template("404.html", categories=categories,
                            levels=levels), 410
+
+
+@app.errorhandler(500)
+def special_exception_handler(error):
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+    return render_template("500.html", categories=categories,
+                           levels=levels), 500
 
 
 if __name__ == "__main__":

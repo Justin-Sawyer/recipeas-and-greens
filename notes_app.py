@@ -535,3 +535,50 @@ def remove_all_from_favourites_and_delete_account():
     #for all in recipes.find()
     return redirect(url_for("get_recipes"))
 
+
+@app.route("/category/<category_id>")
+def category(category_id):
+    # This gets the category in the categories collection by its ID
+    category = mongo.db.categories.find_one(
+        {"_id": ObjectId(category_id)})["recipe_category"]
+    # category = mongo.db.categories.find_one({"recipe_category": category_id})
+    # This gets the levels of difficulty for the search by level of difficulty
+    levels = mongo.db.level_of_difficulty.find()
+    # This gets the category name from the categories collection
+    # category_name = mongo.db.categories.find_one({},
+    #    {"recipe_category": 1})
+    # print(category_name)
+    # This gets the categories for the search by category and
+    # sorts them alphabetically button
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    recipes = list(mongo.db.recipes.find({"recipe_category": category}))
+    # all_the_category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})["_id"]
+    # all_the_category = mongo.db.categories.find()
+    # if category not in category:
+    #    abort(404)
+    return render_template("category.html", category=category,
+                           levels=levels, recipes=recipes,
+                           categories=categories)
+
+
+"""
+@app.route("/category/<category_name>")
+def category(category_name):
+    # This gets the category in the categories
+    # collection by its name for the browser address
+    category = mongo.db.categories.find_one({"recipe_category": category_name})
+
+    # This gets the levels of difficulty for the
+    # search by level of difficulty button
+    levels = mongo.db.level_of_difficulty.find()
+    # This gets the categories for the search by category
+    # and sorts them alphabetically button
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+
+    # This gets all the recipes
+    recipes = mongo.db.recipes.find()
+    # This gets all the categories
+    category_names = mongo.db.categories.find()
+    return render_template("category.html", category=category, levels=levels,
+                           categories=categories, recipes=recipes,
+                           category_names=category_names)"""
