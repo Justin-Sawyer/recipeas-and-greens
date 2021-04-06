@@ -1,7 +1,7 @@
 import os
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for, abort)
+    redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -287,7 +287,8 @@ def edit_recipe(recipe_id):
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
 
-    # Redirect to home page if user who did not create recipe tries to force edit recipe
+    # Redirect to home page if user who did not create
+    # recipe tries to force edit recipe
     recipe_created_by = mongo.db.recipes.find_one(
         {"_id": ObjectId(recipe_id)})["created_by"]
     username = mongo.db.users.find_one(
@@ -407,11 +408,7 @@ def category(category_id):
     # sorts them alphabetically button
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     recipes = list(mongo.db.recipes.find({"recipe_category": category}))
-    # all_the_category = mongo.db.categories.find_one(
-    #   {"_id": ObjectId(category_id)})["_id"]
-    # all_the_category = mongo.db.categories.find()
-    # if category not in category:
-    #    abort(404)
+
     return render_template("category.html", category=category,
                            levels=levels, recipes=recipes,
                            categories=categories)
@@ -514,4 +511,4 @@ if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             # set to False prior to project submission
-            debug=True)
+            debug=False)
