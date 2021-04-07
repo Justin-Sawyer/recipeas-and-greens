@@ -1,6 +1,6 @@
 <h1 align="center"><a href="">Recipeas and Greens</a></h1>
 
-<img src="documentation/image-aid/screenshot.png">
+<img src="static/documentation/image-aid/screenshot.png">
 
 This is the website and application for Recipeas and Greens, a database of recipes created by a community of members.
 
@@ -205,7 +205,7 @@ the creator of the website intends to use the site to sell a range of kitchen ac
 This website was tested using the following tools:
 
 1. [W3C HTML](https://validator.w3.org/) was used to verify the HTML code:
-	* [insertlinks.html]()
+	* [https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/validator-results/HTML](Results)
 
 2. [W3C CSS](https://jigsaw.w3.org/css-validator/) was used to ensure there were no CSS code errors in this project:
 	* [insert CSS]()
@@ -246,7 +246,7 @@ First, the developer added separate `<p>` elements after each label, but found t
 </div>
 
 ```
-<img src="static/media/testing-screenshots/registration/registration-form-conditions-1.png">
+<img src="static/documentation/testing-screenshots/registration/registration-form-conditions-1.png">
 
 Next, the developer tried adding line breaks within the label:
 
@@ -256,15 +256,15 @@ Next, the developer tried adding line breaks within the label:
 
 This worked well:
 
-<img src="static/media/testing-screenshots/registration/registration-form-conditions-2.png">
+<img src="static/documentation/testing-screenshots/registration/registration-form-conditions-2.png">
 
 However, when it came to inputting text into the field, the result was not so good:
 
-<img src="static/media/testing-screenshots/registration/registration-form-conditions-3.png">
+<img src="static/documentation/testing-screenshots/registration/registration-form-conditions-3.png">
 
 Additionally, the developer faced problems with rendering the labels on different screen sizes. Below is a screenshot of the password field on a 425px width screen (or, large Mobile screen):
 
-<img src="static/media/testing-screenshots/registration/registration-form-conditions-4.png">
+<img src="static/documentation/testing-screenshots/registration/registration-form-conditions-4.png">
 
 The developer solved these issues through a use of CSS, effectively changing the label font size according to the width of the screen:
 
@@ -284,11 +284,11 @@ The developer solved these issues through a use of CSS, effectively changing the
 
 Here is the result on a 375px wide screen:
 
-<img src="static/media/testing-screenshots/registration/registration-form-conditions-5.png">
+<img src="static/documentation/testing-screenshots/registration/registration-form-conditions-5.png">
 
 The developer then tried to create an Account, however the Autocomplete function for the form then inserted blocks of colour as well as the autocompleted items (in Google Chrome):
 
-<img src="static/media/testing-screenshots/registration/registration-form-conditions-6.png">
+<img src="static/documentation/testing-screenshots/registration/registration-form-conditions-6.png">
 
 As can be seen in the screenshot above, this result was very ugly. To counter this, the developer inserted another block of CSS and added class="registration" to each `row` within the `card-panel`:
 
@@ -302,11 +302,11 @@ The end result is much more eye-catching, but still renders oddly on different b
 
 Chrome:
 
-<img src="static/media/testing-screenshots/registration/registration-form-conditions-7.png">
+<img src="static/documentation/testing-screenshots/registration/registration-form-conditions-7.png">
 
 Safari:
 
-<img src="static/media/testing-screenshots/registration/registration-form-conditions-8.png">
+<img src="static/documentation/testing-screenshots/registration/registration-form-conditions-8.png">
 
 The devloper then looked for a better solution on StackOverflow, and found the following snippet:
 
@@ -324,7 +324,7 @@ input:-webkit-autofill:active {
 
 The code was pushed to Git, and the results were almost as expected: the background stays white on both browsers on desktop devices:
 
-<img src="static/media/testing-screenshots/registration/registration-form-conditions-9.png">
+<img src="static/documentation/testing-screenshots/registration/registration-form-conditions-9.png">
 
 However, on iOS, the background color persists. The developer found a further snippet of code on StackOverflow:
 
@@ -336,7 +336,7 @@ background-clip: content-box !important;
 
 The background now stays white on Safari for iOS when autocomplete is used:
 
-<img src="static/media/testing-screenshots/registration/registration-form-conditions-10.png">
+<img src="static/documentation/testing-screenshots/registration/registration-form-conditions-10.png">
 
 And as can be seen in the last two images above, the "Min x" prompts in the Username and Password fields are nicely formatted, too.
 
