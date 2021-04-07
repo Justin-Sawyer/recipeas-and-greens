@@ -129,7 +129,7 @@
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
                         <p>Please credit the image source (eg: yourself, a website) in the Chef's Notes section.</p>
                         {% if recipe.image_url %}
-                            <p><img src="{{ recipe.image_url }}" id="img-preview" width="100%"/></p>
+                            <p><img src="{{ recipe.image_url }}" id="img-preview" style="width:100%"/></p>
                         {% else %}
                             <p><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" id="img-preview" style="width:100%"/></p>
                         {% endif %}
