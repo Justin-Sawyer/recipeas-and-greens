@@ -208,13 +208,13 @@ This website was tested using the following tools:
 	* [Results](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/validator-results/HTML/)
 
 2. [W3C CSS](https://jigsaw.w3.org/css-validator/) was used to ensure there were no CSS code errors in this project:
-	* [insert CSS]()
+	* [Results](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/validator-results/CSS/)
 
 3. [JSHint](https://jshint.com/) was used for the verification of the JavaScript:
-	* [insert-links.js]()
+	* [Results](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/validator-results/JS/)
 
 4. [Python Validator](http://pep8online.com/) was used for verification of all Python code:
-	* [insert_links.py]()
+	* [Results](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/validator-results/Python/)
 
 5. Google Chrome's Dev Tool was used extensively while writing this website. The JavaScript was tested almost line by line, whether that be in Console (to check for general errors), 
 in Applications (to check for errors in sessionStorage), or Sources (to find the reason(s) pieces of code were not working).
