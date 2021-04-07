@@ -63,10 +63,6 @@
                         <a href="{{ url_for('login') }}" class="btn-floating halfway-fab waves-effect waves-light green darken-2">
                             <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Log In To Add To Favourites!"></i>
                         </a>
-                    {% elif session.user|lower in recipe.created_by and recipe.is_favourite == "on" %}
-                        <button class="btn-floating halfway-fab waves-effect waves-light red">
-                            <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Is Favourite!"> </i>
-                        </button>
                     {% elif session.user|lower in recipe.favourite_of %}
                         <button class="btn-floating halfway-fab waves-effect waves-light red">
                             <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Is Favourite!"> </i>

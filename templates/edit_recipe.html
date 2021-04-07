@@ -108,12 +108,12 @@
                     </div>-->
 
                     <!-- Favourite Of -->
-                    <div class="input-field col s12">
+                    <!--<div class="input-field col s12">
                         <div class="switch">
                             <label for="favourite_of">
                                 Is favourite?
-                                {% if session.user|lower in recipe.favourite_of %}
-                                <input type="checkbox" id="favourite_of" name="favourite_of">
+                                {% if user in recipe.favourite_of %}
+                                    <input type="checkbox" id="favourite_of" name="favourite_of" checked>
                                 {% else %}
                                     <input type="checkbox" id="favourite_of" name="favourite_of">
                                 {% endif %}
@@ -121,7 +121,7 @@
                                 <i class="fas fa-heart prefix loved red-text"></i>
                             </label>
                         </div>
-                    </div>
+                    </div>-->
 
                     <!-- Add files to cloudinary and display them online
                     From Learn with Coffee https://www.youtube.com/watch?v=6uHfIv4981U -->

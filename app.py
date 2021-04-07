@@ -242,7 +242,7 @@ def edit_recipe(recipe_id):
         user = mongo.db.users.find_one(
             {"username": session["user"]})["username"]
 
-        favourite_of = [user] if request.form.get("favourite_of") else [""]
+        # favourite_of = [user] if request.form.get("favourite_of") else [""]
 
         category = {
             "recipe_category": request.form.get("recipe_category")
@@ -278,7 +278,7 @@ def edit_recipe(recipe_id):
             "image_url": request.form.get("recipe_image_url"),
             "recipe_source": request.form.get("recipe_source"),
             "created_by": session["user"],
-            "favourite_of": favourite_of
+            # "favourite_of": favourite_of
         }
 
         mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, submit)
