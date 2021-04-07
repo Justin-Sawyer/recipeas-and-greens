@@ -10,10 +10,10 @@ $(document).ready(function(){
     $('.modal').modal();
     $('.fixed-action-btn').floatingActionButton();
     $('#display-cats').click(function(){
-        $('#cats').toggle(500)
+        $('#cats').toggle(500);
     });
     $('#display-levs').click(function(){
-        $('#levs').toggle(500)
+        $('#levs').toggle(500);
     });
 
 /* Add files to cloudinary and display them online
@@ -26,12 +26,10 @@ var fileUpload = document.getElementById("file-upload");
 var fileUpload1 = document.getElementById("file-upload1");
 
 fileUpload.addEventListener("change", function(event) {
-    console.log(event);
     var file = event.target.files[0];
-    console.log(file)
     var formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET)
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
     axios({
         url: CLOUDINRY_URL,
@@ -41,14 +39,14 @@ fileUpload.addEventListener("change", function(event) {
         },
         data: formData
     }).then(function(res) {
-        console.log(res.data.secure_url)
+        console.log(res.data.secure_url);
         imgPreview.src = res.data.secure_url;
         /*document.getElementById("img-preview")*/
         /*fileUpload.value = res.data.secure_url;*/
         fileUpload1.value = res.data.secure_url;
     }).catch(function(err) {
-        console.log(err)
-    })
+        console.log(err);
+    });
 });
 
 /* From Code Institute Materialize Form Validation video */

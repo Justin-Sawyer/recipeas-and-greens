@@ -120,37 +120,37 @@ the creator of the website intends to use the site to sell a range of kitchen ac
         Ideally, upon uploading the photo of the prepared meal, the user should be shown how the image will appear as a banner, and then be prompted to accept the image or upload another.
 
 - ### Wireframes:
-	[Landing Pages](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/landing-pages.png)
+	[Landing Pages](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/landing-pages.png)
 
-	[Categories](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/categories.png)
+	[Categories](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/categories.png)
 
-	[Level of Difficulty](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/difficulty-level.png)
+	[Level of Difficulty](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/difficulty-level.png)
 
-	[Individual Recipe Example](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/recipe.png)
+	[Individual Recipe Example](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/recipe.png)
 
-	[Sign Up](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/sign-up.png)
+	[Sign Up](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/sign-up.png)
 
-	[Log In](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/login.png)
+	[Log In](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/login.png)
 
-	[Log Out](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/log-out.png)
+	[Log Out](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/log-out.png)
 
-	[My Account](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/my-account.png)
+	[My Account](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/my-account.png)
 
-	[Edit My Account](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/edit-my-account.png)
+	[Edit My Account](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/edit-my-account.png)
 
-	[Change Password](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/change-password.png)
+	[Change Password](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/change-password.png)
 
-	[Upload Recipe](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/upload-recipe.png)
+	[Upload Recipe](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/upload-recipe.png)
 
-	[Edit Recipe](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/edit-recipe.png)
+	[Edit Recipe](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/edit-recipe.png)
 
-	[Delete Recipe](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/delete-recipe.png)
+	[Delete Recipe](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/delete-recipe.png)
 
-	[My Recipes](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/my-recipes.png)
+	[My Recipes](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/my-recipes.png)
 
-	[My Favourite Recipes](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/my-favourites.png)
+	[My Favourite Recipes](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/my-favourites.png)
 
-	[Delete My Account](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/media/wireframes/delete-account.png)
+	[Delete My Account](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/delete-account.png)
 
 ## Features:
 -	This website is fully responsive and interactive.

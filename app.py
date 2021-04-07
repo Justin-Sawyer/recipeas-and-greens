@@ -187,15 +187,6 @@ def add_recipe():
             if not existing_category:
                 categories_collection.insert_one(new_cats)
 
-        # Check if category exists in Database
-        """existing_category = mongo.db.categories.find_one(
-            {"recipe_category": request.form.get("recipe_category")})
-        if existing_category:
-            mongo.db.categories.find_one(
-                {"recipe_category": request.form.get("recipe_category")})
-        else:
-            mongo.db.categories.insert_one(category)"""
-
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
             "recipe_ingredients": request.form.get("recipe_ingredients"),
@@ -205,8 +196,6 @@ def add_recipe():
             "recipe_cooking_time": request.form.get("recipe_cooking_time"),
             "recipe_total_time": request.form.get("recipe_total_time"),
             "recipe_description": request.form.get("recipe_description"),
-            # Ensures categories are displayed as list on recipe pages
-            # "recipe_category": request.form.get("recipe_category"),
             "recipe_category": categories,
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
@@ -242,8 +231,6 @@ def edit_recipe(recipe_id):
         user = mongo.db.users.find_one(
             {"username": session["user"]})["username"]
 
-        # favourite_of = [user] if request.form.get("favourite_of") else [""]
-
         category = {
             "recipe_category": request.form.get("recipe_category")
         }
@@ -269,8 +256,6 @@ def edit_recipe(recipe_id):
             "recipe_cooking_time": request.form.get("recipe_cooking_time"),
             "recipe_total_time": request.form.get("recipe_total_time"),
             "recipe_description": request.form.get("recipe_description"),
-            # Ensures categories are displayed as list on recipe pages
-            # "recipe_category": request.form.get("recipe_category"),
             "recipe_category": categories,
             "recipe_level_of_difficulty": request.form.get(
                 "recipe_level_of_difficulty"),
@@ -278,7 +263,6 @@ def edit_recipe(recipe_id):
             "image_url": request.form.get("recipe_image_url"),
             "recipe_source": request.form.get("recipe_source"),
             "created_by": session["user"],
-            # "favourite_of": favourite_of
         }
 
         mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, submit)
@@ -287,8 +271,8 @@ def edit_recipe(recipe_id):
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
 
-    # Redirect to home page if user who did not create
-    # recipe tries to force edit recipe
+    """Redirect to home page if user who did not create
+    recipe tries to force edit recipe """
     recipe_created_by = mongo.db.recipes.find_one(
         {"_id": ObjectId(recipe_id)})["created_by"]
     username = mongo.db.users.find_one(
@@ -346,8 +330,8 @@ def remove_all_from_favourites_and_delete_account():
     remove_favourite_of = {"$pull": {"favourite_of": username}}
     recipes.update_many(existing_favourite_of, remove_favourite_of)
 
-    # This re-credits all recipes created by the user as
-    # "created by Former Member"
+    """This re-credits all recipes created by the user as
+    "created by Former Member" """
     existing_created_by = {"created_by": session["user"]}
     recredited_created_by = {"$set": {"created_by": "Former Member"}}
     recipes.update_many(existing_created_by, recredited_created_by)
@@ -404,8 +388,8 @@ def category(category_id):
         {"_id": ObjectId(category_id)})["recipe_category"]
     # This gets the levels of difficulty for the search by level of difficulty
     levels = mongo.db.level_of_difficulty.find()
-    # This gets the categories for the search by category and
-    # sorts them alphabetically button
+    """This gets the categories for the search by category and
+    sorts them alphabetically button """
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     recipes = list(mongo.db.recipes.find({"recipe_category": category}))
 
@@ -510,5 +494,4 @@ def special_exception_handler(error):
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            # set to False prior to project submission
-            debug=True)
+            debug=False)

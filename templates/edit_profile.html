@@ -8,9 +8,7 @@
     
 {% endblock %}
 
-{% block content %}
-
-    
+{% block content %}   
     <div class="row">
         <div class="col s12">
             {% if session.user|lower == "administration"|lower %}
@@ -28,9 +26,9 @@
                     <div class="input-field col s12">
                         <!-- Add a profile photo -->
                         {% if user.image_url %}
-                            <p><img src="{{ user.image_url }}" id="img-preview" /></p>
+                            <p><img src="{{ user.image_url }}" id="img-preview" alt="Profile image"/></p>
                         {% else %}
-                            <p><img src="../static/media/images/profile-photo/profile_avatar_placeholder_large.png" id="img-preview" /></p>
+                            <p><img src="../static/media/images/profile-photo/profile_avatar_placeholder_large.png" id="img-preview" alt="Profile image placeholder"/></p>
                         {% endif %}
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                             <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 

@@ -37,7 +37,7 @@
                     <div class="input-field col s12">
                         <i class="fas fa-ellipsis-v prefix green-text text-darken-2"></i>
                         <select id="recipe_level_of_difficulty" name="recipe_level_of_difficulty" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled><p>Level</p></option>
+                            <option value="" disabled>Level</option>
                             {% for level in level_of_difficulty %}
                                 {% if level.recipe_level_of_difficulty == recipe.recipe_level_of_difficulty %}
                                     <option value="{{ level.recipe_level_of_difficulty }}" selected>{{ level.recipe_level_of_difficulty }}</option>
@@ -52,7 +52,7 @@
                     <div class="input-field col s12">
                         <i class="fas fa-sort-numeric-down prefix green-text text-darken-2"></i>
                         <select id="recipe_servings" name="recipe_servings" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled><p>Servings</p></option>
+                            <option value="" disabled>Servings</option>
                             {% for serving in servings %}
                                 {% if serving.recipe_servings == recipe.recipe_servings %}
                                     <option value="{{ serving.recipe_servings }}" selected>{{ serving.recipe_servings }}</option>
@@ -91,47 +91,15 @@
                         <label class="edit-recipe" for="recipe_source">Source:</label>
                     </div>
 
-                    <!-- Is Favourite -->
-                    <!--<div class="input-field col s12">
-                        <div class="switch">
-                            <label for="is_favourite">
-                                Is favourite? 
-                                {% if recipe.is_favourite == "on" %}
-                                    <input type="checkbox" id="is_favourite" name="is_favourite" checked>
-                                {% else %}
-                                    <input type="checkbox" id="is_favourite" name="is_favourite">
-                                {% endif %}
-                                <span class="lever"></span>
-                            </label>
-                            <i class="fas fa-heart loved prefix red-text"></i>
-                        </div>
-                    </div>-->
-
-                    <!-- Favourite Of -->
-                    <!--<div class="input-field col s12">
-                        <div class="switch">
-                            <label for="favourite_of">
-                                Is favourite?
-                                {% if user in recipe.favourite_of %}
-                                    <input type="checkbox" id="favourite_of" name="favourite_of" checked>
-                                {% else %}
-                                    <input type="checkbox" id="favourite_of" name="favourite_of">
-                                {% endif %}
-                                <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to add to favourites"></span>
-                                <i class="fas fa-heart prefix loved red-text"></i>
-                            </label>
-                        </div>
-                    </div>-->
-
                     <!-- Add files to cloudinary and display them online
                     From Learn with Coffee https://www.youtube.com/watch?v=6uHfIv4981U -->
                     <div class="input-field col s12">
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
                         <p>Please credit the image source (eg: yourself, a website) in the Chef's Notes section.</p>
                         {% if recipe.image_url %}
-                            <p><img src="{{ recipe.image_url }}" id="img-preview" style="width:100%"/></p>
+                            <p><img src="{{ recipe.image_url }}" id="img-preview" alt="Recipe image" style="width:100%"/></p>
                         {% else %}
-                            <p><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" id="img-preview" style="width:100%"/></p>
+                            <p><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe image placeholder" id="img-preview" style="width:100%"/></p>
                         {% endif %}
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                             <input id="file-upload" type="file" name="previous_recipe_image_url" style="display:none;" > 
