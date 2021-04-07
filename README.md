@@ -205,7 +205,7 @@ the creator of the website intends to use the site to sell a range of kitchen ac
 This website was tested using the following tools:
 
 1. [W3C HTML](https://validator.w3.org/) was used to verify the HTML code:
-	* [https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/validator-results/HTML](Results)
+	* [Results](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/validator-results/HTML/)
 
 2. [W3C CSS](https://jigsaw.w3.org/css-validator/) was used to ensure there were no CSS code errors in this project:
 	* [insert CSS]()
