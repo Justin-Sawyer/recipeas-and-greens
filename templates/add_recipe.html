@@ -30,7 +30,7 @@
                     <div class="input-field col s12">
                         <i class="fas fa-ellipsis-v prefix green-text text-darken-2"></i>
                         <select id="recipe_level_of_difficulty" name="recipe_level_of_difficulty" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>Level</p></option>
+                            <option value="" disabled selected>Level</option>
                             {% for level in level_of_difficulty %}
                                 <option value="{{ level.recipe_level_of_difficulty }}">{{ level.recipe_level_of_difficulty }}</option>
                             {% endfor %}
@@ -41,7 +41,7 @@
                     <div class="input-field col s12">
                         <i class="fas fa-sort-numeric-down prefix green-text text-darken-2"></i>
                         <select id="recipe_servings" name="recipe_servings" class="green-text text-darken-2 validate" required>
-                            <option value="" disabled selected><p>Servings</p></option>
+                            <option value="" disabled selected>Servings</option>
                             {% for serving in servings %}
                                 <option value="{{ serving.recipe_servings }}">{{ serving.recipe_servings }}</option>
                             {% endfor %}
@@ -77,18 +77,6 @@
                         <label for="recipe_source">Recipea Source</label>
                     </div>
 
-                    <!-- Is Favourite -->
-                    <!--<div class="input-field col s12">
-                        <div class="switch">
-                            <label for="is_favourite">
-                                Is favourite? 
-                                <input type="checkbox" id="is_favourite" name="is_favourite">
-                                <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to add to favourites"></span>
-                                <i class="fas fa-heart prefix loved red-text"></i>
-                            </label>
-                        </div>
-                    </div>-->
-
                     <!-- Favourite Of -->
                     <div class="input-field col s12">
                         <div class="switch">
@@ -114,7 +102,7 @@
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
                         <p>Please credit the image source (eg: yourself, a website) in the Chef's Notes section.</p>
                         <!--<p><img id="output" width="100%" /></p>-->
-                        <p><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" id="img-preview" /></p>
+                        <p><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" id="img-preview" alt="Recipe placeholder image"/></p>
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                             <input id="file-upload" type="file" name="recipe_image_url" style="display:none;"> 
                                 Add Photo <i class="fas fa-camera"></i>
