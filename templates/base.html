@@ -69,7 +69,7 @@
         </header>
 
         <main>
-            <section class="container">
+            <div class="container">
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
                         {% for message in messages %}
@@ -81,7 +81,7 @@
                         {% endfor %}
                     {% endif %}
                 {% endwith %}
-            </section>
+            </div>
             
             <section class="container" style="margin-top:8px">
                 {% block content %}                   
@@ -91,7 +91,7 @@
 
             <section class="parallax-container">
                 <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
-                <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg"></div>
+                <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Lower banner image"></div>
             </section>
         </main>
 
