@@ -22,7 +22,17 @@ mongo = PyMongo(app)
 def get_recipes():
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
+    # Orginal code
     recipes = list(mongo.db.recipes.find().sort("_id", -1))
+    
+    """ First code to limit entries for pagination
+    recipes = list(mongo.db.recipes.find().sort("_id", -1).limit(12))
+    
+    Second code to limit
+    recipes = list(mongo.db.recipes.aggregate([{"$sort": {"_id": -1}}, {"$limit": 12}]))
+    for value in recipes:
+        print(value)
+    """
     return render_template("recipes.html", recipes=recipes,
                            categories=categories, levels=levels,
                            title="Home")
@@ -146,7 +156,7 @@ def edit_profile():
         {"username": session["user"]})["username"]
     recipes_created_by = list(mongo.db.recipes.find({"created_by": username}))
 
-    recipes = mongo.db.recipes.find()
+    recipes = mongo.db.recipes.find().sort("_id", -1)
 
     # If session cookie exists
     if session["user"]:
