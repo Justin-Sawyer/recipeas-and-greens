@@ -22,9 +22,10 @@ mongo = PyMongo(app)
 def get_recipes():
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
-    recipes = list(mongo.db.recipes.find())
+    recipes = list(mongo.db.recipes.find().sort("_id", -1))
     return render_template("recipes.html", recipes=recipes,
-                           categories=categories, levels=levels)
+                           categories=categories, levels=levels,
+                           title="Home")
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -63,7 +64,7 @@ def register():
         flash("Registration successful!")
         return redirect(url_for("profile", username=session["user"]))
 
-    return render_template("register.html")
+    return render_template("register.html", title="Register")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -90,7 +91,7 @@ def login():
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
 
-    return render_template("login.html")
+    return render_template("login.html", title="Log In")
 
 
 @app.route("/profile", methods=["GET", "POST"])
@@ -110,14 +111,15 @@ def profile():
     recipes_created_by = list(mongo.db.recipes.find({"created_by": username}))
     favourites_of = list(mongo.db.recipes.find({"favourite_of": username}))
 
-    recipes = list(mongo.db.recipes.find())
+    recipes = list(mongo.db.recipes.find().sort("_id", -1))
 
     if session["user"]:
         return render_template(
             "profile.html", user=user,
             recipes=recipes, username=username,
             recipes_created_by=recipes_created_by,
-            favourites_of=favourites_of)
+            favourites_of=favourites_of,
+            title=username)
 
     return render_template("profile.html")
 
@@ -151,7 +153,8 @@ def edit_profile():
         return render_template(
             "edit_profile.html", user=user,
             recipes=recipes, username=username,
-            recipes_created_by=recipes_created_by)
+            recipes_created_by=recipes_created_by,
+            title="Edit Profile")
 
     return render_template("edit_profile.html")
 
@@ -213,7 +216,7 @@ def add_recipe():
     servings = mongo.db.servings.find()
     return render_template(
         "add_recipe.html", level_of_difficulty=level_of_difficulty,
-        servings=servings)
+        servings=servings, title="Add Recipea")
 
 
 @app.route("/recipe/<recipe_id>")
@@ -222,7 +225,7 @@ def recipe(recipe_id):
     levels = list(mongo.db.level_of_difficulty.find())
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     return render_template("recipe.html", recipe=recipe, categories=categories,
-                           levels=levels)
+                           levels=levels, title="Recipea")
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
@@ -285,7 +288,7 @@ def edit_recipe(recipe_id):
     return render_template(
         "edit_recipe.html", recipe=recipe,
         level_of_difficulty=level_of_difficulty,
-        servings=servings)
+        servings=servings, title="Edit Recipea")
 
 
 @app.route("/delete_recipe/<recipe_id>")
@@ -378,7 +381,8 @@ def remove_all_from_favourites_and_delete_recipes_and_delete_account():
 @app.route("/get_categories")
 def get_categories():
     categories = mongo.db.categories.find().sort("recipe_category", 1)
-    return render_template("categories.html", categories=categories)
+    return render_template("categories.html", categories=categories,
+                           title="Categories")
 
 
 @app.route("/category/<category_id>")
@@ -395,7 +399,8 @@ def category(category_id):
 
     return render_template("category.html", category=category,
                            levels=levels, recipes=recipes,
-                           categories=categories)
+                           categories=categories,
+                           title="Category")
 
 
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
@@ -409,7 +414,8 @@ def edit_category(category_id):
         return redirect(url_for("get_categories"))
 
     category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-    return render_template("edit_category.html", category=category)
+    return render_template("edit_category.html", category=category,
+                           title="Edit Category")
 
 
 @app.route("/delete_category/<category_id>")
@@ -422,7 +428,8 @@ def delete_category(category_id):
 @app.route("/get_difficulty_levels")
 def get_difficulty_levels():
     levels = list(mongo.db.level_of_difficulty.find())
-    return render_template("difficulty_levels.html", levels=levels)
+    return render_template("difficulty_levels.html", levels=levels,
+                           title="Difficulty Levels")
 
 
 @app.route("/level/<level_id>")
@@ -440,7 +447,8 @@ def level(level_id):
 
     return render_template("level.html", level=level,
                            recipes=recipes, levels=levels,
-                           categories=categories)
+                           categories=categories,
+                           title="Level of Difficulty")
 
 
 @app.route("/edit_levels/<level_id>", methods=["GET", "POST"])
@@ -456,7 +464,8 @@ def edit_levels(level_id):
         return redirect(url_for("get_difficulty_levels"))
 
     level = mongo.db.level_of_difficulty.find_one({"_id": ObjectId(level_id)})
-    return render_template("edit_levels.html", level=level)
+    return render_template("edit_levels.html", level=level,
+                           title="Edit Level of Difficulty")
 
 
 @app.route("/delete_level/<level_id>")
@@ -494,4 +503,4 @@ def special_exception_handler(error):
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)

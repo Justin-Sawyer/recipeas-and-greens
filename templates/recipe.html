@@ -7,7 +7,7 @@
                 <img src="{{ recipe.image_url }}" alt="Recipe banner">
             {% else %}
                 <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
-                <img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Banner image">
+                <img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Banner image">
             {% endif %}
         </div>
     </div>

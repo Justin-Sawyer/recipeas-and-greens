@@ -3,7 +3,7 @@
 
     <div class="parallax-container">
         <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
-        <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Banner image"></div>
+        <div class="parallax"><img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Banner image"></div>
     </div>
     
 {% endblock %}
@@ -102,7 +102,7 @@
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
                         <p>Please credit the image source (eg: yourself, a website) in the Chef's Notes section.</p>
                         <!--<p><img id="output" width="100%" /></p>-->
-                        <p><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" id="img-preview" alt="Recipe placeholder image"/></p>
+                        <p><img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" id="img-preview" alt="Recipe placeholder image"/></p>
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                             <input id="file-upload" type="file" name="recipe_image_url" style="display:none;"> 
                                 Add Photo <i class="fas fa-camera"></i>

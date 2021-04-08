@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block banner %}
-
     <div class="parallax-container">
-        {% if recipe.image_url %}
-            <div class="parallax"><img src="{{ recipe.image_url }}" alt="Recipe banner"></div>
-        {% else %}
-            <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Banner image"></div>
-        {% endif %}
+        <div class="parallax">
+            {% if recipe.image_url %}
+                <img src="{{ recipe.image_url }}" alt="Recipe banner">
+            {% else %}
+                <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
+                <img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Banner image">
+            {% endif %}
+        </div>
     </div>
-
 {% endblock%}
 
 {% block content %}
@@ -99,7 +100,7 @@
                         {% if recipe.image_url %}
                             <p><img src="{{ recipe.image_url }}" id="img-preview" alt="Recipe image" style="width:100%"/></p>
                         {% else %}
-                            <p><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe image placeholder" id="img-preview" style="width:100%"/></p>
+                            <p><img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Recipe image placeholder" id="img-preview" style="width:100%"/></p>
                         {% endif %}
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                             <input id="file-upload" type="file" name="previous_recipe_image_url" style="display:none;" > 

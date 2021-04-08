@@ -3,7 +3,7 @@
 
     <div class="parallax-container">
         <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
-        <div class="parallax"><img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Banner image"></div>
+        <div class="parallax"><img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Banner image"></div>
     </div>
     
 {% endblock %}
@@ -28,7 +28,7 @@
                         {% if user.image_url %}
                             <p><img src="{{ user.image_url }}" id="img-preview" alt="Profile image"/></p>
                         {% else %}
-                            <p><img src="../static/media/images/profile-photo/profile_avatar_placeholder_large.png" id="img-preview" alt="Profile image placeholder"/></p>
+                            <p><img src="{{ url_for('static', filename='media/images/profile-photo/profile_avatar_placeholder_large.png') }}" id="img-preview" alt="Profile image placeholder"/></p>
                         {% endif %}
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                             <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
