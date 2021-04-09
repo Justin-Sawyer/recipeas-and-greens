@@ -25,7 +25,7 @@ recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
 def get_all_recipes(page, offset=0, per_page=10):
     offset = (page-1) * 12
     return recipes[offset: offset + per_page]
-# RECIPES_PER_PAGE = 5
+
 
 @app.route("/")
 @app.route("/get_recipes")
@@ -50,18 +50,22 @@ def get_recipes():
                            per_page=per_page,
                            pagination=pagination,
                            title="Home")
+
+
 """
 def get_recipes(last_id=None):
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
     # Orginal code
-    recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING).limit(12))
-    
+    recipes = list(mongo.db.recipes.find().sort(
+        "_id", pymongo.DESCENDING).limit(12))
+
     "" First code to limit entries for pagination
     recipes = list(mongo.db.recipes.find().sort("_id", -1).limit(12))
-    
+
     Second code to limit
-    recipes = list(mongo.db.recipes.aggregate([{"$sort": {"_id": -1}}, {"$limit": 12}]))
+    recipes = list(mongo.db.recipes.aggregate(
+        [{"$sort": {"_id": -1}}, {"$limit": 12}]))
     for value in recipes:
         print(value)
     """
@@ -69,7 +73,8 @@ def get_recipes(last_id=None):
     if last_id:  # If there was a last id, start the search from there
         recipes = mongo.db.recipes.find({'_id': {'$lt': last_id}}).limit(12)
     else:  # If there was no last_id start from the beginning
-        recipes = list(mongo.db.recipes.find().sort('_id', pymongo.DESCENDING).limit(12))
+        recipes = list(mongo.db.recipes.find().sort(
+            '_id', pymongo.DESCENDING).limit(12))
     last_id = None  # Makes last_id None if nothing found in database
     if len(recipes) > 0:
         last_id = recipes[-1]['_id']
@@ -282,8 +287,8 @@ def recipe(recipe_id):
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if request.method == "POST":
-        user = mongo.db.users.find_one(
-            {"username": session["user"]})["username"]
+        # user = mongo.db.users.find_one(
+        # {"username": session["user"]})["username"]
 
         category = {
             "recipe_category": request.form.get("recipe_category")
