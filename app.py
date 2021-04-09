@@ -3,7 +3,7 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
 # https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9
-from flask-paginate import Pagination, get_page_args
+from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
