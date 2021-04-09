@@ -54,6 +54,7 @@
     
     <!-- Recipes block -->
     <div class="row">
+        {{ pagination.links }}
         {% if recipes|length > 0 %}  
         <ul class="recipe-list">
             {% for recipe in recipes %}
@@ -131,7 +132,7 @@
             </li>
             {% endfor %}
         </ul>
-        
+        {{ pagination.links }}
         {% else %}
         <div class="col s12">
             <h2> No recipeas match your search. Please try again!</h2>

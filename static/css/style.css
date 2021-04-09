@@ -53,6 +53,10 @@ img {
     margin-left: 0!important;
 }
 
+.pagination li.active {
+    background-color: #428e3c;
+}
+
 /* ------------------------------------------------------------------------ Navigation & Parralax */
 nav .brand-logo {
     padding: 0 0 0 8px;

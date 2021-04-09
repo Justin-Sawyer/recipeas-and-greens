@@ -2,7 +2,9 @@ import os
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
-from flask_pymongo import PyMongo
+# https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9
+from flask_paginate import Pagination, get_page_args
+from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -17,15 +19,45 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
+
+
+def get_all_recipes(page, offset=0, per_page=10):
+    offset = (page-1) * 12
+    return recipes[offset: offset + per_page]
+# RECIPES_PER_PAGE = 5
+
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
+
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+    per_page = 12
+    total = len(recipes)
+    pagination_recipes = get_all_recipes(
+        page=page, offset=offset, per_page=per_page)
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='materializecss')
+
+    return render_template("recipes.html",
+                           categories=categories,
+                           levels=levels,
+                           recipes=pagination_recipes,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination,
+                           title="Home")
+"""
+def get_recipes(last_id=None):
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
     # Orginal code
-    recipes = list(mongo.db.recipes.find().sort("_id", -1))
+    recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING).limit(12))
     
-    """ First code to limit entries for pagination
+    "" First code to limit entries for pagination
     recipes = list(mongo.db.recipes.find().sort("_id", -1).limit(12))
     
     Second code to limit
@@ -33,9 +65,18 @@ def get_recipes():
     for value in recipes:
         print(value)
     """
+"""
+    if last_id:  # If there was a last id, start the search from there
+        recipes = mongo.db.recipes.find({'_id': {'$lt': last_id}}).limit(12)
+    else:  # If there was no last_id start from the beginning
+        recipes = list(mongo.db.recipes.find().sort('_id', pymongo.DESCENDING).limit(12))
+    last_id = None  # Makes last_id None if nothing found in database
+    if len(recipes) > 0:
+        last_id = recipes[-1]['_id']
+    ""
     return render_template("recipes.html", recipes=recipes,
                            categories=categories, levels=levels,
-                           title="Home")
+                           title="Home")"""
 
 
 @app.route("/search", methods=["GET", "POST"])
