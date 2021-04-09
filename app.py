@@ -3,7 +3,7 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
 # https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9
-from flask_paginate import Pagination, get_page_args
+from flask-paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -60,7 +60,7 @@ def get_recipes(last_id=None):
     recipes = list(mongo.db.recipes.find().sort(
         "_id", pymongo.DESCENDING).limit(12))
 
-    "" First code to limit entries for pagination
+    # First code to limit entries for pagination
     recipes = list(mongo.db.recipes.find().sort("_id", -1).limit(12))
 
     Second code to limit
@@ -68,8 +68,7 @@ def get_recipes(last_id=None):
         [{"$sort": {"_id": -1}}, {"$limit": 12}]))
     for value in recipes:
         print(value)
-    """
-"""
+    
     if last_id:  # If there was a last id, start the search from there
         recipes = mongo.db.recipes.find({'_id': {'$lt': last_id}}).limit(12)
     else:  # If there was no last_id start from the beginning
@@ -78,10 +77,11 @@ def get_recipes(last_id=None):
     last_id = None  # Makes last_id None if nothing found in database
     if len(recipes) > 0:
         last_id = recipes[-1]['_id']
-    ""
+    
     return render_template("recipes.html", recipes=recipes,
                            categories=categories, levels=levels,
-                           title="Home")"""
+                           title="Home")
+"""
 
 
 @app.route("/search", methods=["GET", "POST"])
