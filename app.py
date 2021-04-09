@@ -90,7 +90,7 @@ def search():
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
     recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
-    return render_template("recipes.html", recipes=recipes,
+    return render_template("search.html", recipes=recipes,
                            categories=categories, levels=levels,
                            query=query)
 
@@ -559,4 +559,4 @@ def special_exception_handler(error):
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)

@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block banner %}
+    <div class="parallax-container">
+        <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
+        <div class="parallax"><img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Banner image"></div>
+    </div>   
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col s12">
+            <h1 class="title">Welcome to Recipeas and Greens!</h1>
+        </div>
+    </div>  
+    
+    <!-- General Search -->
+    <div class="row">
+        <div class="col s12">
+            <h2>Looking for a specific Recipea?</h2>
+            <form action="{{ url_for('search') }}" method="post">
+                <div class="row center-align">
+                    <div class="input-field col s12">
+                        <i class="fas fa-search prefix green-text text-darken-2"></i>
+                        <input type="text" name="query" id="query" minlength="3" class="validate" required>
+                        <label for="query">Search Recipeas</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn green darken-2">
+                    <i class="fas fa-search left"></i> Search
+                </button>
+                <a href="{{ url_for('get_recipes') }}" class="red btn text-shadow">Clear Search</a>
+            </form> 
+        </div>    
+    </div>
+
+    <!-- Search by category/level of difficulty only -->
+    <div class="row">
+        <div class="col s12">
+            <h2>Looking for Recipea ideas?</h2>
+            <button class="btn category-buttons green darken-2" id="display-cats">Search by Category</button>
+            <button class="btn category-buttons green darken-2" id="display-levs">Search by Level of Difficulty</button>
+        </div>
+        <div class="col s12" id="cats" style="display:none">
+            {% for category in categories %}
+                <a class="btn category-button-links cinnamon" href="{{ url_for('category', category_id=category._id)}}">{{ category.recipe_category}}</a>
+            {% endfor %}
+        </div>
+        <div class="col s12" id="levs" style="display:none">
+            {% for level in levels %}
+                <a class="btn category-button-links cinnamon" href="{{ url_for('level', level_id=level._id)}}">{{ level.recipe_level_of_difficulty }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Recipes block -->
+    <div class="row">
+        {% if recipes|length > 0 %}  
+        <ul class="recipe-list">
+            {% for recipe in recipes %}
+            <li class="col s12 m6 l4 recipe-list-item">
+                <div class="card">
+                    {% if not session.user %}
+                        <a href="{{ url_for('login') }}" class="btn-floating halfway-fab waves-effect waves-light green darken-2">
+                            <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Log In To Add To Favourites!"></i>
+                        </a>
+                    {% elif session.user|lower in recipe.favourite_of %}
+                        <button class="btn-floating halfway-fab waves-effect waves-light red">
+                            <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Is Favourite!"> </i>
+                        </button>
+                    {% else %}
+                        <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-floating halfway-fab waves-effect waves-light green darken-2">
+                            <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
+                        </a>
+                    {% endif %}
+
+                    <div class="card-image waves-effect waves-block waves-light">
+                        {% if recipe.image_url %}
+                            <img class="activator img-in-card" src="{{ recipe.image_url }}" alt="Recipe photo">
+                        {% else%}
+                            <img class="activator img-in-card" src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe photo">
+                        {% endif %}
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator cinnamon-text">
+                            <i class="fas fa-ellipsis-v right"></i><strong>{{ recipe.recipe_name }}</strong></span>
+                        <p><a href="{{ url_for('recipe', recipe_id=recipe._id)}}">Go to Recipea</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title cinnamon-text">
+                            <i class="far fa-times-circle right"></i>
+                            <strong>{{ recipe.recipe_name }}</strong>
+                                </span>
+                        <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
+                        <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
+
+                        <!-- Open recipe -->
+                        <a href="{{ url_for('recipe', recipe_id=recipe._id)}}" class="s12 btn-small recipe-action green darken-2">Go to Recipea <i class="fas fa-external-link-alt"></i></a>                       
+                        
+                        {% if session.user|lower in recipe.created_by %}
+                            {% if session.user|lower in recipe.favourite_of %}
+                                <!-- Switch "is_favourite" to off in MongoDB -->
+                                <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Remove from Favourites 
+                                    <i class="fas fa-heart-broken"></i>
+                                </a>
+                            {% elif not session.user|lower in recipe.favourite_of %}
+                                <!-- Switch "is_favourite" to off in MongoDB -->
+                                <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action green darken-2">Add to Favourites 
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            {% endif %}
+                            <!-- Edit recipe -->
+                            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small btn-block recipe-action edit-button cinnamon">Edit <i class="fas fa-edit"></i></a>
+                            <!-- Delete recipe -->
+                            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Delete <i class="fas fa-trash-alt"></i></a>
+                        {% elif not session.user|lower in recipe.created_by%}
+                            {% if session.user|lower in recipe.favourite_of %}
+                                <!-- Switch "is_favourite" to off in MongoDB -->
+                                <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Remove from Favourites 
+                                    <i class="fas fa-heart-broken"></i>
+                                </a>
+                            {% elif not session.user|lower in recipe.favourite_of %}
+                                <!-- Switch "is_favourite" to off in MongoDB -->
+                                <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action green darken-2">Add to Favourites 
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="col s12">
+            <h2> No recipeas match your search. Please try again!</h2>
+        </div> 
+        {% endif %}
+    </div>
+
+    <div class="row">
+        {% if session.user|lower == "administration"|lower %}   
+        <div class="col s12">
+            <a class="btn" href="{{ url_for('get_categories') }}">Manage Categories</a>
+            <a class="btn" href="{{ url_for('get_difficulty_levels') }}">Manage Levels of Difficulty</a>
+        </div> 
+        {% endif %}
+    </div>
+
+{% endblock %}
