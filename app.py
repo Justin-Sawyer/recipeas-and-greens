@@ -23,7 +23,7 @@ mongo = PyMongo(app)
 # total_recipes = len(recipes)
 # print('total_recipes = ', total_recipes)
 
-
+# https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9
 def get_all_recipes(recipes, page, offset=0, per_page=10):
     offset = (page-1) * 12
     return recipes[offset: offset + per_page]
@@ -37,15 +37,13 @@ def get_recipes():
 
     recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
 
+    # Pagination: https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
     per_page = 12
     total = len(recipes)
-
     pagination_recipes = get_all_recipes(recipes, 
-        page=page, offset=offset, per_page=per_page)
-    total2 = len(pagination_recipes)
-    print(total2)
+        page=page, offset=offset, per_page=per_page)        
     pagination = Pagination(page=page, per_page=per_page, total=total,
                             css_framework='materializecss')
 
@@ -461,7 +459,7 @@ def category(category_id):
     """This gets the categories for the search by category and
     sorts them alphabetically button """
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
-    recipes = list(mongo.db.recipes.find({"recipe_category": category}))
+    recipes = list(mongo.db.recipes.find({"recipe_category": category}).sort("_id", pymongo.DESCENDING))
 
     return render_template("category.html", category=category,
                            levels=levels, recipes=recipes,
@@ -509,7 +507,7 @@ def level(level_id):
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
 
     recipes = list(mongo.db.recipes.find(
-        {"recipe_level_of_difficulty": level}))
+        {"recipe_level_of_difficulty": level}).sort("_id", pymongo.DESCENDING))
 
     return render_template("level.html", level=level,
                            recipes=recipes, levels=levels,
