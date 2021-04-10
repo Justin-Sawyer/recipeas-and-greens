@@ -33,6 +33,8 @@ def get_recipes():
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
 
+    recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
+
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
     per_page = 12
@@ -57,6 +59,7 @@ def get_recipes(last_id=None):
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
     # Orginal code
+    recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
     recipes = list(mongo.db.recipes.find().sort(
         "_id", pymongo.DESCENDING).limit(12))
 
