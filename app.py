@@ -19,10 +19,12 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
+# recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
+# total_recipes = len(recipes)
+# print('total_recipes = ', total_recipes)
 
 
-def get_all_recipes(page, offset=0, per_page=10):
+def get_all_recipes(recipes, page, offset=0, per_page=10):
     offset = (page-1) * 12
     return recipes[offset: offset + per_page]
 
@@ -39,8 +41,11 @@ def get_recipes():
                                            per_page_parameter='per_page')
     per_page = 12
     total = len(recipes)
-    pagination_recipes = get_all_recipes(
+
+    pagination_recipes = get_all_recipes(recipes, 
         page=page, offset=offset, per_page=per_page)
+    total2 = len(pagination_recipes)
+    print(total2)
     pagination = Pagination(page=page, per_page=per_page, total=total,
                             css_framework='materializecss')
 
@@ -53,20 +58,22 @@ def get_recipes():
                            pagination=pagination,
                            title="Home")
 
-
 """
-def get_recipes(last_id=None):
+@app.route("/")
+@app.route("/get_recipes")
+def get_recipes():
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     levels = list(mongo.db.level_of_difficulty.find())
     # Orginal code
     recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
-    recipes = list(mongo.db.recipes.find().sort(
-        "_id", pymongo.DESCENDING).limit(12))
+    # recipes = list(mongo.db.recipes.find().sort(
+    #    "_id", pymongo.DESCENDING).limit(12))
 
     # First code to limit entries for pagination
-    recipes = list(mongo.db.recipes.find().sort("_id", -1).limit(12))
+    # recipes = list(mongo.db.recipes.find().sort("_id", -1).limit(12))
 
-    Second code to limit
+    # Second code to limit
+    
     recipes = list(mongo.db.recipes.aggregate(
         [{"$sort": {"_id": -1}}, {"$limit": 12}]))
     for value in recipes:
@@ -83,8 +90,8 @@ def get_recipes(last_id=None):
     
     return render_template("recipes.html", recipes=recipes,
                            categories=categories, levels=levels,
-                           title="Home")
-"""
+                           title="Home")"""
+
 
 
 @app.route("/search", methods=["GET", "POST"])

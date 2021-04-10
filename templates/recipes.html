@@ -53,9 +53,7 @@
     </div>
     
     <!-- Recipes block -->
-    <div class="row">
-        {{ pagination.links }}
-        {% if recipes|length > 0 %}  
+    <div class="row">        
         <ul class="recipe-list">
             {% for recipe in recipes %}
             <li class="col s12 m6 l4 recipe-list-item">
@@ -132,12 +130,6 @@
             </li>
             {% endfor %}
         </ul>
-        {{ pagination.links }}
-        {% else %}
-        <div class="col s12">
-            <h2> No recipeas match your search. Please try again!</h2>
-        </div> 
-        {% endif %}
     </div>
 
     <div class="row">
