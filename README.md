@@ -296,7 +296,7 @@ While building this website, the developer noticed a few things that were differ
 
 Firstly, the categories were displaying in order of creation rather than in reverse order of creation. In other words, the most recently added category was always the last to be seen on the user's device. Thus, if the first Asian recipe was created AFTER the creation of a recipe with a category of Sauces, then the Asian category was being displayed after the Sauces category, and thus seemed out of sequence:
 
-<img src="static/media/testing-screenshots/recipe-category-order/category-order-out-of-sequence.png">
+<img src="static/documentation/testing-screenshots/recipe-category-order/category-order-out-of-sequence.png">
 
 In all the pages where the user can search by category, this was true. The source code for this functionality is:
 
@@ -306,7 +306,7 @@ A simple addition to the categories variable in the Python source code allows th
 
 `categories = list(mongo.db.categories.find().sort("recipe_category", 1))`
 
-<img src="static/media/testing-screenshots/recipe-category-order/category-order-alphabetical.png">
+<img src="static/documentation/testing-screenshots/recipe-category-order/category-order-alphabetical.png">
 
 It was decided to simply create a collection of Levels of Difficulty inside of MongoDB itself. Since the three levels (Quick & Easy, Challenging and Difficult) do not have a natural sequence order (for example, they are out of sequence order when sequenced alphabetically) it seemed more logical to create this collection by hand and call these levels as they are within the database:
 
