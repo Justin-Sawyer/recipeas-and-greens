@@ -144,8 +144,9 @@ The website is free to use and recipes are by design exposed (and thus accesible
 
 	[Font Awesome v4.7.0](https://fontawesome.com/v4.7.0/) was used for the social icons used on this site, since they are so easily recognisable.
 
-	[The Flask Framework](https://flask.palletsprojects.com/en/1.1.x/) was used as a framework as it includes both the [Werkzeug](https://palletsprojects.com/p/werkzeug/) utility and 
-    [Jinja](https://palletsprojects.com/p/jinja/) template engine.
+	[The Flask Framework](https://flask.palletsprojects.com/en/1.1.x/) was used as a framework.
+
+	The [Werkzeug](https://palletsprojects.com/p/werkzeug/), [flask_paginate](https://pypi.org/project/flask-paginate/), [flask_pymongo](https://pypi.org/project/Flask-PyMongo/) utilities form an integral part of this project, as does [Jinja](https://palletsprojects.com/p/jinja/), the template engine.
 
 	[MongoDB](https://www.mongodb.com/3) was used as the Database host.
 

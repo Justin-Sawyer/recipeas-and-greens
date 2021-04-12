@@ -42,7 +42,8 @@ fileUpload.addEventListener("change", function(event) {
         console.log(res.data.secure_url);
         imgPreview.src = res.data.secure_url;
         /*document.getElementById("img-preview")*/
-        /*fileUpload.value = res.data.secure_url;*/
+        /*fileUpload.value = res.data.secure_url; 
+        */
         fileUpload1.value = res.data.secure_url;
     }).catch(function(err) {
         console.log(err);
