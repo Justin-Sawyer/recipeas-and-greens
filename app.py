@@ -72,7 +72,7 @@ def get_recipes():
     #    "_id", pymongo.DESCENDING).limit(12))
 
     # First code to limit entries for pagination
-    # recipes = list(mongo.db.recipes.find().sort("_id", -1).limit(12))
+    # recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING).limit(12))
 
     # Second code to limit
 
@@ -178,7 +178,7 @@ def profile():
     recipes_created_by = list(mongo.db.recipes.find({"created_by": username}))
     favourites_of = list(mongo.db.recipes.find({"favourite_of": username}))
 
-    recipes = list(mongo.db.recipes.find().sort("_id", -1))
+    recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
 
     if session["user"]:
         return render_template(
@@ -213,7 +213,7 @@ def edit_profile():
         {"username": session["user"]})["username"]
     recipes_created_by = list(mongo.db.recipes.find({"created_by": username}))
 
-    recipes = mongo.db.recipes.find().sort("_id", -1)
+    recipes = mongo.db.recipes.find().sort("_id", pymongo.DESCENDING)
 
     # If session cookie exists
     if session["user"]:
@@ -462,8 +462,7 @@ def category(category_id):
     """This gets the categories for the search by category and
     sorts them alphabetically button """
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
-    recipes = list(mongo.db.recipes.find(
-        {"recipe_category": category}).sort("_id", pymongo.DESCENDING))
+    recipes = list(mongo.db.recipes.find({"recipe_category": category}).sort("_id", pymongo.DESCENDING))
 
     return render_template("category.html", category=category,
                            levels=levels, recipes=recipes,
