@@ -37,13 +37,16 @@ def get_recipes():
 
     recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
 
-    # Pagination: https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9
+    # Pagination:
+    # https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
     per_page = 12
     total = len(recipes)
-    pagination_recipes = get_all_recipes(recipes, 
-        page=page, offset=offset, per_page=per_page)        
+    pagination_recipes = get_all_recipes(recipes,
+                                         page=page,
+                                         offset=offset,
+                                         per_page=per_page)
     pagination = Pagination(page=page, per_page=per_page, total=total,
                             css_framework='materializecss')
 
@@ -55,6 +58,7 @@ def get_recipes():
                            per_page=per_page,
                            pagination=pagination,
                            title="Home")
+
 
 """
 @app.route("/")
@@ -71,12 +75,12 @@ def get_recipes():
     # recipes = list(mongo.db.recipes.find().sort("_id", -1).limit(12))
 
     # Second code to limit
-    
+
     recipes = list(mongo.db.recipes.aggregate(
         [{"$sort": {"_id": -1}}, {"$limit": 12}]))
     for value in recipes:
         print(value)
-    
+
     if last_id:  # If there was a last id, start the search from there
         recipes = mongo.db.recipes.find({'_id': {'$lt': last_id}}).limit(12)
     else:  # If there was no last_id start from the beginning
@@ -85,11 +89,10 @@ def get_recipes():
     last_id = None  # Makes last_id None if nothing found in database
     if len(recipes) > 0:
         last_id = recipes[-1]['_id']
-    
+
     return render_template("recipes.html", recipes=recipes,
                            categories=categories, levels=levels,
                            title="Home")"""
-
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -459,7 +462,8 @@ def category(category_id):
     """This gets the categories for the search by category and
     sorts them alphabetically button """
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
-    recipes = list(mongo.db.recipes.find({"recipe_category": category}).sort("_id", pymongo.DESCENDING))
+    recipes = list(mongo.db.recipes.find(
+        {"recipe_category": category}).sort("_id", pymongo.DESCENDING))
 
     return render_template("category.html", category=category,
                            levels=levels, recipes=recipes,
