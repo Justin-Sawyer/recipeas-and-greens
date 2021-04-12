@@ -168,12 +168,10 @@ This website was tested using the following tools:
 4. [Python Validator](http://pep8online.com/) was used for verification of all Python code:
 	* [Results](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/validator-results/Python/)
 
-5. Google Chrome's Dev Tool was used extensively while writing this website. The JavaScript was tested almost line by line, whether that be in Console (to check for general errors), 
-in Applications (to check for errors in sessionStorage), or Sources (to find the reason(s) pieces of code were not working).
+5. Google Chrome's Dev Tool was used extensively while writing this website.
 
-6. The [Lighthouse plugin for Google Chrome](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl) was used for speed checking and "tweaking" 
-settings for maximal optimisation for web deployment.
-	* [insert-links.html]()
+6. The [Lighthouse plugin for Google Chrome](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl) was used for speed checking and "tweaking" settings for maximal optimisation for web deployment.
+	* [Results (pdf files)](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/lighthouse/)
 
 ## Code Testing
 This project has been a labour of love and has taken many, many hours to complete. Code was tested exhaustively to check for errors and bugs:
