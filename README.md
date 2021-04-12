@@ -312,7 +312,243 @@ It was decided to simply create a collection of Levels of Difficulty inside of M
 
 `levels = list(mongo.db.level_of_difficulty.find())`
 
+Secondly, the recipes were displaying in order of creation rather than in reverse order of creation. In other words, the most recently added recipe was always the last to be seen on the user's device. The stated goal for the ideal user experience was to display the most recently uploaded recipe first, in order that the user is not endlessly scrolling through an ever-growing list of recipes before finding one (s)he has not yet tried.
 
+Since the recipes are being called in essantially the same way as are the categories and difficulty levels (`recipes = list(mongo.db.recipes.find())`), the developer chose to a different `sort()` criteria:
+
+At first, the developer decided that since MongoDB database ids should always be rising in value, a simple "minus 1" sort should suffice:
+
+`recipes = list(mongo.db.recipes.find().sort("_id", -1))`
+
+However, the developer was unsure whether rising id numbers would always be the case. Since the developer has imported the pymongo module from [flask_pymongo](https://pypi.org/project/Flask-PyMongo/), and since this module has a DESCENDING class, using this class should guarantee that if the id sequences ever do change, finding this capitalised class within the code would be easier than finding a -1. Thus, the final code reads:
+
+`recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))`
+
+An alternative to this would be to add a "creation_date" field to the Recipes collection in the database, but since the user doesn't really need to know when a recipe was created in order to make that recipe, the above, simpler solution was favoured.
+
+### Pagination
+
+The developer researched different ways to paginate the recipes that will be displayed on the Home page. In the end, it was decided that using [flask_paginate](https://pypi.org/project/flask-paginate/) would be the simplest option. 
+
+However, [flask_paginate](https://pypi.org/project/flask-paginate/) has a built in setting that needed changing to better suit this website:
+		
+The built in setting for pagination is that pagination should occur for every tenth item. 
+
+Since this website caters for different width screen sizes and since 10 is not the most divisible of numbers, the user may be confused into thinking (s)he has reached the end of all listed recipes prematurely:
+
+A full size screen shows three recipes in a row before breaking to the next row. Thus, with each page, the user sees three full rows of recipes and then a row with one single recipe. While the user is presented with pagination numbers and arrows both above and below these rows of recipes, to avoid any confusion it was thought best to paginate at 12 recipes. Thus if the users accesses from a mobile (showing one recipe before breaking to the next row), a tablet (showing two or three recipes before breaking, depending on the orientation) or a full size screen (showing 3 before breaking), the only page ever to perhaps not be filled is the very last page. 
+
+Paginating at 12 also allows the developer to change functionality to show 1, 2, 3, 4 or 6 recipes per row before breaking to the next row, should the site grow. At the moment, the developer has chosen larger elements such as recipe images in cards over amount of recipes per screen rendering, as a larger image naturally draws more people in: an image speaks a thousand words, after all.
+
+As can be seen on the [flask-paginate github gist page](https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9), the original code reads as follows:
+
+```
+users = list(range(100))
+
+
+def get_users(offset=0, per_page=10):
+    return users[offset: offset + per_page]
+
+
+@app.route('/')
+def index():
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+    total = len(users)
+    pagination_users = get_users(offset=offset, per_page=per_page)
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='bootstrap4')
+    return render_template('index.html',
+                           users=pagination_users,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination,
+                           )
+```
+
+The developer first changed thes code blocks to suit the Recipeas and Greens applicattion: 
+
+```
+recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
+
+def get_all_recipes(offset=0, per_page=10):
+    return recipes[offset: offset + per_page]
+
+@app.route("/")
+@app.route("/get_recipes")
+def get_recipes():
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+
+    # recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
+
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+    
+    total = len(recipes)
+    pagination_recipes = get_all_recipes(offset=offset,
+                                         per_page=per_page)
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='materializecss')
+
+    return render_template("recipes.html",
+                           categories=categories,
+                           levels=levels,
+                           recipes=pagination_recipes,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination,
+                           title="Home")
+```
+
+(Side note: Note the change of css_framework from bootstrap4 to materializecss: Recipeas and Greens is based around [Materialize](https://materializecss.com/) and is not using Bootstrap for this project)
+
+It would have been easy to assume that simply changing the integer in the `get_users()` function would change the pagination number, and this is indeed what the developer tried first:
+
+```
+def get_users(offset=0, per_page=12):
+    return users[offset: offset + per_page]
+```
+
+This however did not change the pagination default. Reading further into the documentation, the developer saw various comments regarding changing this default.
+
+It was [suggested](https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9#gistcomment-3110496) firstly to re-assign the `per_page` value: in other words to insert a new `per_page` value inside of the main function. Thus, `per_page = 12` was inserted directly before the `total = len(recipes)` line of code. This however had no effect, the site was still breaking to a new page after every 10th recipe.
+
+Reading further, [another solution was proposed](https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9#gistcomment-3236127). The developer again adapted this solution to the code for this application, but was still seeing no difference when rendering the page.
+
+It was through using a combination of these solutions that the developer was able to paginate after every 12th recipe. Beneath is the solution the developer used:
+
+```
+recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
+
+def get_all_recipes(page, offset=0, per_page=10):
+    offset = (page-1) * 12
+    return recipes[offset: offset + per_page]
+
+@app.route("/")
+@app.route("/get_recipes")
+def get_recipes():
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+
+    # recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
+
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+    per_page = 12
+    total = len(recipes)
+    pagination_recipes = get_all_recipes(page=page,
+                                         offset=offset,
+                                         per_page=per_page)
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='materializecss')
+
+    return render_template("recipes.html",
+                           categories=categories,
+                           levels=levels,
+                           recipes=pagination_recipes,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination,
+                           title="Home")
+```
+
+The develpoer tested this code and indeed, the pagination was working. So, the code was pushed to GitHub.
+
+Everything seemed fine until the developer decided to add a new recipe, to further test the functionality of pagination.
+
+The developer now found that adding a new recipe to the database did not show this new recipe rendered on the page. The developer checked the database, and the recipe had indeed been created. The developer then tried to searech for this new recipe using the search functionality of the application. Upon doing so, the developer found a second problem, which will be discussed in the next point (see "Search", below).
+
+Upon fixing the search functionality (see below), the developer could now access the recipe by its name. So, why was it not showing up in the full list of recipes?
+
+Effectively, calling the `recipes` variable globally was causing the problem: since this variable was being called BEFORE the `get_recipes()` function was run meant that any changes after the function was run were not being reflected in the total amount of recipes. This of course is fine if we are not adding new recipes, and the amount of recipes never changes. But the point of this application is to add new recipes as we discover them, and more importantly, be able to access those new recipes once they are created!
+
+The developer realised he needed to call the `recipes` variable from within the `get_recipes()` function.
+
+He uncommented the recipes variable within the function and then again added a new recipe. Again, this new recipe was not displaying. 
+
+He then realised he needed to find a way for the two functions (`get_all_recipes()` and `get_recipes()`) to call the updated database entries to find the newly uploadeds recipe.
+
+Thus, the developer removed the global recipes variable, kept the local recipes variable (uncommented) and inserted this local variable as an argument to the `get_all_recipes()` function, and also add this local variable to the `pagination_recipes` assignment.
+
+Having done this, full functionality was added to the HTML rendering of the application: recipes were showing as they were created. Deleting recipes also showed the correct database collection length. 
+
+The final code block (showing the commented out global `recipes` variable, which in reality has been deleted from the code):
+
+```
+# recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
+
+def get_all_recipes(recipes, page, offset=0, per_page=10):
+    offset = (page-1) * 12
+    return recipes[offset: offset + per_page]
+
+
+@app.route("/")
+@app.route("/get_recipes")
+def get_recipes():
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+
+    recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
+
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+    per_page = 12
+    total = len(recipes)
+    pagination_recipes = get_all_recipes(recipes,
+                                         page=page,
+                                         offset=offset,
+                                         per_page=per_page)
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='materializecss')
+
+    return render_template("recipes.html",
+                           categories=categories,
+                           levels=levels,
+                           recipes=pagination_recipes,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination,
+                           title="Home")
+```
+
+### Search
+
+As stated above, while correcting the issue of newly created recipes not being shown, the developer also unearthed a problem with searching.
+
+Since pagination had been introduced, whenever a search was actioned, the user was faced with a jinja templating error, stating the following: `jinja2.exceptions.UndefinedError: 'pagination' is undefined`
+
+The developer realised that this error was being thrown simply because the search() function was rendering the `get_recipes` template:
+
+```
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+    recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
+    return render_template("recipes.html", recipes=recipes,
+                           categories=categories, levels=levels,
+                           query=query)
+```
+
+ The quickest and easiest solution was simply to copy the `recipes.html` page as `search.html`, remove the jinja code blocks `{{ pagination.links }}` (see lines 57 and 135 of `recipes.html`)and divert the search to this newly dedicated HTML page instead of to the Home (ie, recipes) page.
+
+Thus the code was changed and the function rewritten as:
+
+```
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    categories = list(mongo.db.categories.find().sort("recipe_category", 1))
+    levels = list(mongo.db.level_of_difficulty.find())
+    recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
+    return render_template("search.html", recipes=recipes,
+                           categories=categories, levels=levels,
+                           query=query)
+```
+
+Search was restored.
 
 
 
