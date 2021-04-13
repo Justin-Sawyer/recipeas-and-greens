@@ -90,18 +90,11 @@
                     </div>
 
                     <!-- Image Uploader formatting -->
-                    <!-- From https://www.webtrickshome.com/faq/how-to-display-uploaded-image-in-html-using-javascript-->
                     <div class="input-field col s12">
-                        <!--<p><input type="file"  accept="image/*" name="recipe_image" id="recipe_image_name"  onchange="loadFile(event)" style="display: none;"></p>
-                        <p>
-                            <label class="btn btn-block green darken-2 white-text" for="recipe_image_name" style="cursor: pointer;">
-                                <i class="fas fa-camera"></i> 
-                                Add Recipea Photo
-                            </label>
-                        </p>-->
                         <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
                         <p>Please credit the image source (eg: yourself, a website) in the Chef's Notes section.</p>
-                        <!--<p><img id="output" width="100%" /></p>-->
+                        <!-- Add files to cloudinary and display them online
+                        From Learn with Coffee https://www.youtube.com/watch?v=6uHfIv4981U -->
                         <p><img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" id="img-preview" alt="Recipe placeholder image"/></p>
                         <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
                             <input id="file-upload" type="file" name="recipe_image_url" style="display:none;"> 

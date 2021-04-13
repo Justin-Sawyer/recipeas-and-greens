@@ -366,7 +366,7 @@ def index():
                            )
 ```
 
-The developer first changed thes code blocks to suit the Recipeas and Greens applicattion: 
+The developer first changed these code blocks to suit the Recipeas and Greens applicattion: 
 
 ```
 recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
@@ -549,6 +549,205 @@ def search():
 ```
 
 Search was restored.
+
+### Images (uploading, hosting, displaying of):
+
+An integral part of Reipeas and Greens is of course its imagery. All budding chefs want to show off their creations. This of course means that some form of image hosting would be necessary for Recipeas and Greens. 
+
+At first, the developer contemplated using the same Database for image hosting. The developer researched hosting files on MongoDB and was able to adapt some code found in [this video by Pretty Printed](https://www.youtube.com/watch?v=DsgAuceHha4) and was able to upload image files to Mongo. 
+
+The Python code :
+
+```
+@app.route("/add_recipe", methods=["GET", "POST"])
+def add_recipe():
+    if request.method == "POST":
+        if "recipe_image" in request.files:
+            recipe_image = request.form.get["recipe_image_url"]
+            mongo.save_file(recipe_image.filename, recipe_image)
+
+		recipe = {
+			"image_url": recipe_image.filename,
+			# 'other_keys': request.form.get("other_values")
+			}
+
+		mongo.db.recipes.insert(recipe)
+
+
+@app.route("/file/<filename>")
+def file(filename)
+	return mongo.send_file(filename)
+
+
+@app.route("/recipe/<recipe_id>")
+def recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template("recipe.html", recipe=recipe)
+```
+
+The HTML code:
+
+`<img src="{{ url_for('file', filename=recipe['image_url']) }}">`
+
+This worked as intended: files were indeed being uploaded to MongoDB, and then were displayed on the associated recipe page.
+
+This was, however, very rudimentary, and had one big drawback to it: The image files' weights and sizes were not being reduced, meaning that displaying the image in the HTML page was taking a long time. 
+
+The developer was thus faced with a choice. Either:
+1) Ask users to resize their photos before uploading them
+2) Write some custom JavaScript to resize the photos
+3) Find an alternative solution
+
+As stated in the opening paragraphs of this README file, this application is meant for those with very little experience of the possibilities the internet may offer. The developer knows that if he asked (for example) his parents to resize a photo, he would be met with blank stares, and an even blanker refusal to use this application! Thus the first option was immediately discounted.
+
+The developer started to tentatively explore writing some JavaScript code to resize images before upload, but while researching this, the developer discovered [Cloudinary](https://cloudinary.com/), the Media Optimizer, designed to facilitate the hosting and displaying of images.
+
+Thus the developer turned his attention to Cloudinary. Cloudinary offers many ways to upload images, whether through jQuery, JavaScript, Django or others. While at first the developer was tempted to use one of these SDKs, he then thought it would be a nice challenge to instead learn a little about how to integrate Cloudinary with his own code, or rather, code learned from another [video source, Learn with Coffee](https://www.youtube.com/watch?v=6uHfIv4981U)
+
+The developer used a block of the HTML code from the associated [Learn With Coffee Upload To Cloudinary GitHub repo](https://github.com/itsdevcoffee/cloudinary-image-upload):
+
+```
+<img src="http://fillmurray.com/g/300/300" id="img-preview" />
+<label class="file-upload-container" for="file-upload">
+	<input id="file-upload" type="file" style="display:none;">	Select an Image
+</label>
+
+<!-- Script to handle upload -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+```
+
+That code block was adapted so:
+
+```
+<img src="#" id="img-preview" alt="Recipe placeholder image"/>
+<label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
+	<input id="file-upload" type="file" name="recipe_image_url" style="display:none;"> 
+	Add Photo <i class="fas fa-camera"></i>
+</label>
+```
+
+
+He then followed along with the video lesson to create the JavaScript for uploading to Cloudinary, adapting it of course to his needs:
+
+```
+var imgPreview = document.getElementById("img-preview");
+var fileUpload = document.getElementById("file-upload");
+
+fileUpload.addEventListener("change", function(event) {
+    var file = event.target.files[0];
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+    axios({
+        url: CLOUDINRY_URL,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data: formData
+    }).then(function(res) {
+        console.log(res.data.secure_url);
+        imgPreview.src = res.data.secure_url;
+        fileUpload.value = res.data.secure_url;
+    }).catch(function(err) {
+        console.log(err);
+    });
+});
+```
+After checking that this worked, the developer then added the HTML block as and where needed (Add Recipe, Edit Recipe, Edit Profile), and then checked settings in Cloudinary to ensure that images were being resized.
+
+Indeed, images were being uploaded to Cloudinary and were resized, however, the image urls were not being added to MongoDB.
+
+To do so, an extra line of HTML was needed, and both the JavaScript file and the Pythoncode needed to be tweaked.
+
+The HTML:
+
+```
+<img src="#" id="img-preview" alt="Recipe placeholder image"/>
+<label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
+	<input id="file-upload" type="file" name="recipe_image_url" style="display:none;">
+	Add Photo <i class="fas fa-camera"></i>
+</label>
+
+<!-- Extra line of code -->
+<input id="file-upload1" type="hidden" name="recipe_image_url" style="display:none;">
+```
+
+The JavaScript:
+
+```
+var imgPreview = document.getElementById("img-preview");
+var fileUpload = document.getElementById("file-upload");
+
+# Extra line of code
+var fileUpload1 = document.getElementById("file-upload1");
+
+fileUpload.addEventListener("change", function(event) {
+    var file = event.target.files[0];
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+    axios({
+        url: CLOUDINRY_URL,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data: formData
+    }).then(function(res) {
+        console.log(res.data.secure_url);
+        imgPreview.src = res.data.secure_url;
+
+	# Extra line of code:
+        fileUpload1.value = res.data.secure_url;
+    }).catch(function(err) {
+        console.log(err);
+    });
+});
+```
+The Python:
+
+```
+@app.route("/add_recipe", methods=["GET", "POST"])
+def add_recipe():
+    if request.method == "POST":
+	""" Code no longer needed:
+        if "recipe_image" in request.files:
+            recipe_image = request.form.get["recipe_image_url"]
+            mongo.save_file(recipe_image.filename, recipe_image)
+	"""
+
+	recipe = {
+		"image_url": request.form.get("recipe_image_url"),
+		# 'other_keys': request.form.get("other_values")
+		}
+
+	mongo.db.recipes.insert(recipe)
+```
+
+Why these extra lines of code? Effectively, the Python code as written just above was working correctly, but instead of entering the new Cloudinary url into the database, it had nothing to read (no `value` in the first `<input>` block). Thus, a `None` value was being entered in the `image_url` field. A second, hidden `<input>` block was needed to catch the url itself. It is this value that is being read in the JavaScript as `fileUpload1.value = res.data.secure_url`. This value is inserted into the second `<input> `field, and is then fed to MongoDB.
+
+Finally, an alert was added to the JavaScript EventListener, to tell users that their image is being added.
+
+### Recipes Without Images
+
+The developer of course realises that people may not actually posess an image on their device of the recipe they want to add. 
+
+Without adding an image, both the recipe cards and the recipe pages had standard blank image placeholders:
+
+<img src="static/documentation/testing-screenshots/recipes-lacking-images/recipe-lacking-image.png">
+
+To counter for this, a little Jinja templating was added where needed, either in the recipe banner image or the recipe's card image:
+
+```
+{% if recipe.image_url %}
+	<img src="{{ recipe.image_url }}" alt="Recipe banner">
+{% else %}
+	<img src="{{ url_for('static', filename='(site-banner-image)') }}" alt="Banner image">
+{% endif %}
+```
 
 
 

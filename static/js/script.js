@@ -26,6 +26,7 @@ var fileUpload = document.getElementById("file-upload");
 var fileUpload1 = document.getElementById("file-upload1");
 
 fileUpload.addEventListener("change", function(event) {
+    alert("Your image is being added")
     var file = event.target.files[0];
     var formData = new FormData();
     formData.append("file", file);
@@ -41,9 +42,6 @@ fileUpload.addEventListener("change", function(event) {
     }).then(function(res) {
         console.log(res.data.secure_url);
         imgPreview.src = res.data.secure_url;
-        /*document.getElementById("img-preview")*/
-        /*fileUpload.value = res.data.secure_url; 
-        */
         fileUpload1.value = res.data.secure_url;
     }).catch(function(err) {
         console.log(err);

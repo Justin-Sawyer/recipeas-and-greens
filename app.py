@@ -2,7 +2,6 @@ import os
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
-# https://gist.github.com/mozillazg/69fb40067ae6d80386e10e105e6803c9
 from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
@@ -260,8 +259,6 @@ def recipe(recipe_id):
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if request.method == "POST":
-        # user = mongo.db.users.find_one(
-        # {"username": session["user"]})["username"]
 
         category = {
             "recipe_category": request.form.get("recipe_category")
