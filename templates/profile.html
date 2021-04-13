@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 {% block banner %}
-
     <div class="parallax-container">
         <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
         <div class="parallax"><img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Banner image"></div>
-    </div>
-    
+    </div>   
 {% endblock %}
 
 {% block content %}
 
     
     <div class="row">
+        <!-- User -->
         <div class="col s12">
             {% if session.user|lower == "administration"|lower %}
                 <h1 class="title">{{ user.username }}'s Profile</h1>
@@ -20,6 +19,7 @@
             {% endif %}
         </div>
 
+        <!-- User's profile details -->
         <div class="col s12 m4"> 
             <h2>{{ user.first_name }}'s Profile:</h2>
             <p><i class="far fa-id-card small green-text text-darken-2"></i><span class="right">{{ user.first_name }} {{ user.last_name }}</span></p>
@@ -31,20 +31,6 @@
                 <p><img src="../static/media/images/profile-photo/profile_avatar_placeholder_large.png" id="img-preview" alt="Profile image placeholder"/></p>
             {% endif %}
 
-            <!-- Admin's image credit: Icon by <a href="https://freeicons.io/profile/3054">Nine One</a> 
-            on <a href="https://freeicons.io">freeicons.io</a> -->
-            <!--<p><img src="{{ user.image_url }}" id="img-preview" /></p>
-            <form method="POST" action="{{ url_for('profile') }}">
-                <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
-                    <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
-                        Change Recipea Photo <i class="fas fa-camera"></i>
-                    </label>
-                    <input id="file-upload1" type="hidden" name="profile_image_url" style="display:none;">
-                </p>
-                <button type="submit" class="btn green darken-2 text-shadow">
-                        Add Recipea  <i class="fas fa-plus-square"></i>
-                </button>
-            </form>-->
             <!-- Edit Profile -->
             <p>Want to change your profile details? Even add a photo?</p>
             <a href="{{ url_for('edit_profile', username=session['user']) }}" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
@@ -54,6 +40,7 @@
 
         </div>
     
+        <!-- If admin, manage buttons -->
         <div class="col s12 m8">
             {% if session.user|lower == "administration"|lower %}
                 <div class="row">
@@ -66,6 +53,7 @@
                 </div>
             {% endif %}
          
+            <!-- User's own recipes -->
             <h2>{{ user.first_name }}'s Own Recipeas:</h2>
             {% if recipes_created_by|length > 0 %}
             <div class="row">
@@ -110,12 +98,12 @@
                 
                                     <!-- Add to / Remove from favourites -->
                                     {% if session.user|lower in recipe.favourite_of %}
-                                        <!-- Switch "is_favourite" to off in MongoDB -->
+                                        <!-- Remove from favourites button -->
                                         <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Remove from Favourites 
                                             <i class="fas fa-heart-broken"></i>
                                         </a>
                                     {% else %}
-                                        <!-- Switch "is_favourite" to off in MongoDB -->
+                                        <!-- Add to favourites button -->
                                         <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action green darken-2">Add to Favourites 
                                             <i class="fas fa-plus"></i>
                                         </a>
@@ -145,6 +133,7 @@
                 </div>
             {% endif %}
 
+            <!-- Favourited recipes -->
             <h2>Community Recipeas I Love:</h2>
             {% if favourites_of|length > 0 %}
             <div class="row">
@@ -204,6 +193,7 @@
                 </div>
             {% endif %}
 
+            <!-- Other recipes -->
             <h2>Community Recipeas Not Yet Tried:</h2>
             <div class="row">
                 <ul class="recipe-list">

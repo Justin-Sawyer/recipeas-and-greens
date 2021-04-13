@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% block banner %}
-
     <div class="parallax-container">
         <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
         <div class="parallax"><img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Banner image"></div>
-    </div>
-    
+    </div>   
 {% endblock %}
 
 {% block content %}
@@ -22,7 +20,6 @@
             <h3 class="green-text text-darken-2"><i class="fas fa-share"></i>  Share your own recipeas with the community</h3>
             <h3 class="green-text text-darken-2"><i class="fas fa-heart"></i>  Add community recipeas to your list of favourites</h3>
             <h3 class="green-text text-darken-2"><i class="fas fa-plus"></i>  Vote recipeas to build a list of community favourites</h3>
-            <!--<h3 class="green-text text-darken-2"><i class="fas fa-dollar-sign"></i>  Enjoy advantageous prices for our range of kitchen products</h3>-->
         </div>
     
         <form class="col s12 m8" method="POST" action="{{ url_for('login') }}">

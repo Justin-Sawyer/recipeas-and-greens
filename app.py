@@ -413,12 +413,12 @@ def get_categories():
 
 @app.route("/category/<category_id>")
 def category(category_id):
-    # This gets the category in the categories collection by its ID
+    # Get the category in the categories collection by its ID
     category = mongo.db.categories.find_one(
         {"_id": ObjectId(category_id)})["recipe_category"]
-    # This gets the levels of difficulty for the search by level of difficulty
+    # Get the levels of difficulty for the search by level of difficulty
     levels = mongo.db.level_of_difficulty.find()
-    """This gets the categories for the search by category and
+    """ Get the categories for the search by category and
     sorts them alphabetically button """
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
     recipes = list(mongo.db.recipes.find(

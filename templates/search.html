@@ -98,12 +98,12 @@
                         
                         {% if session.user|lower in recipe.created_by %}
                             {% if session.user|lower in recipe.favourite_of %}
-                                <!-- Switch "is_favourite" to off in MongoDB -->
+                                <!-- Remove from favourites button -->
                                 <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Remove from Favourites 
                                     <i class="fas fa-heart-broken"></i>
                                 </a>
                             {% elif not session.user|lower in recipe.favourite_of %}
-                                <!-- Switch "is_favourite" to off in MongoDB -->
+                                <!-- Add to favourites button -->
                                 <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action green darken-2">Add to Favourites 
                                     <i class="fas fa-plus"></i>
                                 </a>
@@ -114,12 +114,12 @@
                             <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Delete <i class="fas fa-trash-alt"></i></a>
                         {% elif not session.user|lower in recipe.created_by%}
                             {% if session.user|lower in recipe.favourite_of %}
-                                <!-- Switch "is_favourite" to off in MongoDB -->
+                                <!-- Remove from favourites button -->
                                 <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Remove from Favourites 
                                     <i class="fas fa-heart-broken"></i>
                                 </a>
                             {% elif not session.user|lower in recipe.favourite_of %}
-                                <!-- Switch "is_favourite" to off in MongoDB -->
+                                <!-- Add to favourites button -->
                                 <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action green darken-2">Add to Favourites 
                                     <i class="fas fa-plus"></i>
                                 </a>

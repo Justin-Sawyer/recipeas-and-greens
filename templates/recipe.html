@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block banner %}
-
     <div class="parallax-container">
         <div class="parallax">
             {% if recipe.image_url %}
@@ -11,7 +10,6 @@
             {% endif %}
         </div>
     </div>
-
 {% endblock %}
 
 {% block content %}
@@ -133,13 +131,13 @@
             <h2>Enjoyed this Recipea? Add it to your favourites!</h2>
             {% if session.user|lower in recipe.created_by %}
                 {% if session.user|lower in recipe.favourite_of %}
-                <!-- Switch "is_favourite" to off in MongoDB -->
+                <!-- Remove from favourites button -->
                 <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons red">Remove from
                     Favourites
                     <i class="fas fa-heart-broken"></i>
                 </a>
                 {% elif not session.user|lower in recipe.favourite_of %}
-                <!-- Switch "is_favourite" to off in MongoDB -->
+                <!-- Add to favourites button -->
                 <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons green darken-2">Add to
                     Favourites
                     <i class="fas fa-plus"></i>
@@ -147,13 +145,13 @@
                 {% endif %}
             {% elif not session.user|lower in recipe.created_by%}
                 {% if session.user|lower in recipe.favourite_of %}
-                <!-- Switch "is_favourite" to off in MongoDB -->
+                <!-- Remove from favourites button -->
                 <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons red">Remove from
                     Favourites
                     <i class="fas fa-heart-broken"></i>
                 </a>
                 {% elif not session.user|lower in recipe.favourite_of %}
-                <!-- Switch "is_favourite" to off in MongoDB -->
+                <!-- Add to favourites button -->
                 <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons green darken-2">Add to
                     Favourites
                     <i class="fas fa-plus"></i>
