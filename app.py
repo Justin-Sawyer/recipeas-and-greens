@@ -4,6 +4,7 @@ from flask import (
     redirect, request, session, url_for)
 from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo, pymongo
+from flask_mail import Mail, Message
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -16,6 +17,18 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
+
+mail_settings = {"MAIL_SERVER": os.environ.get('MAIL_SERVER'),
+                 "MAIL_PORT": os.environ.get('MAIL_PORT'),
+                 "MAIL_USE_TLS": False,
+                 "MAIL_USE_SSL": os.environ.get('MAIL_USE_SSL'),
+                 "MAIL_USERNAME": os.environ.get('MAIL_USERNAME'),
+                 "MAIL_PASSWORD": os.environ.get('MAIL_PASSWORD'),
+                 "SECURITY_EMAIL_SENDER":
+                 os.environ.get("SECURITY_EMAIL_SENDER")}
+
+app.config.update(mail_settings)
+mail = Mail(app)
 
 
 # Pagination:
@@ -76,6 +89,14 @@ def register():
 
         if existing_user:
             flash("Username already exists")
+            return redirect(url_for("register"))
+        
+        # Check if email already exists in the Database
+        existing_email = mongo.db.users.find_one(
+            {"email": request.form.get("email").lower()})
+
+        if existing_email:
+            flash("Email already exists")
             return redirect(url_for("register"))
 
         register = {
@@ -502,6 +523,22 @@ def delete_level(level_id):
     return redirect(url_for("get_difficulty_levels"))
 
 
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        with app.app_context():
+            msg = Message(subject="New Email From Contact Form")
+            msg.sender=request.form.get("email")
+            msg.recipients=[os.environ.get('MAIL_USERNAME')]
+            message = request.form.get("message")
+            msg.body=f"Email From: {msg.sender} \nMessage:{message}"
+            mail.send(msg)
+            flash("Email Sent!")
+            return redirect(url_for('contact'))
+
+    return render_template("contact.html")
+
+
 @app.errorhandler(404,)
 def page_not_found(e):
     categories = list(mongo.db.categories.find().sort("recipe_category", 1))
@@ -530,4 +567,4 @@ def special_exception_handler(error):
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)
