@@ -2,6 +2,7 @@ import os
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo, pymongo
 from flask_mail import Mail, Message
@@ -90,7 +91,7 @@ def register():
         if existing_user:
             flash("Username already exists")
             return redirect(url_for("register"))
-        
+
         # Check if email already exists in the Database
         existing_email = mongo.db.users.find_one(
             {"email": request.form.get("email").lower()})
@@ -231,13 +232,14 @@ def add_recipe():
         categories = category["recipe_category"].split("\r\n")
 
         for cat in categories:
-            new_cats = {"recipe_category": cat}
-            categories_collection = mongo.db.categories
-            # Check if category exists in Database
-            existing_category = mongo.db.categories.find_one(
-                {"recipe_category": cat})
-            if not existing_category:
-                categories_collection.insert_one(new_cats)
+            if cat is not "":
+                new_cats = {"recipe_category": cat}
+                categories_collection = mongo.db.categories
+                # Check if category exists in Database
+                existing_category = mongo.db.categories.find_one(
+                    {"recipe_category": cat})
+                if not existing_category:
+                    categories_collection.insert_one(new_cats)
 
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
@@ -289,13 +291,14 @@ def edit_recipe(recipe_id):
         categories = category["recipe_category"].split("\r\n")
 
         for cat in categories:
-            new_cats = {"recipe_category": cat}
-            categories_collection = mongo.db.categories
-            # Check if category exists in Database
-            existing_category = mongo.db.categories.find_one(
-                {"recipe_category": cat})
-            if not existing_category:
-                categories_collection.insert_one(new_cats)
+            if cat is not "":
+                new_cats = {"recipe_category": cat}
+                categories_collection = mongo.db.categories
+                # Check if category exists in Database
+                existing_category = mongo.db.categories.find_one(
+                    {"recipe_category": cat})
+                if not existing_category:
+                    categories_collection.insert_one(new_cats)
 
         submit = {
             "recipe_name": request.form.get("recipe_name"),
@@ -523,18 +526,20 @@ def delete_level(level_id):
     return redirect(url_for("get_difficulty_levels"))
 
 
+# credit Karina, Code Institute Slack Channel
+# https://code-institute-room.slack.com/archives/C7JQY2RHC/p1611678109168400
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
         with app.app_context():
             msg = Message(subject="New Email From Contact Form")
-            msg.sender=request.form.get("email")
-            msg.recipients=[os.environ.get('MAIL_USERNAME')]
+            msg.sender = request.form.get("email")
+            msg.recipients = [os.environ.get('MAIL_USERNAME')]
             message = request.form.get("message")
-            msg.body=f"Email From: {msg.sender} \nMessage:{message}"
+            msg.body = f"Email From: {msg.sender} \nMessage:{message}"
             mail.send(msg)
             flash("Email Sent!")
-            return redirect(url_for('contact'))
+            return redirect(url_for('get_recipes'))
 
     return render_template("contact.html")
 
@@ -563,6 +568,34 @@ def special_exception_handler(error):
     return render_template("500.html", categories=categories,
                            levels=levels), 500
 
+
+def get_reset_token(user_id, expires_sec=1800):
+    user_id = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    s = Serializer(app.config['SECRET_KEY'], expires_sec)
+    return s.dumps({"user_id": user_id}).decode("utf-8")
+
+def verify_reset_token(token):
+    s = Serializer(app.config['SECRET_KEY'])
+    try:
+        user_id = s.loads(token)["user_id"]
+    except:
+        return None
+    return user_id.query.get(user_id)
+
+@app.route("/reset_password", methods=["GET", "POST"])
+def reset_request():
+    if request.method == "POST":
+        # Check if email exists in Database
+        email = mongo.db.users.find_one(
+            {"email": request.form.get("email")})
+        if email:
+            flash("Check your email for the password reset link")
+            return redirect(url_for("login"))
+        else:
+            flash("Email does not exist. Do you want to register?")
+            return redirect(url_for("register"))
+    
+    return render_template("reset_request.html", title="Reset Password")
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
