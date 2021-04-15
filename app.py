@@ -2,7 +2,6 @@ import os
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo, pymongo
 from flask_mail import Mail, Message
@@ -232,7 +231,7 @@ def add_recipe():
         categories = category["recipe_category"].split("\r\n")
 
         for cat in categories:
-            if cat is not "":
+            if cat != "":
                 new_cats = {"recipe_category": cat}
                 categories_collection = mongo.db.categories
                 # Check if category exists in Database
@@ -291,7 +290,7 @@ def edit_recipe(recipe_id):
         categories = category["recipe_category"].split("\r\n")
 
         for cat in categories:
-            if cat is not "":
+            if cat != "":
                 new_cats = {"recipe_category": cat}
                 categories_collection = mongo.db.categories
                 # Check if category exists in Database
@@ -568,34 +567,6 @@ def special_exception_handler(error):
     return render_template("500.html", categories=categories,
                            levels=levels), 500
 
-
-def get_reset_token(user_id, expires_sec=1800):
-    user_id = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    s = Serializer(app.config['SECRET_KEY'], expires_sec)
-    return s.dumps({"user_id": user_id}).decode("utf-8")
-
-def verify_reset_token(token):
-    s = Serializer(app.config['SECRET_KEY'])
-    try:
-        user_id = s.loads(token)["user_id"]
-    except:
-        return None
-    return user_id.query.get(user_id)
-
-@app.route("/reset_password", methods=["GET", "POST"])
-def reset_request():
-    if request.method == "POST":
-        # Check if email exists in Database
-        email = mongo.db.users.find_one(
-            {"email": request.form.get("email")})
-        if email:
-            flash("Check your email for the password reset link")
-            return redirect(url_for("login"))
-        else:
-            flash("Email does not exist. Do you want to register?")
-            return redirect(url_for("register"))
-    
-    return render_template("reset_request.html", title="Reset Password")
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
