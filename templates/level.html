@@ -60,7 +60,7 @@
                         {% if recipe.image_url %}
                             <img class="activator img-in-card" src="{{ recipe.image_url }}" alt="Recipe photo">
                         {% else%}
-                            <img class="activator img-in-card" src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe photo">
+                            <img class="activator img-in-card" src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Recipe photo">
                         {% endif %}
                     </div>
                     <div class="card-content">

@@ -62,7 +62,7 @@
             {% if recipe.image_url %}
                 <img src="{{ recipe.image_url }}" alt="Recipe photo" style="width:100%">
             {% else %}
-                <img src="../static/media/images/banners/pexels-anna-tis-6219209.jpg" alt="Recipe photo" style="width:100%">
+                <img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Recipe photo" style="width:100%">
             {% endif %}
 
             <!-- Recipe categories -->
