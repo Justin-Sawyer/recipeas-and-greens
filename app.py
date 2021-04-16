@@ -272,6 +272,7 @@ def add_recipe():
         recipe_name = request.form.get("recipe_name")
         level = request.form.get("recipe_level_of_difficulty")
         description = request.form.get("recipe_description")
+        image = request.form.get("recipe_image_url")
         print(recipe_name)
         alert_users = "on" if request.form.get("alert_users") else "off"
         if alert_users == "on":
@@ -286,6 +287,9 @@ def add_recipe():
                 mail.body = f'''<p>Hello {name}:</p>
 <p>The latest Recipea to be added to Recipeas And Greens is called</p>
 <h2 style="color:#428e3c"><strong>{recipe_name}</strong></h2>
+<div style="text-align:center">
+    <img src="{image}" style="width:500px" alt="Recipe photo"/>
+</div>
 <p>Its a {level} Recipea.</p>
 <p>This is what {user} says about it:</p>
 <h3 style="color:#bd6423"><strong><i>{description}</i></strong></h3>
