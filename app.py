@@ -273,6 +273,8 @@ def add_recipe():
         level = request.form.get("recipe_level_of_difficulty")
         description = request.form.get("recipe_description")
         image = request.form.get("recipe_image_url")
+        if image == "":
+            image = "https://res.cloudinary.com/recipeas-and-greens/image/upload/v1618652190/pexels-anna-tis-6219209_fm5gle.jpg"
         print(recipe_name)
         alert_users = "on" if request.form.get("alert_users") else "off"
         if alert_users == "on":
@@ -284,12 +286,11 @@ def add_recipe():
                 msg = Message(f"{user} just added a recipea to Recipeas and Greens... check it out!",
                     sender='recipeasandgreens@gmail.com',
                     recipients=[email])
-                mail.body = f'''<p>Hello {name}:</p>
+                mail.body = f'''<div style="text-align:center">
+<p>Hello {name}:</p>
 <p>The latest Recipea to be added to Recipeas And Greens is called</p>
 <h2 style="color:#428e3c"><strong>{recipe_name}</strong></h2>
-<div style="text-align:center">
-    <img src="{image}" style="width:500px" alt="Recipe photo"/>
-</div>
+<img src="{image}" style="width:500px" alt="Recipe photo"/>
 <p>Its a {level} Recipea.</p>
 <p>This is what {user} says about it:</p>
 <h3 style="color:#bd6423"><strong><i>{description}</i></strong></h3>
@@ -297,6 +298,7 @@ def add_recipe():
 <p>{url_for('get_recipes', _external=True)}</p>
 <p>Sincerely,</p>
 <p>The team at Recipeas and Greens</p>
+</div>
 '''             
                 msg.html = mail.body
                 mail.send(msg)
