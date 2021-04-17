@@ -15,6 +15,9 @@ $(document).ready(function(){
     $('#display-levs').click(function(){
         $('#levs').toggle(500);
     });
+    $('#adding-recipe').on( "click", function() {
+        alert("Your Recipea is being added!");
+    });
 
 /* Add files to cloudinary and display them online
 From Learn with Coffee https://www.youtube.com/watch?v=6uHfIv4981U */
