@@ -748,7 +748,233 @@ To counter for this, a little Jinja templating was added where needed, either in
 	<img src="{{ url_for('static', filename='(site-banner-image)') }}" alt="Banner image">
 {% endif %}
 ```
+### Deleting Account:
 
+While the code for deleting an Account is relatively straighforward, the developer nonetheless came across an interesting problem while testing the functionality.
+
+The developer discovered that if he were to create an Account, then delete it and then create a new Account using the same "credentials", all previous recipes created by the first Account, as well as any recipes the first Account had lsited as favourites were automatically attributed to this new Account.
+
+The original delete Account code block:
+
+```
+@app.route("/delete_account")
+def delete_account():
+	user = mongo.db.users.find_one(
+        	{"username": session["user"]})["_id"]
+
+	mongo.db.users.delete_one({"_id": ObjectId(user)})
+
+	session.pop("user")
+
+	return redirect(url_for("get_recipes"))
+```
+
+This situation was arising as the site uses two database collections within MongoDB. One collection for the site's users, named `users`, and one for the recipes posted to the site, named `recipes`.
+
+When a user creates an Account, the user is asked for their first and last names, a username and their email address (as well as a password). These vales are passed into the `users` collection as the user's document.
+
+When that user then adds a recipe, that recipe is credited to the user's username within the `recipes` collection. 
+
+Since we are able to connect different collections in a database, the developer thought that for simplicity, the `users` collection did not need to be updated with each new recipe created in the `recipes` collection.
+
+Given this, the developer was thus faced with a question regarding Account deletions: does Recipeas and Greens allow for one single use of a username - in other words, is a record kept of a username even if the user using that username deletes the associated Account - or can Recipeas and Greens allow for users to (re)create an Account using a username that had been previously taken? (The application only allows for one user to use the same username at a time currently.)
+
+While setting up the application, the developer discussed the needs of this site with friends, family and other developers. It became clear to the developer that in terms of *privacy*, it was better to keep no record of anything the user has created when that user deleted the Account, **unless the user specified otherwise when that user deletes their Account**.
+
+The block of code above is *only* deleting the Account itself, and is not touching upon any other collection in the database. The `recipes` collection, in other words, is being left intact.
+
+This of course means that a username *can* be reused if that username is no longer taken. With the code block as written above, it means that if that username is taken anew, and the previous user has not *personally* deleted their published recipes and their community favourite recipes, then these are automatically attributed to the new user taking that previously used username.
+
+To counter this, new code needed to be written, and that code needs to take into account the previous user's preferences.
+
+Thus, when choosing to delete an Account, the user is asked what (s)he wishes to happen with the recipes the user has created, and any community recipes the user has marked as a favourite.
+
+Since we are allowing the reuse of previously taken usernames, clearly all recipes marked as favourites of the previous user need to be "un-favourited". The user deleting an Account is told that this will be the case. When choosing to delete the Account, the user is given a popup. In that popup, is the follwing text:
+
+**Community Recipeas you have added as favourites will be "un-favourited".**
+
+And thus, the `delete_account()` function needs to be amended:
+
+```
+@app.route("/delete_account")
+def delete_account():
+	# Get user:
+	username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+
+	# Get recipes:
+	recipes = mongo.db.recipes
+
+	# Mark favourites as no longer favourites:
+	existing_favourite_of = {"favourite_of": username}
+	remove_favourite_of = {"$pull": {"favourite_of": username}}
+	recipes.update_many(existing_favourite_of, remove_favourite_of)
+
+	# Delete account:
+	user = mongo.db.users.find_one(
+        {"username": session["user"]})["_id"]
+	mongo.db.users.delete_one({"_id": ObjectId(user)})
+
+	# Remove cookie:
+	session.pop("user")
+
+	return redirect(url_for("get_recipes"))
+```
+
+Again, the above code *only* deals with favourites. Since we are asking the user to make a choice regarding their published recipes, we need to address what the site should do if that user decides to delete the Account but leave their published recipes online and available for the community as a whole. Because, otherwise, when that username is taken anew, the previous username's recipes will be attributed to this new username. 
+
+To counter this, we need therefore to re-attribute any recipes concerned to a "Former Member".
+
+Again, new text needed to be added to clarify this when a user follows the link to delete the Account:
+
+**Delete your account but keep your Recipeas online:**
+
+**This action is best if you want the Recipeas and Greens community to still have access to Recipeas that you have published. Recipeas will be credited to "Former Member". Community Recipeas you have added as favourites will be "un-favourited".**
+
+And, of course, we again need to amend the `delete_account()` function:
+
+```
+@app.route("/delete_account")
+def delete_account():
+	# Get user:
+	username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+
+	# Get recipes:
+	recipes = mongo.db.recipes
+
+	# Mark favourites as no longer favourites:
+	existing_favourite_of = {"favourite_of": username}
+	remove_favourite_of = {"$pull": {"favourite_of": username}}
+	recipes.update_many(existing_favourite_of, remove_favourite_of)
+
+	# Re-credits all recipes created by the user as "created by Former Member"
+	existing_created_by = {"created_by": session["user"]}
+	recredited_created_by = {"$set": {"created_by": "Former Member"}}
+	recipes.update_many(existing_created_by, recredited_created_by)
+
+	# Delete account:
+	user = mongo.db.users.find_one(
+        {"username": session["user"]})["_id"]
+	mongo.db.users.delete_one({"_id": ObjectId(user)})
+
+	# Remove cookie:
+	session.pop("user")
+
+	return redirect(url_for("get_recipes"))
+```
+
+To test this, the developer then created an Account using a different username to his own. He then added [this recipe](http://recipeas-and-greens.herokuapp.com/recipe/607aeac3f71a25091a3f33c5) to the application.
+
+As can be seen in the image below, the Added By field reflects the developer's chosen username:
+
+<img src="static/documentation/testing-screenshots/delete-account/while-member-added-by-credit.png">
+
+The developer then deleted said Account and returned to the recipe. The Added By field had indeed changed:
+
+<img src="static/documentation/testing-screenshots/delete-account/former-member-added-by-credit.png">
+
+The developer then created a new account using the same username, and then looked in the profile page to ensure that this recipe was not showing up as his:
+
+<img src="static/documentation/testing-screenshots/delete-account/recreate-account.png">
+
+The developer then chose some recipes as favourites and did the same thing; delete and recreate account to check the functionality.
+
+While member and having chosen a favourite:
+
+<img src="static/documentation/testing-screenshots/delete-account/while-member.png">
+
+After Account deletion then recreation of Account in same username:
+
+<img src="static/documentation/testing-screenshots/delete-account/after-delete-and-recreate-account.png">
+
+Everything was working as expected.
+
+However, this does not of course take in to account what happens if a user decides to delete the Account *and* any recipes the user may have created while a member.
+
+To do so, a new function was needed, based very much on the existing `delete_account()` function:
+
+```
+@app.route("/delete_account")
+def delete_account():
+	# Get user:
+	username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+
+	# Get recipes:
+	recipes = mongo.db.recipes
+
+	# Mark favourites as no longer favourites:
+	existing_favourite_of = {"favourite_of": username}
+	remove_favourite_of = {"$pull": {"favourite_of": username}}
+	recipes.update_many(existing_favourite_of, remove_favourite_of)
+
+	# Re-credits all recipes created by the user as "created by Former Member"
+	existing_created_by = {"created_by": session["user"]}
+	recredited_created_by = {"$set": {"created_by": "Former Member"}}
+	recipes.update_many(existing_created_by, recredited_created_by)
+
+	# Delete all recipes created by the user
+	created_by = {"created_by": session["user"]}
+	recipes.delete_many(created_by)
+
+	# Delete account:
+	user = mongo.db.users.find_one(
+        {"username": session["user"]})["_id"]
+	mongo.db.users.delete_one({"_id": ObjectId(user)})
+
+	# Remove cookie:
+	session.pop("user")
+
+	return redirect(url_for("get_recipes"))
+```
+
+These two functions were then renamed as `remove_all_from_favourites_and_delete_account()` and `remove_all_from_favourites_and_delete_recipes_and_delete_account()` and their routes were changed accordingly.
+
+The developer then added further HTML to the deleting functionality of the `profile.html` page, to reflect that the user could now choose what to do when deleting their Account:
+
+```
+<!-- Delete account? modal -->
+<div class="col s12">
+    <div id="delete-account-modal" class="modal">
+        <div class="modal-content">
+            <h4>Are you sure you want to delete your account and no longer be part of the Recipeas and Greens community?</h4>
+            <p><strong>Please choose one of the following options:</strong></p>
+            <p>1: Delete your account but keep your Recipeas online</p>
+            
+            <a href="{{ url_for('remove_all_from_favourites_and_delete_account')}}" class="btn edit-buttons red">
+                Delete Account Only <i class="fas fa-trash-alt right"></i></a>
+            
+            <p>(This action is best if you want the Recipeas and Greens community to still have access to Recipeas that you have published. 
+                Recipeas will be credited to "Former Member".
+                Community Recipeas you have added as favourites will be "un-favourited".</p>
+                
+            <p>If you decide later to return to the Recipeas and Greens community, you will not be able to edit any Recipeas that you created previsouly, 
+                since those Recipeas are now credited to "Former Member" rather than to your username. And since any community Recipeas you have previously 
+                added as favourites will be removed from your list of favourites, you will need to rebuilt your list of favourites by clicking their green 
+                "+" badges.)</p>
+
+            <hr>
+            
+            <p>2: Delete your account and remove your Recipeas</p>
+            
+            <a href="{{ url_for('remove_all_from_favourites_and_delete_recipes_and_delete_account')}}" class="btn edit-buttons red">
+                Delete Account And Recipeas <i class="fas fa-trash-alt right"></i></a>
+            
+            <p>(This action is best if you want to delete everything you posted to the Recipeas and Greens community.)</p>
+
+            <hr>
+            
+            <p>3: Do not delete your account</p>
+            <a href="#!" class="btn edit-buttons modal-close green darken-2">Do Not Delete <i class="fas fa-times-circle right"></i></a>
+        </div>
+    </div>
+</div>
+```
+
+Thus, when a user now deletes their Account, said user can choose what to do with any information the user has shared:
+
+Either delete everything, or leave recipes online but no longer credited to that user.
 
 
 

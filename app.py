@@ -407,22 +407,25 @@ def remove_from_favourites(recipe_id):
 
 @app.route("/remove_all_from_favourites_and_delete_account")
 def remove_all_from_favourites_and_delete_account():
-    # This deletes all recipes favourited_by the user
+    # Get user
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
 
+    # Get recipes:
     recipes = mongo.db.recipes
+
+    # Mark favourites as no longer favourites:
     existing_favourite_of = {"favourite_of": username}
     remove_favourite_of = {"$pull": {"favourite_of": username}}
     recipes.update_many(existing_favourite_of, remove_favourite_of)
 
-    """This re-credits all recipes created by the user as
+    """Re-credits all recipes created by the user as
     "created by Former Member" """
     existing_created_by = {"created_by": session["user"]}
     recredited_created_by = {"$set": {"created_by": "Former Member"}}
     recipes.update_many(existing_created_by, recredited_created_by)
 
-    # This deletes the user account
+    # Delete the user account
     user = mongo.db.users.find_one(
         {"username": session["user"]})["_id"]
 
