@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block banner %}
+    <div class="parallax-container">
+        <!-- Banner Photo by Anna Tis from Pexels https://www.pexels.com/photo/food-green-peas-foodphotography-6219209/ -->
+        <div class="parallax"><img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Banner image"></div>
+    </div>   
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col s12">
+            <h1 class="title">Enter your Email</h1>
+        </div>
+
+        <!--<div class="col s12 m4">
+            <p>Enjoying the recipeas you've seen so far?</p>
+            <p>Join and become part of the growing Recipeas and Greens community!</p>
+            
+            <h2>Membership Advantages:</h2>
+            <h3 class="green-text text-darken-2"><i class="fas fa-share"></i>  Share your own recipeas with the community</h3>
+            <h3 class="green-text text-darken-2"><i class="fas fa-heart"></i>  Add community recipeas to your list of favourites</h3>
+            <h3 class="green-text text-darken-2"><i class="fas fa-plus"></i>  Vote recipeas to build a list of community favourites</h3>
+        </div>-->
+    
+        <form class="col s12 m8" method="POST" action="{{ url_for('reset_token', token=token) }}">
+            <div class="card-panel cinnamon">
+
+                <!-- First Name -->
+                <!--<div class="row registration" id="first-name-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                        <input id="first_name" name="first_name" type="text" minlength="3" class="validate" required>
+                        <label for="first_name">First Name</label>
+                    </div>
+                </div>-->
+
+                <!-- Last Name -->
+                <!--<div class="row registration" id="last-name-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                        <input id="last_name" name="last_name" type="text" minlength="3" class="validate" required>
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>-->
+
+                <!-- Choose User Name -->
+                <div class="row registration" id="username-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                        <input id="username" name="username" type="text" minlength="6" maxlength="24" pattern="^[a-zA-Z0-9]{6,24}$" class="validate" required>
+                        <label for="username">Choose a Username (Min 6)</label>
+                    </div>
+                </div>
+
+                <!-- email -->
+                <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                <div class="row registration" id="email-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-at prefix green-text text-darken-2"></i>
+                        <input id="email" name="email" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="validate" required>
+                        <label for="email">Email Address</label>
+                    </div>
+                </div>
+
+                <!-- Choose Password -->
+                <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                <!--<div class="row registration" id="password-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
+                        <input id="password" name="password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
+                        <label for="password">Password (Min 8: 1 number, 1 UPPER & 1 lower)</label>
+                    </div>
+                </div>-->
+
+                <!-- Submit Button -->
+                <div class="row" id="submit-button">
+                    <button type="submit" class="col s12 btn-large register-button green darken-2">
+                        Register <i class="fas fa-sign-in-alt"></i>
+                    </button>
+                </div>
+
+                <!-- Already Registered? -->
+                <div class="row">
+                    <div class="col s12 white">
+                        <p class="center-align cinnamon-text">
+                            Already Registered?    
+                            <a href="{{ url_for('login') }}" class="green-text text-darken-2">Log In</a>
+                        </p>
+                    </div>
+                </div>
+            </div>          
+        </form>
+    </div>
+
+{% endblock%}

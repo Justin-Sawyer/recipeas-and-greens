@@ -5,6 +5,7 @@ from flask import (
 from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo, pymongo
 from flask_mail import Mail, Message
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -180,7 +181,8 @@ def edit_profile():
             "image_url": request.form.get("profile_image_url"),
             "first_name": request.form.get("first_name"),
             "last_name": request.form.get("last_name"),
-            "email": request.form.get("email")}
+            "email": request.form.get("email"),
+            "password": generate_password_hash(request.form.get("password"))}
             }
 
         mongo.db.users.update_one({"username": session["user"]}, data)
@@ -603,6 +605,84 @@ def special_exception_handler(error):
     levels = list(mongo.db.level_of_difficulty.find())
     return render_template("500.html", categories=categories,
                            levels=levels), 500
+
+
+def get_reset_token(existing_email, expires_sec=30):
+    s = Serializer(app.config['SECRET_KEY'], expires_sec)
+    return s.dumps({'user_id': existing_email}).decode('utf-8')
+
+
+def verify_reset_token(token, existing_email):
+    s = Serializer(app.config['SECRET_KEY'])
+    try:
+        user_id = s.loads(token)['user_id']
+    except:
+        return None
+    return existing_email.query.get(user_id)
+
+
+def send_password_reset_email(existing_email):
+    token = get_reset_token(existing_email)
+    msg = Message('Password Reset Request',
+                  sender='recipeasandgreens@gmail.com',
+                  recipients=[existing_email])
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('reset_token', token=token, _external=True)}
+If you did not make this request then simply ignore this email
+and no changes will be made.
+'''
+    mail.send(msg)
+    print(existing_email)
+    print(token)
+    register = {
+            "email": existing_email,
+            "token": token
+        }
+    mongo.db.password_reset.insert_one(register)
+
+
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if request.method == "POST":
+        existing_email = mongo.db.users.find_one(
+            {"email": request.form.get("email")})['email']
+        if existing_email:
+            # print(existing_email)
+            # print(token)
+            send_password_reset_email(existing_email)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+    return render_template('reset_password_request.html',
+                           title='Reset Password')
+
+
+@app.route('/reset_token/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    print(token)
+    if request.method == "POST":
+        existing_email = mongo.db.users.find_one(
+                {"email": request.form.get("email")})['email']
+        print(existing_email)
+        token_email = mongo.db.password_reset.find_one(
+                {"email": request.form.get("email")})["email"]
+        print(token_email)
+        get_token = mongo.db.password_reset.find_one(
+                {"email": request.form.get("email")})["token"]
+        print(get_token)
+        if token == get_token and existing_email == token_email:
+            session["user"] = request.form.get("username").lower()
+            flash("Click Edit to change your password!")
+            mongo.db.password_reset.remove({"token": get_token})
+            return redirect(url_for("profile", username=session["user"]))
+        else:
+            return redirect(url_for('get_recipes'))
+
+        #user = verify_reset_token(existing_email, token)
+        #if user is None:
+            #flash('That is an invalid or expired token', 'warning')
+            #return redirect(url_for('reset_password_request'))
+    return render_template('reset_token.html', token=token)
+
 
 
 if __name__ == "__main__":
