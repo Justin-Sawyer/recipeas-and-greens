@@ -676,11 +676,6 @@ def reset_token(token):
             return redirect(url_for("profile", username=session["user"]))
         else:
             return redirect(url_for('get_recipes'))
-
-        #user = verify_reset_token(existing_email, token)
-        #if user is None:
-            #flash('That is an invalid or expired token', 'warning')
-            #return redirect(url_for('reset_password_request'))
     return render_template('reset_token.html', token=token)
 
 
