@@ -277,10 +277,11 @@ def add_recipe():
         alert_users = "on" if request.form.get("alert_users") else "off"
         if alert_users == "on":
             recipients = list(mongo.db.users.find({}, {
-                "_id": 0, "first_name": 1, "email": 1, "opt_in": 1}))
+                    "_id": 0, "first_name": 1, "email": 1, "opt_in": 1}))
             for recipient in recipients:
                 opt_in = recipient.get("opt_in", "value")
                 if opt_in == "on":
+                    print(recipient)
                     email = recipient.get("email", "value")
                     name = recipient.get("first_name", "value")
                     msg = Message(f"{user} just added a Recipea!",
