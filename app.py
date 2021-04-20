@@ -5,10 +5,8 @@ from flask import (
 from flask_paginate import Pagination, get_page_args
 from flask_pymongo import PyMongo, pymongo
 from flask_mail import Mail, Message
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-from time import time
 if os.path.exists("env.py"):
     import env
 
@@ -288,23 +286,27 @@ def add_recipe():
                     msg = Message(f"{user} just added a Recipea!",
                                   sender='recipeasandgreens@gmail.com',
                                   recipients=[email])
-                    mail.body = f'''<div style="text-align:center">
-<p>Hello {name}:</p>
-<p>The latest Recipea to be added to Recipeas And Greens is called</p>
-<h2 style="color:#428e3c"><strong>{recipe_name}</strong></h2>
-<img src="{image}" style="width:500px" alt="Recipe photo"/>
-<p>Its a {level} Recipea.</p>
-<p>This is what {user} says about it:</p>
-<h3 style="color:#bd6423"><strong><i>{description}</i></strong></h3>
-<p>Check it out here:</p>
-<p>{url_for('get_recipes', _external=True)}</p>
-<p>Sincerely,</p>
-<p>The team at Recipeas and Greens</p>
-</div>
+                    mail.body = f'''Hello {name}:
+The latest Recipea to be added to Recipeas And Greens is called
+{recipe_name}
+{image}
+Its a {level} Recipea.
+This is what {user} says about it:
+{description}
+Check it out here:
+{url_for('get_recipes', _external=True)}
+Sincerely,
+The team at Recipeas and Greens
 '''
-                    msg.html = mail.body
+                    msg.html = render_template("email.html",
+                                               name=name,
+                                               recipe_name=recipe_name,
+                                               level=level,
+                                               image=image,
+                                               user=user,
+                                               description=description)
                     mail.send(msg)
-        flash("Recipe added to the Recipeas and Greens community!")
+        flash("Recipea added to the Recipeas and Greens community!")
         return redirect(url_for("get_recipes"))
 
     level_of_difficulty = mongo.db.level_of_difficulty.find()

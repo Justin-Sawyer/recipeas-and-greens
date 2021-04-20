@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipeas and Greens | Email</title>
+</head>
+<body>
+    <div style="text-align:center">
+        <p>Hello {{ name }}:</p>
+        <p>The latest Recipea to be added to Recipeas And Greens is called</p>
+        <h2 style="color:#428e3c"><strong>{{ recipe_name }}</strong></h2>
+        <img src="{{ image }}" style="width:500px" alt="Recipe photo"/>
+        <p>Its a {{ level }} Recipea.</p>
+        <p>This is what {{ user }} says about it:</p>
+        <h3 style="color:#bd6423"><strong><i>{{ description }}</i></strong></h3>
+        <p>Check it out here:</p>
+        <p>{{ url_for('get_recipes', _external=True) }}</p>
+        <p>Sincerely,</p>
+        <p>The team at Recipeas and Greens</p>
+    </div>
+</body>
+</html>
