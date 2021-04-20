@@ -21,6 +21,8 @@
             <h3 class="green-text text-darken-2"><i class="fas fa-share"></i>  Share your own recipeas with the community</h3>
             <h3 class="green-text text-darken-2"><i class="fas fa-heart"></i>  Add community recipeas to your list of favourites</h3>
             <h3 class="green-text text-darken-2"><i class="fas fa-plus"></i>  Vote recipeas to build a list of community favourites</h3>
+            <h3 class="green-text text-darken-2"><i class="fas fa-check"></i>  Receive alerts when Recipeas and Greens community members add new Recipeas*</h3>
+            <p><small>*You can switch off the alerts in your Profile settings, don't worry!</small></p>
         </div>
     
         <form class="col s12 m8" method="POST" action="{{ url_for('register') }}">
@@ -70,6 +72,18 @@
                         <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
                         <input id="password" name="password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
                         <label for="password">Password (Min 8: 1 number, 1 UPPER & 1 lower)</label>
+                    </div>
+                </div>
+
+                <!-- Opt In/Out to email alerts -->
+                <div class="input-field col s12">
+                    <div class="switch">
+                        <label for="opt_in">
+                            Opt In To New Recipea Emails? 
+                            <input type="checkbox" id="opt_in" name="opt_in">
+                            <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to opt in to email alerts for new Recipeas"></span>
+                            <i class="fas fa-check prefix loved green-text text-darken-2"></i>
+                        </label>
                     </div>
                 </div>
 

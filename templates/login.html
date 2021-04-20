@@ -20,6 +20,7 @@
             <h3 class="green-text text-darken-2"><i class="fas fa-share"></i>  Share your own recipeas with the community</h3>
             <h3 class="green-text text-darken-2"><i class="fas fa-heart"></i>  Add community recipeas to your list of favourites</h3>
             <h3 class="green-text text-darken-2"><i class="fas fa-plus"></i>  Vote recipeas to build a list of community favourites</h3>
+            <h3 class="green-text text-darken-2"><i class="fas fa-check"></i>  Receive alerts when Recipeas and Greens community members add new Recipeas</h3>
         </div>
     
         <form class="col s12 m8" method="POST" action="{{ url_for('login') }}">
@@ -49,7 +50,6 @@
                     <button type="submit" class="col s12 btn-large register-button green darken-2">
                         Log In <i class="fas fa-sign-in-alt"></i>
                     </button>
-                    <a href="{{ url_for('reset_password_request') }}" class="white-text">Forgot Password?</a>
                 </div>
 
                 <!-- Create Account -->

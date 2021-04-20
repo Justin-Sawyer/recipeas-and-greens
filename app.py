@@ -8,6 +8,7 @@ from flask_mail import Mail, Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from time import time
 if os.path.exists("env.py"):
     import env
 
@@ -100,12 +101,15 @@ def register():
             flash("Email already exists")
             return redirect(url_for("register"))
 
+        opt_in = "on" if request.form.get("opt_in") else "off"
+
         register = {
             "first_name": request.form.get("first_name"),
             "last_name": request.form.get("last_name"),
             "username": request.form.get("username").lower(),
             "email": request.form.get("email").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "opt_in": opt_in,
         }
         mongo.db.users.insert_one(register)
 
@@ -177,12 +181,15 @@ def profile():
 @app.route("/edit_profile", methods=["GET", "POST"])
 def edit_profile():
     if request.method == "POST":
+        opt_in = "on" if request.form.get("opt_in") else "off"
+
         data = {"$set": {
             "image_url": request.form.get("profile_image_url"),
             "first_name": request.form.get("first_name"),
             "last_name": request.form.get("last_name"),
             "email": request.form.get("email"),
-            "password": generate_password_hash(request.form.get("password"))}
+            "password": generate_password_hash(request.form.get("password")),
+            "opt_in": opt_in}
             }
 
         mongo.db.users.update_one({"username": session["user"]}, data)
@@ -272,14 +279,16 @@ def add_recipe():
         alert_users = "on" if request.form.get("alert_users") else "off"
         if alert_users == "on":
             recipients = list(mongo.db.users.find({}, {
-                "_id": 0, "first_name": 1, "email": 1}))
+                "_id": 0, "first_name": 1, "email": 1, "opt_in": 1}))
             for recipient in recipients:
-                email = recipient.get("email", "value")
-                name = recipient.get("first_name", "value")
-                msg = Message(f"{user} just added a Recipea!",
-                              sender='recipeasandgreens@gmail.com',
-                              recipients=[email])
-                mail.body = f'''<div style="text-align:center">
+                opt_in = recipient.get("opt_in", "value")
+                if opt_in == "on":
+                    email = recipient.get("email", "value")
+                    name = recipient.get("first_name", "value")
+                    msg = Message(f"{user} just added a Recipea!",
+                                  sender='recipeasandgreens@gmail.com',
+                                  recipients=[email])
+                    mail.body = f'''<div style="text-align:center">
 <p>Hello {name}:</p>
 <p>The latest Recipea to be added to Recipeas And Greens is called</p>
 <h2 style="color:#428e3c"><strong>{recipe_name}</strong></h2>
@@ -293,8 +302,8 @@ def add_recipe():
 <p>The team at Recipeas and Greens</p>
 </div>
 '''
-                msg.html = mail.body
-                mail.send(msg)
+                    msg.html = mail.body
+                    mail.send(msg)
         flash("Recipe added to the Recipeas and Greens community!")
         return redirect(url_for("get_recipes"))
 
@@ -605,79 +614,6 @@ def special_exception_handler(error):
     levels = list(mongo.db.level_of_difficulty.find())
     return render_template("500.html", categories=categories,
                            levels=levels), 500
-
-
-def get_reset_token(existing_email, expires_sec=30):
-    s = Serializer(app.config['SECRET_KEY'], expires_sec)
-    return s.dumps({'user_id': existing_email}).decode('utf-8')
-
-
-def verify_reset_token(token, existing_email):
-    s = Serializer(app.config['SECRET_KEY'])
-    try:
-        user_id = s.loads(token)['user_id']
-    except:
-        return None
-    return existing_email.query.get(user_id)
-
-
-def send_password_reset_email(existing_email):
-    token = get_reset_token(existing_email)
-    msg = Message('Password Reset Request',
-                  sender='recipeasandgreens@gmail.com',
-                  recipients=[existing_email])
-    msg.body = f'''To reset your password, visit the following link:
-{url_for('reset_token', token=token, _external=True)}
-If you did not make this request then simply ignore this email
-and no changes will be made.
-'''
-    mail.send(msg)
-    print(existing_email)
-    print(token)
-    register = {
-            "email": existing_email,
-            "token": token
-        }
-    mongo.db.password_reset.insert_one(register)
-
-
-@app.route('/reset_password_request', methods=['GET', 'POST'])
-def reset_password_request():
-    if request.method == "POST":
-        existing_email = mongo.db.users.find_one(
-            {"email": request.form.get("email")})['email']
-        if existing_email:
-            # print(existing_email)
-            # print(token)
-            send_password_reset_email(existing_email)
-        flash('Check your email for the instructions to reset your password')
-        return redirect(url_for('login'))
-    return render_template('reset_password_request.html',
-                           title='Reset Password')
-
-
-@app.route('/reset_token/<token>', methods=['GET', 'POST'])
-def reset_token(token):
-    print(token)
-    if request.method == "POST":
-        existing_email = mongo.db.users.find_one(
-                {"email": request.form.get("email")})['email']
-        print(existing_email)
-        token_email = mongo.db.password_reset.find_one(
-                {"email": request.form.get("email")})["email"]
-        print(token_email)
-        get_token = mongo.db.password_reset.find_one(
-                {"email": request.form.get("email")})["token"]
-        print(get_token)
-        if token == get_token and existing_email == token_email:
-            session["user"] = request.form.get("username").lower()
-            flash("Click Edit to change your password!")
-            mongo.db.password_reset.remove({"token": get_token})
-            return redirect(url_for("profile", username=session["user"]))
-        else:
-            return redirect(url_for('get_recipes'))
-    return render_template('reset_token.html', token=token)
-
 
 
 if __name__ == "__main__":
