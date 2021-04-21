@@ -110,7 +110,8 @@ def register():
                 "last_name": request.form.get("last_name"),
                 "username": request.form.get("username").lower(),
                 "email": request.form.get("email").lower(),
-                "password": generate_password_hash(request.form.get("password")),
+                "password": generate_password_hash(
+                    request.form.get("password")),
                 "opt_in": opt_in,
             }
             mongo.db.users.insert_one(register)
@@ -238,7 +239,6 @@ def reset_password():
                 if new_password == confirm_new_password:
                     password = generate_password_hash(
                                 request.form.get("new_password"))
-                    # session["user"] = request.form.get("username").lower()
                     mongo.db.users.update_one(
                         existing_user,
                         {"$set": {
@@ -339,6 +339,7 @@ def add_recipe():
                     msg = Message(f"{user} just added a Recipea!",
                                   sender='recipeasandgreens@gmail.com',
                                   recipients=[email])
+                    # mail.body kept in case recipent mail is not HTML
                     mail.body = f'''Hello {name}:
 The latest Recipea to be added to Recipeas And Greens is called
 {recipe_name}

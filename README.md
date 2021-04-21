@@ -976,5 +976,278 @@ Thus, when a user now deletes their Account, said user can choose what to do wit
 
 Either delete everything, or leave recipes online but no longer credited to that user.
 
+### Password Reset:
 
+Having been locked out of the user Account a couple of times, the developer decided that it would be a very good idea to add a "reset password" functionality to the project.
+
+The developer first added a simple form input to the Edit Profile page that was designed to take the value of the hashed password set in the user collection's document password entries (displayed as dots, rather than being exposed as text):
+
+```
+<div class="input-field">
+    <input id="password" name="password" value="{{user.password}}" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$">
+    <label for="password">Change Password</label>
+</div>
+```
+
+Upon testing, he then discovered that when he edited his Account, an updated value was being inserted into the password field: a newly hashed hash of the password hash. The developer discovered this by changing the `type` value to "text" rather than "password".
+
+Each time he edited the account, a new (hashed but text) value was being returned. 
+
+The developer then decided to remove the `value` value into the code block above (thus: `value=""`).
+
+He thus discovered that since the `value` string was empty, he could not update the password, as the empty string did not follow the `pattern` value. 
+
+The developer also concluded that if he were able to update the value and then change the password to an empty string (by leaving the field empty), he might possibly get a hashed value of an empty string, or a Null value for the password.
+
+Clearly, another way to reset a password was needed.
+
+Having been locked out of his Account, the developer first tried for a "Forgot Password" functionality, where a user can signal that (s)he has forgotten their password, receive an email and reset the password via that email. This functionality has been removed from the current version of this application, as the developer had too many problems trying to get this to work. However, the developer does intend to include this funcionality in the future: see the Future PLans section.
+
+However, even though the functionality has been removed from this version of the application, it is worth discussing the code used here in the Testing section:
+
+The developer researched the use of tokens for this functionality. Specifically, time expiring tokens that send a user to a reset link, if the url including the token is clicked on within the specified time limit.
+
+The developer looked to the "itsdangerous" module that is included when Flask is imported. In that module is a class called "TimedJSONWebSignatureSerializer" which was imported as Serializer.
+
+While the developer was able to set a time-out to a token within the CLI, he could never seem to get the token to expire when used outside of the CLI.
+
+Within the CLI, the developer used this code to test the time out functionality:
+
+```
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+s = Serializer('secret', 30)
+token = s.dumps({'user_id': 1}).decode('utf-8')
+token
+```
+
+This returned a multi-character string of random values. Then, again within the CLI, the devloper typed 
+
+`s.loads(token)`
+
+which returned, as it should, the following dictionary:
+
+`{'user_id': 1}`
+
+The developer then waited for 30 seconds to elapse, and then tried again using 
+
+`s.loads(token)`
+
+An error was returned, signalling that the token had indeed expired.
+
+Thus, the developer assumed that everything was set for using this within the application.
+
+The developer wrote the following blocks of code, and was able to send an email with a url string containing the token to himself:
+
+```
+def get_reset_token(existing_email, expires_sec=30):
+    s = Serializer(app.config['SECRET_KEY'], expires_sec)
+    return s.dumps({'user_id': existing_email}).decode('utf-8')
+
+
+def verify_reset_token(token, existing_email):
+    s = Serializer(app.config['SECRET_KEY'])
+    try:
+        user_id = s.loads(token)['user_id']
+    except:
+        return None
+    return existing_email.query.get(user_id)
+
+
+def send_password_reset_email(existing_email):
+    token = get_reset_token(existing_email)
+    msg = Message('Password Reset Request',
+                  sender='recipeasandgreens@gmail.com',
+                  recipients=[existing_email])
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('reset_token', token=token, _external=True)}
+If you did not make this request then simply ignore this email
+and no changes will be made.
+'''
+    mail.send(msg)
+    print(existing_email)
+    print(token)
+    register = {
+            "email": existing_email,
+            "token": token
+        }
+    mongo.db.password_reset.insert_one(register)
+
+
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if request.method == "POST":
+        existing_email = mongo.db.users.find_one(
+            {"email": request.form.get("email")})['email']
+        if existing_email:
+            # print(existing_email)
+            # print(token)
+            send_password_reset_email(existing_email)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+    return render_template('reset_password_request.html',
+                           title='Reset Password')
+
+
+@app.route('/reset_token/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    print(token)
+    if request.method == "POST":
+        existing_email = mongo.db.users.find_one(
+                {"email": request.form.get("email")})['email']
+        print(existing_email)
+        token_email = mongo.db.password_reset.find_one(
+                {"email": request.form.get("email")})["email"]
+        print(token_email)
+        get_token = mongo.db.password_reset.find_one(
+                {"email": request.form.get("email")})["token"]
+        print(get_token)
+        if token == get_token and existing_email == token_email:
+            session["user"] = request.form.get("username").lower()
+            flash("Click Edit to change your password!")
+            mongo.db.password_reset.remove({"token": get_token})
+            return redirect(url_for("profile", username=session["user"]))
+        if TypeError:
+            return redirect(url_for('login'))
+    return render_template('reset_token.html', token=token)
+```
+
+The above code has been adapted by the developer from a [video series](https://coreyms.com/development/python/python-flask-tutorials-full-series) about Flask, and is very much a first draft proof of concept rather than any eventual code that might have been used, had he persisted.
+
+Accompanying HTML pages were also written with password reset forms, and a password_reset collection was added to the Database, and the datetime module was of course imported.
+
+<img src="static/documentation/testing-screenshots/change-password/password-reset.png">
+
+While the proof of concept does function, as can be seen above, the simple fact that the token did not time out pusuaded the developer that further development of this functionality was like heading down a rabbit hole: perhaps more trouble that it is worth, seeing as this is his first Python project. 
+
+The developer also questioned the security of the code he had written: since defensive programming is the ideal, the developer needs to be 100% certain that the code he writes *is* indeed secure. While the developer knows full well that the code he wrote above is not at this level, he realised that more research was needed in order to guarantee secure coding.
+
+The developer intends on learning Django, and knows that in Django there is a package called "allauth" that is designed specifically for this use case. The developer will thus return to this problem as soon as he has mastered Django!
+
+The developer then turned to getting the password reset functionality to work while signed in.
+
+He decided that it would be better to have a separate form for updating the password, rather than including this in a general "edit Account" form. Doing so guaranteees that passwords are not changed by accident.
+
+He thus built a new HTML page dedicated solely to this purpose:
+
+```
+<form class="col s12 m8" method="POST" action="{{ url_for('reset_password') }}">
+    <div class="card-panel cinnamon">
+
+        <!-- Confirm Login User Name -->
+        <div class="row registration" id="username-row">
+            <div class="input-field col s12">
+                <i class="fas fa-user-cog prefix green-text text-darken-2"></i>
+                <input id="username" name="username" type="text" minlength="6" maxlength="24" pattern="^[a-zA-Z0-9]{6,24}$" class="validate" required >
+                <label for="username">Confirm User Name</label>
+            </div>
+        </div>
+
+        <!-- Enter Old Password -->
+        <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+        <div class="row registration" id="password-row">
+            <div class="input-field col s12">
+                <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
+                <input id="password" name="password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
+                <label for="password">Enter Current Password</label>
+            </div>
+        </div>
+
+        <!-- Enter New Password -->
+        <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+        <div class="row registration" id="new-password-row">
+            <div class="input-field col s12">
+                <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
+                <input id="new_password" name="new_password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
+                <label for="new_password">Enter New Password</label>
+            </div>
+        </div>
+
+        <!-- Confirm New Password -->
+        <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+        <div class="row registration" id="confirm-new-password-row">
+            <div class="input-field col s12">
+                <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
+                <input id="confirm_new_password" name="confirm_new_password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
+                <label for="confirm_new_password">Confirm New Password</label>
+            </div>
+        </div>
+
+        <!-- Confirm Change Submit Button -->
+        <div class="row" id="submit-button">
+            <button type="submit" class="col s12 btn-large register-button green darken-2">
+                Change Password <i class="fas fa-check-double"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
+```
+
+Although the user is of course signed in before being able to access this page, the developer thought it a good idea to ask the user to supply his or her username. Both the username *and* the **current** password are checked before the user is able to change the password for a new one.
+
+The following Python code was written to accompany this HTML:
+
+```
+@app.route("/reset_password", methods=["GET", "POST"])
+def reset_password():
+    if request.method == "POST":
+        # Check if username exists in Database
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username")})
+
+        new_password = request.form.get("new_password")
+        confirm_new_password = request.form.get("confirm_new_password")
+
+        if existing_user:
+            # Ensure hashed password matches user input
+            if check_password_hash(
+              existing_user["password"], request.form.get("password")):
+		        # Re-enforce retention of new password
+                if new_password == confirm_new_password:
+                    password = generate_password_hash(
+                                request.form.get("new_password"))
+                    mongo.db.users.update_one(
+                        existing_user,
+                        {"$set": {
+                            "password": password}})
+                    flash("Your password has been changed, {}" .format(
+                        request.form.get("username")))
+                    return redirect(url_for("profile",
+                                    username=session["user"]))
+                else:
+		            # If new and confirm new passwords mismatch
+                    flash("Did your passwords match?")
+                    return redirect(url_for("reset_password"))
+            else:
+                # Invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("profile", username=session["user"]))
+
+        else:
+            # Username doesn't exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login"))
+
+    if session["user"]:
+        return render_template(
+            "reset_password.html")
+
+    return render_template("reset_password.html")
+```
+
+To recap on this code:
+
+It is only if a user is signed in (and there is thus a cookie) that the user can access this page.
+
+If the user is signed in and thus the username exists, the user confirms the username and password associated with the Account. If the username does not exist, the user is redirected to the login page. If the password does not match the password that is stored in the user's document in the database, the user is alerted that one of the two does not match. Again, for security against abuse, the user is not informed *which one* does not match.
+
+If the cookie exists, and the username and password match, the code then looks to see whether the new password value matches the confirm password value. If they do not, the user is asked whether they match.
+
+If they do match, and all other conditions have been met, the databse is then updated with the new password value.
+
+The code was tested and the developer was able to confirm the functionality of thus code by both inserting incorrect and correct values in each field.
+
+Having then tested that this code works, the developer then inserted an extra "confirm password" field in the register.html page and associated code in the register Python function. This confirm password field is designed to re-enforce memory retention of the user's password when a user creates an account.
+
+As an aisde, the developer believes that it is the developer's role to create code where, should the user forget the login details, then the users should be able to securely recover their credentials. It is not the developers role to force a user to memorise said credentials. It is precisely because of this that the "Forgot Password" functionality will be added as soon as the developer is able to do so.
 
