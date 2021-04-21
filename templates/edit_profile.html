@@ -21,88 +21,94 @@
         <div class="col s12 m4">
             <h2>Edit Profile:</h2>
             <form method="POST" action="{{ url_for('edit_profile', user=session['user']) }}">
-            <div class="card-panel cinnamon">
-                <div class="row registration" id="photo-row">
-                    <div class="input-field col s12">
-                        <!-- Add a profile photo -->
-                        {% if user.image_url %}
-                            <p><img src="{{ user.image_url }}" id="img-preview" alt="Profile image"/></p>
-                        {% else %}
-                            <p><img src="{{ url_for('static', filename='media/images/profile-photo/profile_avatar_placeholder_large.png') }}" id="img-preview" alt="Profile image placeholder"/></p>
-                        {% endif %}
-                        <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
-                            <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
-                                Add/Change Photo <i class="fas fa-camera"></i>
-                            </label>
-                            <input id="file-upload1" type="hidden" name="profile_image_url" value="{{ user.image_url }}" style="display:none;">
-                        </p>
-                        <p>Just adding or changing your photo? Remember to click "Update" below!</p>
-                    </div>
-                </div>
-
-                <!-- Change First Name -->
-                <div class="row registration" id="first-name-row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
-                        <input id="first_name" name="first_name" value="{{ user.first_name }}" type="text" minlength="3" class="validate" required>
-                        <label for="first_name">Change First Name</label>
-                    </div>
-                </div>
-
-                <!-- Change Last Name -->
-                <div class="row registration" id="last-name-row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
-                        <input id="last_name" name="last_name" value="{{ user.last_name }}" type="text" minlength="3" class="validate" required>
-                        <label for="last_name">Change Last Name</label>
-                    </div>
-                </div>
-
-                <!-- Change email -->
-                <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
-                <div class="row registration" id="email-row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-at prefix green-text text-darken-2"></i>
-                        <input id="email" name="email" value="{{ user.email }}" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="validate" required>
-                        <label for="email">Change Email</label>
-                    </div>
-                </div>
-
-                <!-- Change Password -->
-                <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
-                <div class="row registration" id="password-row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
-                        <input id="password" name="password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate">
-                        <label for="password">Change Password</label>
-                    </div>
-                </div>
-
-                <!-- Opt In/Out to email alerts -->
-                <div class="input-field col s12">
-                    <div class="switch">
-                        <label for="opt_in">
-                            {% if user.opt_in == "on" %}
-                            <input type="checkbox" id="opt_in" name="opt_in" checked>
+                <div class="card-panel cinnamon">
+                    <div class="row registration" id="photo-row">
+                        <div class="input-field col s12">
+                            <!-- Add a profile photo -->
+                            {% if user.image_url %}
+                                <p><img src="{{ user.image_url }}" id="img-preview" alt="Profile image"/></p>
                             {% else %}
-                            <input type="checkbox" id="opt_in" name="opt_in">
+                                <p><img src="{{ url_for('static', filename='media/images/profile-photo/profile_avatar_placeholder_large.png') }}" id="img-preview" alt="Profile image placeholder"/></p>
                             {% endif %}
-                            <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to opt in to email alerts for new Recipeas"></span>
-                            <i class="fas fa-check prefix loved green-text text-darken-2"></i>
-                        </label>
+                            <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
+                                <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
+                                    Add/Change Photo <i class="fas fa-camera"></i>
+                                </label>
+                                <input id="file-upload1" type="hidden" name="profile_image_url" value="{{ user.image_url }}" style="display:none;">
+                            </p>
+                            <p>Just adding or changing your photo? Remember to click "Update" below!</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Submit Button -->
-                <div class="row" id="submit-button">
-                    <button type="submit" class="col s12 btn-large register-button green darken-2">
-                        Update <i class="fas fa-sign-in-alt"></i>
-                    </button>
-                </div>
-            </div>          
-        </form>
+                    <!-- Change First Name -->
+                    <div class="row registration" id="first-name-row">
+                        <div class="input-field col s12">
+                            <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                            <input id="first_name" name="first_name" value="{{ user.first_name }}" type="text" minlength="3" class="validate" required>
+                            <label for="first_name">Change First Name</label>
+                        </div>
+                    </div>
+
+                    <!-- Change Last Name -->
+                    <div class="row registration" id="last-name-row">
+                        <div class="input-field col s12">
+                            <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                            <input id="last_name" name="last_name" value="{{ user.last_name }}" type="text" minlength="3" class="validate" required>
+                            <label for="last_name">Change Last Name</label>
+                        </div>
+                    </div>
+
+                    <!-- Change email -->
+                    <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                    <div class="row registration" id="email-row">
+                        <div class="input-field col s12">
+                            <i class="fas fa-at prefix green-text text-darken-2"></i>
+                            <input id="email" name="email" value="{{ user.email }}" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="validate" required>
+                            <label for="email">Change Email</label>
+                        </div>
+                    </div>
+
+                    <!-- Change Password -->
+                    <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                    <!--<div class="row registration" id="password-row">
+                        <div class="input-field col s12">
+                            <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
+                            <input id="password" name="password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$">
+                            <label for="password">Change Password</label>
+                        </div>
+                    </div>-->
+
+                    <!-- Opt In/Out to email alerts -->
+                    <div class="row registration" id="alert-row">
+                        <div class="input-field col s12">
+                            <div class="switch">
+                                <label for="opt_in">
+                                    Email alerts:
+                                    {% if user.opt_in == "on" %}
+                                    <input type="checkbox" id="opt_in" name="opt_in" checked>
+                                    {% else %}
+                                    <input type="checkbox" id="opt_in" name="opt_in">
+                                    {% endif %}
+                                    <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to opt in to email alerts for new Recipeas"></span>
+                                    <i class="fas fa-check prefix loved green-text text-darken-2"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="row" id="submit-button">
+                        <button type="submit" class="col s12 btn-large register-button green darken-2">
+                            Update <i class="fas fa-sign-in-alt"></i>
+                        </button>
+                    </div>
+                </div>          
+            </form>
+
+
+            <p>You can also <a class="modal-trigger green-text text-darken-2" href="#change-password-modal">change your password</a> if you are worried about security.</p>
         </div>
-    
+
         <!-- If user is admin, manage buttons -->
         <div class="col s12 m8">
             {% if session.user|lower == "administration"|lower %}
@@ -196,6 +202,53 @@
                 </div>
             {% endif %}
 
+        </div>
+    </div>
+
+    <div class="col s12">
+        <div id="change-password-modal" class="modal">
+            <div class="modal-content">
+                <form class="col s12 m8" method="POST" action="{{ url_for('login') }}">
+                    <div class="card-panel cinnamon">
+                        <!-- Enter Old Password -->
+                        <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                        <div class="row registration" id="password-row">
+                            <div class="input-field col s12">
+                                <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
+                                <input id="password" name="password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
+                                <label for="password">Enter Current Password</label>
+                            </div>
+                        </div>
+
+                        <!-- Enter New Password -->
+                        <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                        <div class="row registration" id="new-password-row">
+                            <div class="input-field col s12">
+                                <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
+                                <input id="new-password" name="new-password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
+                                <label for="password">Enter New Password</label>
+                            </div>
+                        </div>
+
+                        <!-- Confirm New Password -->
+                        <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                        <div class="row registration" id="confirm-new-password-row">
+                            <div class="input-field col s12">
+                                <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
+                                <input id="confirm-new-password" name="confirm-new-password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
+                                <label for="password">Confirm New Password</label>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Change Submit Button -->
+                        <div class="row" id="submit-button">
+                            <button type="submit" class="col s12 btn-large register-button green darken-2">
+                                Change Password <i class="fas fa-check-double"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

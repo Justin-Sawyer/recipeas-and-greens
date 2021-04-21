@@ -186,7 +186,6 @@ def edit_profile():
             "first_name": request.form.get("first_name"),
             "last_name": request.form.get("last_name"),
             "email": request.form.get("email"),
-            "password": generate_password_hash(request.form.get("password")),
             "opt_in": opt_in}
             }
 

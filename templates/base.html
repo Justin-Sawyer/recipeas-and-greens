@@ -9,8 +9,6 @@
             crossorigin="anonymous" type="text/css" />
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!-- Obfuscate Cloudinary key in JS. Credit Matt Rudge, CodeInstitute https://github.com/Code-Institute-Org/key-helper -->
-        <script src="https://code-institute-org.github.io/key-helper/helper.js"></script>
         <!-- Compiled and minified CSS from Materialize -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
         <!-- Site CSS -->
@@ -18,6 +16,7 @@
         <!-- Apple touch / Android / Favicon icon credit: <a href='https://pngtree.com/so/peas-clipart'>peas clipart png from pngtree.com</a>-->
         <link rel="apple-touch-icon" href="{{ url_for('static', filename='media/apple-touch-icon/apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='media/apple-touch-icon/favicon.png') }}">
+        <script src="https://code-institute-org.github.io/key-helper/helper.js"></script>
         <!-- Custom styles or scripts jinja -->
         {% block styles %}
         {% endblock %}

@@ -21,10 +21,10 @@ $(document).ready(function(){
 
 /* Add files to cloudinary and display them online
 From Learn with Coffee https://www.youtube.com/watch?v=6uHfIv4981U */
-
+let API_KEY = "b4an3d8o";
+console.log(API_KEY.keyHelper());
 const CLOUDINRY_URL = "https://api.cloudinary.com/v1_1/recipeas-and-greens/upload";
-/* https://github.com/Code-Institute-Org/key-helper */
-const CLOUDINARY_UPLOAD_PRESET = "an4ob8q3";
+const CLOUDINARY_UPLOAD_PRESET = "b4an3d8o";
 
 var imgPreview = document.getElementById("img-preview");
 var fileUpload = document.getElementById("file-upload");
