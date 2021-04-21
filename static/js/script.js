@@ -24,7 +24,7 @@ From Learn with Coffee https://www.youtube.com/watch?v=6uHfIv4981U */
 let API_KEY = "b4an3d8o";
 console.log(API_KEY.keyHelper());
 const CLOUDINRY_URL = "https://api.cloudinary.com/v1_1/recipeas-and-greens/upload";
-const CLOUDINARY_UPLOAD_PRESET = "b4an3d8o";
+const CLOUDINARY_UPLOAD_PRESET = "an4ob8q3";
 
 var imgPreview = document.getElementById("img-preview");
 var fileUpload = document.getElementById("file-upload");
