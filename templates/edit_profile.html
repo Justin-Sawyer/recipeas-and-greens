@@ -68,16 +68,6 @@
                         </div>
                     </div>
 
-                    <!-- Change Password -->
-                    <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
-                    <!--<div class="row registration" id="password-row">
-                        <div class="input-field col s12">
-                            <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
-                            <input id="password" name="password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$">
-                            <label for="password">Change Password</label>
-                        </div>
-                    </div>-->
-
                     <!-- Opt In/Out to email alerts -->
                     <div class="row registration" id="alert-row">
                         <div class="input-field col s12">
@@ -105,8 +95,8 @@
                 </div>          
             </form>
 
-
-            <p>You can also <a class="modal-trigger green-text text-darken-2" href="#change-password-modal">change your password</a> if you are worried about security.</p>
+            <p>You can also change your password if you are worried about security:</p>
+            <a class="btn-large btn-block white-text cinnamon" href="{{ url_for('reset_password') }}">Reset Password <i class="fas fa-lock"></i></a>
         </div>
 
         <!-- If user is admin, manage buttons -->
@@ -205,53 +195,6 @@
         </div>
     </div>
 
-    <div class="col s12">
-        <div id="change-password-modal" class="modal">
-            <div class="modal-content">
-                <form class="col s12 m8" method="POST" action="{{ url_for('login') }}">
-                    <div class="card-panel cinnamon">
-                        <!-- Enter Old Password -->
-                        <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
-                        <div class="row registration" id="password-row">
-                            <div class="input-field col s12">
-                                <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
-                                <input id="password" name="password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
-                                <label for="password">Enter Current Password</label>
-                            </div>
-                        </div>
-
-                        <!-- Enter New Password -->
-                        <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
-                        <div class="row registration" id="new-password-row">
-                            <div class="input-field col s12">
-                                <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
-                                <input id="new-password" name="new-password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
-                                <label for="password">Enter New Password</label>
-                            </div>
-                        </div>
-
-                        <!-- Confirm New Password -->
-                        <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
-                        <div class="row registration" id="confirm-new-password-row">
-                            <div class="input-field col s12">
-                                <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
-                                <input id="confirm-new-password" name="confirm-new-password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
-                                <label for="password">Confirm New Password</label>
-                            </div>
-                        </div>
-
-                        <!-- Confirm Change Submit Button -->
-                        <div class="row" id="submit-button">
-                            <button type="submit" class="col s12 btn-large register-button green darken-2">
-                                Change Password <i class="fas fa-check-double"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-{% endblock%}
+{% endblock %}
 
 

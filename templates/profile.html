@@ -8,7 +8,6 @@
 
 {% block content %}
 
-    
     <div class="row">
         <!-- User -->
         <div class="col s12">
@@ -36,8 +35,8 @@
             <a href="{{ url_for('edit_profile', username=session['user']) }}" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
             <br>
             <br>
-            <p>You can also <a class="modal-trigger green-text text-darken-2" href="#delete-account-modal">delete your profile</a> if you no longer want to be part of the Recipeas and Greens community.</p>
-
+            <p>You can also delete your profile if you no longer want to be part of the Recipeas and Greens community:</p>
+            <a class="modal-trigger btn-small btn-block red" href="#delete-account-modal">delete your profile</a>
         </div>
     
         <!-- If admin, manage buttons -->
@@ -126,8 +125,8 @@
                 <div class="row">
                     <ul class="recipe-List">
                         <li class="col s12 recipe-list-item">
-                    <h3>No Recipeas yet? Go ahead and create one!</h3>
-                    <a href="{{ url_for('get_recipes')}}" class="btn edit-buttons green darken-2">Add a Recipea <i class="fas fa-file-alt right"></i></a>
+                            <h3>No Recipeas yet? Go ahead and create one!</h3>
+                            <a href="{{ url_for('get_recipes')}}" class="btn edit-buttons green darken-2">Add a Recipea <i class="fas fa-file-alt right"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -250,31 +249,22 @@
                 <div class="modal-content">
                     <h4>Are you sure you want to delete your account and no longer be part of the Recipeas and Greens community?</h4>
                     <p><strong>Please choose one of the following options:</strong></p>
-                    <p>1: Delete your account but keep your Recipeas online</p>
-                    
+                    <p>1: Delete your account but keep your Recipeas online</p>                  
                     <a href="{{ url_for('remove_all_from_favourites_and_delete_account')}}" class="btn edit-buttons red">
-                        Delete Account Only <i class="fas fa-trash-alt right"></i></a>
-                    
+                        Delete Account Only <i class="fas fa-trash-alt right"></i></a>                  
                     <p>(This action is best if you want the Recipeas and Greens community to still have access to Recipeas that you have published. 
                         Recipeas will be credited to "Former Member".
-                        Community Recipeas you have added as favourites will be "un-favourited".</p>
-                        
+                        Community Recipeas you have added as favourites will be "un-favourited".</p>                       
                     <p>If you decide later to return to the Recipeas and Greens community, you will not be able to edit any Recipeas that you created previsouly, 
                         since those Recipeas are now credited to "Former Member" rather than to your username. And since any community Recipeas you have previously 
                         added as favourites will be removed from your list of favourites, you will need to rebuilt your list of favourites by clicking their green 
                         "+" badges.)</p>
-
-                    <hr>
-                    
-                    <p>2: Delete your account and remove your Recipeas</p>
-                    
+                    <hr>                   
+                    <p>2: Delete your account and remove your Recipeas</p>                  
                     <a href="{{ url_for('remove_all_from_favourites_and_delete_recipes_and_delete_account')}}" class="btn edit-buttons red">
-                        Delete Account And Recipeas <i class="fas fa-trash-alt right"></i></a>
-                    
+                        Delete Account And Recipeas <i class="fas fa-trash-alt right"></i></a>                  
                     <p>(This action is best if you want to delete everything you posted to the Recipeas and Greens community.)</p>
-
-                    <hr>
-                    
+                    <hr>                  
                     <p>3: Do not delete your account</p>
                     <a href="#!" class="btn edit-buttons modal-close green darken-2">Do Not Delete <i class="fas fa-times-circle right"></i></a>
                 </div>

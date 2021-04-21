@@ -101,20 +101,27 @@ def register():
 
         opt_in = "on" if request.form.get("opt_in") else "off"
 
-        register = {
-            "first_name": request.form.get("first_name"),
-            "last_name": request.form.get("last_name"),
-            "username": request.form.get("username").lower(),
-            "email": request.form.get("email").lower(),
-            "password": generate_password_hash(request.form.get("password")),
-            "opt_in": opt_in,
-        }
-        mongo.db.users.insert_one(register)
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
 
-        # Put the new user into 'session' cookie
-        session["user"] = request.form.get("username").lower()
-        flash("Registration successful!")
-        return redirect(url_for("profile", username=session["user"]))
+        if password == confirm_password:
+            register = {
+                "first_name": request.form.get("first_name"),
+                "last_name": request.form.get("last_name"),
+                "username": request.form.get("username").lower(),
+                "email": request.form.get("email").lower(),
+                "password": generate_password_hash(request.form.get("password")),
+                "opt_in": opt_in,
+            }
+            mongo.db.users.insert_one(register)
+
+            # Put the new user into 'session' cookie
+            session["user"] = request.form.get("username").lower()
+            flash("Registration successful!")
+            return redirect(url_for("profile", username=session["user"]))
+        else:
+            flash("Passwords did not match")
+            return redirect(url_for("register"))
 
     return render_template("register.html", title="Register")
 
@@ -212,6 +219,52 @@ def edit_profile():
             title="Edit Profile")
 
     return render_template("edit_profile.html")
+
+
+@app.route("/reset_password", methods=["GET", "POST"])
+def reset_password():
+    if request.method == "POST":
+        # Check if username exists in Database
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username")})
+
+        new_password = request.form.get("new_password")
+        confirm_new_password = request.form.get("confirm_new_password")
+
+        if existing_user:
+            # Ensure hashed password matches user input
+            if check_password_hash(
+              existing_user["password"], request.form.get("password")):
+                if new_password == confirm_new_password:
+                    password = generate_password_hash(
+                                request.form.get("new_password"))
+                    # session["user"] = request.form.get("username").lower()
+                    mongo.db.users.update_one(
+                        existing_user,
+                        {"$set": {
+                            "password": password}})
+                    flash("Your password has been changed, {}" .format(
+                        request.form.get("username")))
+                    return redirect(url_for("profile",
+                                    username=session["user"]))
+                else:
+                    flash("Did your passwords match?")
+                    return redirect(url_for("reset_password"))
+            else:
+                # Invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("profile", username=session["user"]))
+
+        else:
+            # Username doesn't exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login"))
+
+    if session["user"]:
+        return render_template(
+            "reset_password.html")
+
+    return render_template("reset_password.html")
 
 
 @app.route("/logout")

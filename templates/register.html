@@ -75,6 +75,16 @@
                     </div>
                 </div>
 
+                <!-- Confirm New Password -->
+                <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                <div class="row registration" id="confirm-password-row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-lock prefix green-text text-darken-2"></i>
+                        <input id="confirm_password" name="confirm_password" type="password" minlength="8" maxlength="24" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$" class="validate" required>
+                        <label for="confirm_password">Retype Password</label>
+                    </div>
+                </div>
+
                 <!-- Opt In/Out to email alerts -->
                 <div class="input-field col s12">
                     <div class="switch">
