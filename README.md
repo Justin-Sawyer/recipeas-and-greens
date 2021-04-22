@@ -1251,3 +1251,150 @@ Having then tested that this code works, the developer then inserted an extra "c
 
 As an aisde, the developer believes that it is the developer's role to create code where, should the user forget the login details, then the users should be able to securely recover their credentials. It is not the developers role to force a user to memorise said credentials. It is precisely because of this that the "Forgot Password" functionality will be added as soon as the developer is able to do so.
 
+### Adding/Editing Recipes:
+
+As can be seen on the rendered application, when a user adds a recipe, the user is promted to do so in a certain way. For example, the user is asked to separate each ingredient used in the recipe with a new line. No system is foolproof, and not every one has the same typing ability, and this is of course a community website, rather than a professional cookery site, so there will of course be errors in enetering details, or times when the recipe looks badly formatted, just as there are many badly written posts on Facebook or other social media sites.
+
+The developer understands this, and hopes the application's audience does too.
+
+However, certain things about creating and editing recipes are worth noting:
+
+The developer has created a collection within the database for categories. Another was created for levels of difficulty, and yet another for servings.
+
+The servings collection was created purely to ensure that there would always be serving quantities of each number from 1 to 9. For the HTML dropdown, the developer is using Jinja templating to render the number of serving rather than list each number in a `<li>` element.
+
+While developing this application, the developer realised that if there were no recipes lited with (for example) 5 servings, and no independent servings collection, then the number 5 would not appear within the dropdown menu. Thus to ensure the dropdown was always numbered correctly, this collection of servings was added to the Database.
+
+It is also worth noting that should the application be successful, then a "button search" for recipes by their number of servings can easily be added.
+
+Similarly, the developer added a "level of difficulty" collection to the database, for the same reason.
+
+These two collections are not editable by the user. It is only the developer who has access to these collections who can change them.
+
+Further, there is also a collection of categories. This collection can be built upon by users. Thus, the developer is not forced to list potentially hundreds of different categories within a dropdown for the user to choose from.
+
+The drawback to this approach is that we may see a listing of categories that includes both "Soup" **and** "Soups". This eventuality will be addressed in the "Future Plans" section of this README file.
+
+It is worth however detailing the code regarding categories in the `add_recipe()` and `edit_recipe()` functions and the associated HTML code:
+
+The HTML:
+
+```
+<form method="POST" action="{{ url_for('add_recipe') }}">
+    <!-- Recipe Category -->
+    <div class="input-field col s12">
+        <i class="fas fa-flag prefix green-text text-darken-2"></i>
+        <textarea id="recipe_category" name="recipe_category"
+        class="materialize-textarea validate" required></textarea>
+        <label for="recipe_category">Recipea category (separate each with a new line)</label>
+    </div>
+</form>
+```
+
+The Python functions:
+ 
+```
+@app.route("/add_recipe", methods=["GET", "POST"])
+def add_recipe():
+    if request.method == "POST":
+	# Add user to created_by field
+        user = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        favourite_of = [user] if request.form.get("favourite_of") else [""]
+
+	""" Adding categories to category collection """
+	# Get all text entered in category HTML field
+        category = {
+            "recipe_category": request.form.get("recipe_category")
+        }
+
+        # Split each text entry by return then new line
+        categories = category["recipe_category"].split("\r\n")
+
+        for cat in categories:
+            new_cats = {"recipe_category": cat}
+	    # Get category collection from DB
+            categories_collection = mongo.db.categories
+            # Check if category exists in category collection
+            existing_category = mongo.db.categories.find_one(
+                {"recipe_category": cat})
+	    # Add only new entries to category collection
+            if not existing_category:
+                categories_collection.insert_one(new_cats)
+	""" End of 'Adding categories to category collection' """
+
+	""" Adding categories to recipes collection """
+        recipe = {
+            "recipe_name": request.form.get("recipe_name"),
+            "recipe_ingredients": request.form.get("recipe_ingredients"),
+            "recipe_preparation": request.form.get("recipe_preparation"),
+            "recipe_notes": request.form.get("recipe_notes"),
+            "recipe_prep_time": request.form.get("recipe_prep_time"),
+            "recipe_cooking_time": request.form.get("recipe_cooking_time"),
+            "recipe_total_time": request.form.get("recipe_total_time"),
+            "recipe_description": request.form.get("recipe_description"),
+            "recipe_category": categories,
+            "recipe_level_of_difficulty": request.form.get(
+                "recipe_level_of_difficulty"),
+            "recipe_servings": request.form.get("recipe_servings"),
+            "image_url": request.form.get("recipe_image_url"),
+            "recipe_source": request.form.get("recipe_source"),
+            "created_by": session["user"],
+            "favourite_of": favourite_of
+        }
+        mongo.db.recipes.insert(recipe)
+	""" End of 'Adding categories to category collection' """
+
+        flash("Recipea added to the Recipeas and Greens community!")
+        return redirect(url_for("get_recipes"))
+
+    return render_template(
+        "add_recipe.html", title="Add Recipea")
+```
+
+As can be seen, as the user enters a list of categories, each entry of the list is split by a return and new line, then each entry is entered into the category collection of the database.
+
+The developer tested this and believed all to be working well: when he then used the "Search by Category" buttons, each value was being listed as a separate entry. Thus if a user created a recipe with (for example) three new categories like (for example) "Carribean", "Spicy", "Plantain", the "Search by Category" results wer ineed showing these three new entries as separate entries.
+
+However, the next day, when the developer returned to the project, and having asked a colleague to test the application (two eyes are better than one!), the developer did indeed notice something amiss with the code he had written.
+
+All works as it should it each category is separated by ONE return new line. The colleague had added a recipe where each category was separated by TWO return new lines.
+
+As a consequence, this extra return new line was being treated as an entry in itself, and was being inserted into the category collection as an empty string. 
+
+Thus, when the developer used the "Search by Category" button, he saw a blank entry being shown as a category:
+
+<img src="static/documentation/testing-screenshots/category/blank-category.png">
+
+One extra line of code was needed:
+
+```
+for cat in categories:
+	if cat!= "":
+		# existing code
+```
+
+Further, the developer realised that by using the following code, we are splitting a string into an array:
+
+```
+category = {
+	"recipe_category": request.form.get("recipe_category")
+}
+# Category value is a string
+
+# Split each text entry by return then new line
+categories = category["recipe_category"].split("\r\n")
+# Categories is an array
+```
+
+And thus of course, the categories were being rendered on their respective recipe pages within square brackets, as such:
+
+<img src="static/documentation/testing-screenshots/category/category-array.png">
+
+Thus, to counter this, a litle Jinja tempating was added to the recipe.html page:
+
+```
+{% for cat in recipe.recipe_category %}
+	<p class="recipea-category-text">{{ cat }}</p>
+{% endfor %}
+```
