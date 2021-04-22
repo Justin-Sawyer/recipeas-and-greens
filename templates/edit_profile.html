@@ -6,9 +6,9 @@
     </div>   
 {% endblock %}
 
-{% block content %}   
+{% block content %} 
+    <!-- User -->
     <div class="row">
-        <!-- User -->
         <div class="col s12">
             {% if session.user|lower == "administration"|lower %}
                 <h1 class="title">{{ user.username }}'s Profile</h1>
@@ -18,100 +18,108 @@
         </div>
 
         <!-- User's Profile -->
-        <div class="col s12 m4">
-            <h2>Edit Profile:</h2>
-            <form method="POST" action="{{ url_for('edit_profile', user=session['user']) }}">
-                <div class="card-panel cinnamon">
-                    <div class="row registration" id="photo-row">
-                        <div class="input-field col s12">
-                            <!-- Add a profile photo -->
-                            {% if user.image_url %}
-                                <p><img src="{{ user.image_url }}" id="img-preview" alt="Profile image"/></p>
-                            {% else %}
-                                <p><img src="{{ url_for('static', filename='media/images/profile-photo/profile_avatar_placeholder_large.png') }}" id="img-preview" alt="Profile image placeholder"/></p>
-                            {% endif %}
-                            <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
-                                <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
-                                    Add/Change Photo <i class="fas fa-camera"></i>
-                                </label>
-                                <input id="file-upload1" type="hidden" name="profile_image_url" value="{{ user.image_url }}" style="display:none;">
-                            </p>
-                            <p>Just adding or changing your photo? Remember to click "Update" below!</p>
-                        </div>
-                    </div>
-
-                    <!-- Change First Name -->
-                    <div class="row registration" id="first-name-row">
-                        <div class="input-field col s12">
-                            <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
-                            <input id="first_name" name="first_name" value="{{ user.first_name }}" type="text" minlength="3" class="validate" required>
-                            <label for="first_name">Change First Name</label>
-                        </div>
-                    </div>
-
-                    <!-- Change Last Name -->
-                    <div class="row registration" id="last-name-row">
-                        <div class="input-field col s12">
-                            <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
-                            <input id="last_name" name="last_name" value="{{ user.last_name }}" type="text" minlength="3" class="validate" required>
-                            <label for="last_name">Change Last Name</label>
-                        </div>
-                    </div>
-
-                    <!-- Change email -->
-                    <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
-                    <div class="row registration" id="email-row">
-                        <div class="input-field col s12">
-                            <i class="fas fa-at prefix green-text text-darken-2"></i>
-                            <input id="email" name="email" value="{{ user.email }}" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="validate" required>
-                            <label for="email">Change Email</label>
-                        </div>
-                    </div>
-
-                    <!-- Opt In/Out to email alerts -->
-                    <div class="row registration" id="alert-row">
-                        <div class="input-field col s12">
-                            <div class="switch">
-                                <label for="opt_in">
-                                    Email alerts:
-                                    {% if user.opt_in == "on" %}
-                                    <input type="checkbox" id="opt_in" name="opt_in" checked>
-                                    {% else %}
-                                    <input type="checkbox" id="opt_in" name="opt_in">
-                                    {% endif %}
-                                    <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to opt in to email alerts for new Recipeas"></span>
-                                    <i class="fas fa-check prefix loved green-text text-darken-2"></i>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="row" id="submit-button">
-                        <button type="submit" class="col s12 btn-large register-button green darken-2">
-                            Update <i class="fas fa-sign-in-alt"></i>
-                        </button>
-                    </div>
-                </div>          
-            </form>
-
-            <p>You can also change your password if you are worried about security:</p>
-            <a class="btn-large btn-block recipe-action edit-button white-text cinnamon" href="{{ url_for('reset_password') }}">Reset Password <i class="fas fa-lock"></i></a>
-        </div>
-
-        <!-- If user is admin, manage buttons -->
-        <div class="col s12 m8">
-            {% if session.user|lower == "administration"|lower %}
-                <div class="row">
-                    <div class="col s6">
-                        <a class="btn btn-block" href="{{ url_for('get_categories') }}">Manage Categories</a>
-                    </div>
-                    <div class="col s6">
-                        <a class="btn btn-block" href="{{ url_for('get_difficulty_levels') }}">Manage Levels of Difficulty</a>
+        <form class="col s12" style="padding:0" method="POST" action="{{ url_for('edit_profile', user=session['user']) }}">
+            <div class="col s4">
+                <div class="registration" id="photo-row">
+                    <div class="input-field">
+                        <!-- Add a profile photo -->
+                        {% if user.image_url %}
+                            <p><img src="{{ user.image_url }}" id="img-preview" alt="Profile image"/></p>
+                        {% else %}
+                            <p><img src="{{ url_for('static', filename='media/images/profile-photo/profile_avatar_placeholder_large.png') }}" id="img-preview" alt="Profile image placeholder"/></p>
+                        {% endif %}
+                        <p><label class="file-upload-container btn-small btn-block green darken-2 white-text" for="file-upload">
+                            <input id="file-upload" type="file" name="previous_profile_image_url" style="display:none;"> 
+                                Edit <i class="fas fa-camera"></i>
+                            </label>
+                            <input id="file-upload1" type="hidden" name="profile_image_url" value="{{ user.image_url }}" style="display:none;">
+                        </p>
+                        <p>Just adding or changing your photo? Remember to click "Update" below!</p>
                     </div>
                 </div>
-            {% endif %}
+            </div>
+
+            <div class="col s8">
+                <!-- Change First Name -->
+                <div class="registration" id="first-name-row">
+                    <div class="input-field">
+                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                        <input id="first_name" name="first_name" value="{{ user.first_name }}" type="text" minlength="3" class="validate" required>
+                        <label for="first_name">Change First Name</label>
+                    </div>
+                </div>
+
+                <!-- Change Last Name -->
+                <div class="registration" id="last-name-row">
+                    <div class="input-field">
+                        <i class="fas fa-user-plus prefix green-text text-darken-2"></i>
+                        <input id="last_name" name="last_name" value="{{ user.last_name }}" type="text" minlength="3" class="validate" required>
+                        <label for="last_name">Change Last Name</label>
+                    </div>
+                </div>
+
+                <!-- Change email -->
+                <!-- pattern="" from W3Schools.com https://www.w3schools.com/tags/att_input_pattern.asp-->
+                <div class="registration" id="email-row">
+                    <div class="input-field">
+                        <i class="fas fa-at prefix green-text text-darken-2"></i>
+                        <input id="email" name="email" value="{{ user.email }}" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="validate" required>
+                        <label for="email">Change Email</label>
+                    </div>
+                </div>
+
+                <!-- Opt In/Out to email alerts -->
+                <div class="registration" id="alert-row">
+                    <div class="input-field">
+                        <div class="switch">
+                            <label for="opt_in">
+                                Email alerts:
+                                {% if user.opt_in == "on" %}
+                                <input type="checkbox" id="opt_in" name="opt_in" checked>
+                                {% else %}
+                                <input type="checkbox" id="opt_in" name="opt_in">
+                                {% endif %}
+                                <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to opt in to email alerts for new Recipeas"></span>
+                                <i class="fas fa-check prefix loved green-text text-darken-2"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="col s12" id="submit-button">
+                <button type="submit" class="col s12 btn-small btn-block register-button green darken-2">
+                    Update <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </div>                    
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <p>You can also change your password if you are worried about security:</p>
+            <a class="btn-small btn-block recipe-action edit-button white-text cinnamon" href="{{ url_for('reset_password') }}">Reset Password <i class="fas fa-lock"></i></a>
+        </div>
+    </div>
+
+    <!-- If user is admin, manage buttons -->
+    {% if session.user|lower == "administration"|lower %}
+    <div class="row">
+        <div class="col s12">
+            <h2>Settings:</h2>
+            <div class="col s6">
+                <a class="btn-small btn-block" href="{{ url_for('get_categories') }}">Manage Categories</a>
+            </div>
+            <div class="col s6">
+                <a class="btn-small btn-block" href="{{ url_for('get_difficulty_levels') }}">Manage Levels of Difficulty</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
          
+    <div class="row">
+        <div class="col s12">
             <!-- User's recipes, links to edit -->
             <h2>Edit Recipeas:</h2>
             {% if recipes_created_by|length > 0 %}
@@ -119,7 +127,7 @@
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
                         {% if session.user|lower in recipe.created_by %}
-                        <li class="col s12 m6 recipe-list-item">
+                        <li class="col s12 m4 recipe-list-item">
                             <div class="card">
                                 {% if session.user|lower in recipe.favourite_of %}
                                     <a class="btn-floating halfway-fab waves-effect waves-light red">
@@ -191,7 +199,6 @@
                     </ul>
                 </div>
             {% endif %}
-
         </div>
     </div>
 

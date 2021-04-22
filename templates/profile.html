@@ -7,9 +7,8 @@
 {% endblock %}
 
 {% block content %}
-
+    <!-- User -->
     <div class="row">
-        <!-- User -->
         <div class="col s12">
             {% if session.user|lower == "administration"|lower %}
                 <h1 class="title">{{ user.username }}'s Profile</h1>
@@ -19,47 +18,59 @@
         </div>
 
         <!-- User's profile details -->
-        <div class="col s12 m4"> 
-            <h2>{{ user.first_name }}'s Profile:</h2>
+        <div class="col s4">
+            {% if user.image_url %}
+            <p><img src="{{ user.image_url }}" id="img-preview" alt="Profile image"/></p>
+            {% else %}
+            <p><img src="../static/media/images/profile-photo/profile_avatar_placeholder_large.png" id="img-preview" alt="Profile image placeholder"/></p>
+            {% endif %}
+        </div>
+        <div class="col s8">
             <p><i class="far fa-id-card small green-text text-darken-2"></i><span class="right">{{ user.first_name }} {{ user.last_name }}</span></p>
             <p><i class="far fa-user small green-text text-darken-2"></i><span class="right">{{ user.username }}</span></p>
             <p><i class="fas fa-at small green-text text-darken-2"></i><span class="right">{{ user.email }}</span></p>
-            {% if user.image_url %}
-                <p><img src="{{ user.image_url }}" id="img-preview" alt="Profile image"/></p>
-            {% else %}
-                <p><img src="../static/media/images/profile-photo/profile_avatar_placeholder_large.png" id="img-preview" alt="Profile image placeholder"/></p>
-            {% endif %}
-
-            <!-- Edit Profile -->
-            <p>Want to change your profile details? Change your email alert settings? Even add a photo?</p>
-            <a href="{{ url_for('edit_profile', username=session['user']) }}" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
-            <br>
-            <br>
-            <p>You can also delete your profile if you no longer want to be part of the Recipeas and Greens community:</p>
-            <a class="modal-trigger btn-small btn-block red" href="#delete-account-modal">delete your profile</a>
         </div>
+    </div>
+        
+        <!-- Edit Profile -->
+    <div class="row">
+        <div class="col s12 m6">
+            <p>Want to change your profile details? Change your email alert settings? Even add a profile photo?</p>
+            <a href="{{ url_for('edit_profile', username=session['user']) }}" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
+            </div>
+            <!-- Delete Profile -->
+            <div class="col s12 m6">
+            <p>You can also delete your profile if you no longer want to be part of the Recipeas and Greens community:</p>
+            <a class="modal-trigger col s12 btn-small btn-block recipe-action red" href="#delete-account-modal">delete your profile</a>
+        </div>
+    </div>
+        
     
         <!-- If admin, manage buttons -->
-        <div class="col s12 m8">
-            {% if session.user|lower == "administration"|lower %}
-                <div class="row">
-                    <div class="col s6">
-                        <a class="btn btn-block" href="{{ url_for('get_categories') }}">Manage Categories</a>
-                    </div>
-                    <div class="col s6">
-                        <a class="btn btn-block" href="{{ url_for('get_difficulty_levels') }}">Manage Levels of Difficulty</a>
-                    </div>
-                </div>
-            {% endif %}
-         
-            <!-- User's own recipes -->
+    {% if session.user|lower == "administration"|lower %}
+    <div class="row">
+        <div class="col s12">
+            <h2>Settings:</h2>
+            <div class="col s6">
+                <a class="btn-small btn-block" href="{{ url_for('get_categories') }}">Manage Categories</a>
+            </div>
+            <div class="col s6">
+                <a class="btn-small btn-block" href="{{ url_for('get_difficulty_levels') }}">Manage Levels of Difficulty</a>
+            </div>
+        </div>
+    </div> 
+    {% endif %}
+        
+    <!-- User's own recipes -->
+    <div class="row">
+        <div class="col s12">
             <h2>{{ user.first_name }}'s Own Recipeas:</h2>
             {% if recipes_created_by|length > 0 %}
             <div class="row">
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
                         {% if session.user|lower in recipe.created_by %}
-                        <li class="col s12 m6 recipe-list-item">
+                        <li class="col s12 m4 recipe-list-item">
                             <div class="card">
                                 {% if session.user|lower in recipe.favourite_of %}
                                     <a class="btn-floating halfway-fab waves-effect waves-light red">
@@ -126,13 +137,17 @@
                     <ul class="recipe-List">
                         <li class="col s12 recipe-list-item">
                             <h3>No Recipeas yet? Go ahead and create one!</h3>
-                            <a href="{{ url_for('get_recipes')}}" class="btn edit-buttons green darken-2">Add a Recipea <i class="fas fa-file-alt right"></i></a>
+                            <a href="{{ url_for('get_recipes')}}" class="btn-small edit-buttons green darken-2">Add a Recipea <i class="fas fa-file-alt right"></i></a>
                         </li>
                     </ul>
                 </div>
             {% endif %}
+        </div>
+    </div>
 
-            <!-- Favourited recipes -->
+    <!-- Favourited recipes -->
+    <div class="row">
+        <div class="col s12">
             <h2>Community Recipeas I Love:</h2>
             {% if favourites_of|length > 0 %}
             <div class="row">
@@ -140,7 +155,7 @@
                     {% for recipe in recipes %}
                         {% if not user.username in recipe.created_by %}
                             {% if user.username in recipe.favourite_of %}
-                                <li class="col s12 m6 recipe-list-item">
+                                <li class="col s12 m4 recipe-list-item">
                                     <div class="card">
                                         <a class="btn-floating halfway-fab waves-effect waves-light red">
                                             <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Is Favourite!">
@@ -191,15 +206,19 @@
                     </ul>
                 </div>
             {% endif %}
+        </div>
+    </div>
 
-            <!-- Other recipes -->
+    <!-- Other recipes -->
+    <div class="row">
+        <div class="col s12">
             <h2>Community Recipeas Not Yet Tried:</h2>
             <div class="row">
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
                         {% if user.username != recipe.created_by %}
                         {% if not user.username in recipe.favourite_of %}
-                                    <li class="col s12 m6 recipe-list-item">
+                                    <li class="col s12 m4 recipe-list-item">
                                         <div class="card">
                                             <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}"
                                                 class="btn-floating halfway-fab waves-effect waves-light green darken-2">
@@ -242,10 +261,12 @@
                 </ul>
             </div>
         </div>
+    </div>
 
-        <!-- Delete account? modal -->
-        <div class="col s12">
-            <div id="delete-account-modal" class="modal">
+
+    <!-- Delete account? modal -->
+        <!--<div class="col s12">-->
+            <div class="col s12 modal" id="delete-account-modal">
                 <div class="modal-content">
                     <h4>Are you sure you want to delete your account and no longer be part of the Recipeas and Greens community?</h4>
                     <p><strong>Please choose one of the following options:</strong></p>
@@ -269,9 +290,9 @@
                     <a href="#!" class="btn edit-buttons modal-close green darken-2">Do Not Delete <i class="fas fa-times-circle right"></i></a>
                 </div>
             </div>
-        </div>
+        <!--</div>-->
 
-    </div>
+    <!--</div>-->
 
 {% endblock%}
 
