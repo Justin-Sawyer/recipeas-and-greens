@@ -173,6 +173,90 @@ This website was tested using the following tools:
 6. The [Lighthouse plugin for Google Chrome](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl) was used for speed checking and "tweaking" settings for maximal optimisation for web deployment.
 	* [Results (pdf files)](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/lighthouse/)
 
+- ### Testing User Stories
+	- #### First Time Visitors:
+
+		1) As a first time visitor, I want to see a range of recipes that detail both ingredients and preparation. As a plus, I would like to see the level of difficulty for each particular recipe, its preparation and cooking times, and the category for each recipe.
+
+			Upon first loading the applcation, the user is presnted with a beautiful dislpay of recipe "cards". Depending on the screen size of the user's device, the user can see grids of 1, 2 or 3 recipes per row. Clicking on each recipe takes the user to the associated recipe page, where the user can see the time needed for the preparation of the recipe. Additionally, the application has a "Search for"  functionality where gthe user can filter recipes by their level of difficulty or category.
+
+		2) I want the design of each recipe to be accorded to my particular screen size: 
+			- With a large screen such as a desktop or a tablet in a landscape orientation, I would like both ingredients and preparation to be visible together so that I can ensure that I have not missed anything.
+			- With smaller screens, such as mobile devices, I want the ordering of items to be logical, thus showing me the ingredients I need to prepare the recipe before the actual text detailing the recipe's preparation.
+
+		Both conditions have been met. On large screens, the real estate allows for the user to see both the ingredients and preparation on the same screen, in a logical order (list of ingredients followed by recipe preparation), while on a smaller screen, the user has simply to scroll down to follow the same logical order.
+
+		3) I want a banner image showing what I should be aiming for with each recipe. The banner image is meant to display the final meal, and also to draw me in and encourage me to both return to the website and join the community.
+
+		Each recipe added can be published with an image taken from the user's device. This image is used as the banner image of the recipe's recipe page. Where a user does not add an image, the banner image is taken from the main site's home (recipes.html) page. The author of that recipe also has the option to edit the recipe at a later date and thus add an image if one was not added upon first publication.
+
+		4) Upon loading the website, I would like to be presented with the most recently added recipes. I want these recipes to be shown with images, in order to whet my appetite. 
+
+		Although recipes are not date stamped as they are published, they are published in "most recent" order. Each recipe card show both the name and an image (if added) of the finished recipe. As above, if no image is added, then the card displays an image of the applications home page banner.
+
+		5) I want the possibility to both search for recipes but also to simply view recipes based on their category or level of difficulty via a simple click of buttons. Thus, on the loading page (but not within the navigation) I want to see buttons listing (for example) "Quick and Easy", "Challenging" or "Difficult". On pressing these links, I want to be presented with the most recently uploaded recipes within these criteria. Conversly, if I press the button "Category", I want to be taken to a generic page that list (with images overlaid by the category name) each category. Upon clicking these images, I then want to be taken to a page showing the most recently uploaded recipes within that category.
+
+		This has been achieved by the addition of "Search by ..." buttons.
+
+		6) I want to be encouraged to join the community and thus enter my own recipes for the community to use and enjoy. Although there might not be monetary incentives for joining the community, I would like to to be made clear that there are indeed advantages to joining, such as the possibility to mark recipes as personal favourites. I want this functionality so that I do not have to keep scrolling through a potentially endless list of recipes before finding the recipe I enjoyed preparing (and eating!) last week, last month or last year.
+
+		On each page where either a recipe grid or recipe itself is shown, the user can favourite recipes by simply clicking either an icon or a button. Additionally, on the user's profile page, the user has 3 recipe lists: the user's own published recipes, the user's favourite recipes published by others, and recipes untried by the user. All are shown in reverse order of publication (ie, most recently published is first). On the user's profile page, as the user favourites recipes, these are auto-updated into the user's list of favourites.
+
+		7) If I decide to join the community, I would like to be able to create my Account. I want the account to be simple, and simple to modify. My Account should not overwhelm me, but should rather contain simple entries for my (first and last) name, a username that I choose, my email address and perhaps a photo of me. While the photo is not obligatory, I understand that having a functioning Account means that including my name, username and email are required for building my personal database of recipes.
+
+		Registering an Account is a painless process, that takes less than a minute to do. Once registered, the user has the possibility of adding a profile image, changing certain details (although the developer has deliberately not allowed user's to change their username), and even chaging their password or deleting their Account.
+
+		8) If I decide to join the community, I want my list of favourite recipes to be built automatically, by a simple press on an icon such as a "+" or a "heart". I then want these favourited or loved recipes to appear both within my account details, but more importantly, directly from the home page of the website. In other words, I do not want to have to access my Account page before being able to access my favourite recipes.
+
+		This is indeed the case. If a user is not logged in, each recipe card is shown with a green "plus" icon. If the user thinks they are logged in and the home page is not rendering the user's favourites correctly, pressing this green "plus" icon takes the user to the login page. Once the user logs in, (s)he is taken to the home page where the icons are shown according to whether the recipe is a favourite or not.
+
+        Logged out:
+
+        <img src="static/documentation/testing-screenshots/user-stories/green-plus-icons-when-not-logged-in.png">
+
+        Logged in:
+
+        <img src="static/documentation/testing-screenshots/user-stories/different-icons-depending-on-favourites-when-logged-in.png">
+
+		9) I want the website to remember me. Once logged in, I want to stay logged in, unless I choose to log out.
+
+		Excepting certain situations, this is indeed the case.
+
+		10) If I decide to join the community, I want to be able to add my own recipes. The process must be simple, and I should be prompted how to add ingredients, the preparation method, the category of the recipe, its difficulty level and its preparation and cooking times.
+
+		Just like registering an Account, adding a recipe is indeed simple. The user is promted how to do so.
+
+    - #### Returning Visitors:
+
+		1) I want the conditions listed for First Time Visitors to be true also for myself as a Returning Visitor.
+
+		2) If I have not yet joined the community, I would like to be prompted to join upon returning to the website.
+
+		The developer thought about adding a popup to prompt users to join the community. However, as popups are often annoying, the developer decided to allow the design aesthetics of the application speak for itself. 
+
+		3) As a returning member, I want the navigation of the website to reflect my membership status. Thus, I want to see within the navigation links a link to my Account. My Account page should detail my Account settings (username, etc), recipes I have created, recipes created by others that I have favourited, and recipes that I have not yet tried. I want to be able to mark recipes as favourites from any page I access: the Home page, the Recipe page, the selection of recipes within a category pages, and of course from my own Account page. 
+
+		All of these goals have been achieved.
+
+		4) As a returning member, I want to be able to add new recipes, edit previous recipes, edit my Account details if any of these have changed. 
+
+		All of these goals have been achieved.
+
+		5) I want to be able to search for recipes based on their name, their ingredients, their category and their ease of preparation. For example, if I return home late from work during a weeknight, I want to be able to search for "Quick and Easy" recipes. Ultimately, I would like to then refine my search to include what I have in my pantry or fridge. Thus while using the search functionality, if I search for "Quick and Easy spaghetti", I would like to be presented with recipes that are both "Quick and Easy" *or* have "spaghetti" as a listed ingredient. These recipes need not be only in my personal favourites, but the search must list all community recipes with these criteria.
+
+		All of these goals have been achieved.
+
+		6) Conversely, as a returing member, if I decide that this is a community I no longer want to be a part of, I want the possibility to delete my Account. The deleting process must be simple, but I do not want to be able to delete my Account by accident. Thus, I want to be prompted with an alert, for example, that asks me simply to veify that I do indeed wish to delete my Account. I also want it to be made clear to me that upon clicking "Delete Account", I have the option to delete my Account *and* any recipes I may have created, *or* to delete my Account but leave my recipes online for the community. Both delete options will clear any community recipes from my own personal list of favourites. Thus, if at a later date I decide to rejoin the community, I want it made clear to me on deleting my account that I will have to rebuild my list of favourites as any new community member would.
+
+		All of these goals have been achieved.
+
+	- #### Frequent Visitors:
+		1) I want the conditions listed for First Time Visitors and Returning Visitors to be true also for myself as a Frequent Visitor.
+
+		2) I want the process of adding new recipes to be "second nature". In other words, unless absolutely necessary, if there is an update to the website, I want the process of uploading new recipes to remain "as is". If there is a neccesity to change the process of adding or editing recipes, I want this change to be virtually invisible (unnoticable) to me as an end user. Thus, I can become what is known as a "power user" with ease.
+
+		The developer believes these goals have been achieved. However, changes and upgrades do occur, but the developer aims to keep this site as simple to use as it is currently.
+
 ## Code Testing
 This project has been a labour of love and has taken many, many hours to complete. Code was tested exhaustively to check for errors and bugs:
 
@@ -1398,3 +1482,108 @@ Thus, to counter this, a litle Jinja tempating was added to the recipe.html page
 	<p class="recipea-category-text">{{ cat }}</p>
 {% endfor %}
 ```
+
+There were of course many other times that the developer had problems and code needed to be tested. The above is simply a reflection of how the application was tested exhaustively. 99% of other testing was simple verification that code was correct: printing code, looking for template errors, ensuring that values were correctly being exracted from dictionaries, and so on.
+
+## Known Bugs
+Some users have reported difficulties with dropdowns when adding or editing recipes, specifically with the "Servings" dropdown. The developer has not been able to recreate the conditions leading to the difficulties, but believes it may have something to do with screen size and where the dropdown is on that particluar screen (dropdown either drops *down* or *up*).
+
+## Known Issues
+The developer wants to use an obfuscation tool to obfuscate the upload preset for Cloudinary in the JavaScript file. Each time the developer has tried, the upload preset works in development mode, but stops working once development mode is switched off. Until the developer finds a more robust solution, the upload preset is not being obfuscated. 
+
+## Database
+### Choice of:
+
+The database used for this project is [MongoDB](https://www.mongodb.com/3). It was chosen for its flexibility, and for the simple fact that this is the developers first project using a database, and the tuition he received about MongoDB was superior to other databases.
+
+### Collections and Document Fields:
+Key:
+
+"" = string
+
+[] = array
+
+() = relationship with other collections (or as stated inside the brackets)
+- #### Users:
+	"first_name",
+
+	"last_name",
+
+	"username",
+
+	"email",
+
+	"password",
+
+	"image_url" (optional: if none, empty "" value inserted),
+
+	"opt_in" ("on" or "off")
+
+	The developer neither wants nor needs to store excess information regarding the user, and for this reason the Users collection as been kept simple.
+
+	The "opt_in" field is to allow users to choose whether they receive email alerts when new recipes are published. The user can opt in or out of these email alerts both when signing up, and from within the Account settings.
+
+	Additionally, when a user publishes a recipe, the user has the possibility to stop email alerts from being sent. 
+
+- #### Recipes:
+	"recipe_name" ($), 
+
+	"recipe_ingredients" ($),
+
+	"recipe_preparation" ($), 
+
+	"recipe_notes",
+
+	"recipe_prep_time", 
+
+	"recipe_cooking_time", 
+
+	"recipe_total_time", 
+
+	"recipe_description"($), 
+
+	[recipe_category] ($), 
+
+	"recipe_level_of_difficulty" ($),
+
+	"recipe_servings", 
+
+	"recipe_source" ($), 
+
+	"image_url" (optional: if none, empty "" value inserted), 
+
+	"created_by" (users.username) ($),
+
+	[favourite_of] (users.username of all who have added recipe as a favourite of theirs)
+
+	($) = fields included in "global" search function
+
+- #### Categories
+	"recipe_category" (recipes.recipe_category)
+
+	Users can add new categories. See Testing and Future Plans.
+
+- #### Level_of_difficulty
+	"recipe_level_of_difficulty" (recipes.recipe_level_of_difficulty)
+	
+	Choice of "Quick and Easy", "Challenging", "Difficult". Users cannot edit these levels.
+
+- #### Servings
+	"recipe_servings"
+
+	Choice from 1 - 9. Collection created simply to ensure the dropdown for Servings displays correctly when creating or editing recipes.
+
+## Plaigirism
+
+This is a community recipe building site. While the ideal situation is that users will photograph their recipe creations themselves, the developer cannot be held responsible if users take images from other sources, such as copyrighted materials. Similarly, while the developer has requested that users give credit for any images they may use for their created recipes, the developer cannot guarantee the accuracy of these credits, and thus cannot be held responsible if credits are inaccurate.
+
+
+## Future Plans:
+
+As detailed in the Testing section of this README, the developer had difficulties enabling a "Forgot Password?" functionality when the user has logged out of the Account and then forgotten their password. This will be added as soon as the developer is able to do so.
+
+Further research is needed into obfuscation, and once this has been researched, the developer will obfuscate the Cloudinary Upload Preset value.
+
+Again, as stated in the Testing section of this README, the developer is aware that users can create categories that are similar to each other, such as "Soup" and "Soups". The developer thought about adding existinog category buttons to the create and edit recipe pages for the user to choose from, as well as having an option to create new categories if none seem to fit. However, in the course of creating this application, the developer has already created more than 20 categories. These categories, if listed, would take up too much valuable screen estate on smaller devices. The developer believes a good solution to this would be to enact an autocomplete service, where entries in the category field are autocompleted with values taken from the database. Thus, if value "Asian" exists and the user types "as", the user sees "Asian" as an autocompleted option. Again, further research is needed into this possibility.
+
+
