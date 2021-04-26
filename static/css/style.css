@@ -57,6 +57,12 @@ img {
     background-color: #428e3c;
 }
 
+.btn,
+.btn-small,
+.btn-large {
+    height: auto;
+}
+
 /* ------------------------------------------------------------------------ Navigation & Parralax */
 nav .brand-logo {
     padding: 0 0 0 8px;

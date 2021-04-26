@@ -1492,90 +1492,256 @@ Some users have reported difficulties with dropdowns when adding or editing reci
 The developer wants to use an obfuscation tool to obfuscate the upload preset for Cloudinary in the JavaScript file. Each time the developer has tried, the upload preset works in development mode, but stops working once development mode is switched off. Until the developer finds a more robust solution, the upload preset is not being obfuscated. 
 
 ## Database
-### Choice of:
 
-The database used for this project is [MongoDB](https://www.mongodb.com/3). It was chosen for its flexibility, and for the simple fact that this is the developers first project using a database, and the tuition he received about MongoDB was superior to other databases.
+In order to create your own version of this app, a developer will need to use a database, with the following collections and document fields. The database used for this project is [MongoDB](https://www.mongodb.com/3). It was chosen for its flexibility, and for the simple fact that this is the developers first project using a database, and the tuition he received about MongoDB was superior to other databases.
 
 ### Collections and Document Fields:
-Key:
 
-"" = string
-
-[] = array
-
-() = relationship with other collections (or as stated inside the brackets)
 - #### Users:
-	"first_name",
+	
 
-	"last_name",
+	| Key  | Value  | Relationship  | Comment |
+	|:----------|:----------|:----------|:----------|
+	| "first_name"    | "string"    |     |  |
+	| "last_name"    | "string"    |     |     |
+	| "username"    | "string"    | recipes.created_by, (recipes.favourite_of)    |     |
+	| "email"    | "string"    |     |     |
+	| "password"    | "string"    |     |     |
+	| "image_url"    | "string"    |     |     |
+	| "opt_in"    | "string"    |     | switch values, "on" or "off"    |
 
-	"username",
 
-	"email",
 
-	"password",
-
-	"image_url" (optional: if none, empty "" value inserted),
-
-	"opt_in" ("on" or "off")
-
-	The developer neither wants nor needs to store excess information regarding the user, and for this reason the Users collection as been kept simple.
+	
+	The developer neither wants nor needs to store excess information regarding the user, and for this reason the Users collection has been kept simple.
 
 	The "opt_in" field is to allow users to choose whether they receive email alerts when new recipes are published. The user can opt in or out of these email alerts both when signing up, and from within the Account settings.
 
 	Additionally, when a user publishes a recipe, the user has the possibility to stop email alerts from being sent. 
 
 - #### Recipes:
-	"recipe_name" ($), 
+	
 
-	"recipe_ingredients" ($),
+	| Key  | Value  | Relationship  | Comment  |
+	|:----------|:----------|:----------|:----------|
+	| "recipe_name"    | "string"    |     | Included in global search function    |
+	| "recipe_ingredients"    | "string"    |     | Included in global search function    |
+	| "recipe_preparation" | "string" |		| Included in global search function |
+	| "recipe_notes"    | "string"    |     |     |
+	| "recipe_prep_time"    | "string"    |     |     |
+	| "recipe_cooking_time"    | "string"    |     |     |
+	| "recipe_total_time"    | "string"    |     |     |
+	| "recipe_description"    | "string"    |     |     |
+	| "recipe_category"    | [array]    | categories.recipe_category    | Included in global search function   |
+	| "recipe_level_of_difficulty"    | "string"    |     | Included in global search function   |
+	| "recipe_servings"    | "string"    |     |     |
+	| "recipe_source"    | "string"    |     | Included in global search function    |
+	| "image_url"    | "string"    |     |     |
+	| "created_by"    | "string"    | users.username    | Included in global search function    |
+	| "favourite_of"    | [array]   | (users.username)    |     |
 
-	"recipe_preparation" ($), 
 
-	"recipe_notes",
-
-	"recipe_prep_time", 
-
-	"recipe_cooking_time", 
-
-	"recipe_total_time", 
-
-	"recipe_description"($), 
-
-	[recipe_category] ($), 
-
-	"recipe_level_of_difficulty" ($),
-
-	"recipe_servings", 
-
-	"recipe_source" ($), 
-
-	"image_url" (optional: if none, empty "" value inserted), 
-
-	"created_by" (users.username) ($),
-
-	[favourite_of] (users.username of all who have added recipe as a favourite of theirs)
-
-	($) = fields included in "global" search function
 
 - #### Categories
-	"recipe_category" (recipes.recipe_category)
+	| Key  | Value  | Relationship  | Comment  |
+	|:----------|:----------|:----------|:----------|
+	| "recipe_category" | "string" | (recipes.recipe_category)
 
 	Users can add new categories. See Testing and Future Plans.
 
 - #### Level_of_difficulty
-	"recipe_level_of_difficulty" (recipes.recipe_level_of_difficulty)
-	
-	Choice of "Quick and Easy", "Challenging", "Difficult". Users cannot edit these levels.
+	| Key  | Value  | Relationship  | Comment  |
+	|:----------|:----------|:----------|:----------|
+	| "recipe_level_of_difficulty" |"string"| (recipes.recipe_level_of_difficulty) |Choice of "Quick and Easy", "Challenging", "Difficult". Users cannot edit these levels.
 
 - #### Servings
-	"recipe_servings"
+	| Key  | Value  | Relationship  | Comment  |
+	|:----------|:----------|:----------|:----------|
+	| "recipe_servings" | Integer ||Choice from 1 - 9. Collection created simply to ensure the dropdown for Servings displays correctly when creating or editing recipes.
 
-	Choice from 1 - 9. Collection created simply to ensure the dropdown for Servings displays correctly when creating or editing recipes.
+## Hosting and Deployment
 
-## Plaigirism
+This site was published to GitHub and deployed as a live site on Heroku.
 
-This is a community recipe building site. While the ideal situation is that users will photograph their recipe creations themselves, the developer cannot be held responsible if users take images from other sources, such as copyrighted materials. Similarly, while the developer has requested that users give credit for any images they may use for their created recipes, the developer cannot guarantee the accuracy of these credits, and thus cannot be held responsible if credits are inaccurate.
+### Forking the GitHub repository
+
+Making a fork is like making a duplicate, from which one can edit the repository without affecting the original.
+
+1) Log in to GitHub and locate the [repository](https://github.com/Justin-Sawyer/recipeas-and-greens).
+
+2) Click "Fork".
+
+A fork should now have been created in your GitHub account.
+
+### Making a local clone
+You can clone and edit this clone in your GitHub Desktop application by following these steps:
+
+1) Log in to GitHub and locate the [repository](https://github.com/Justin-Sawyer/recipeas-and-greens).
+
+2) Click the "Code" button.
+
+3) Either click "Open with GitHub Desktop" and follow the prompts in the GitHub Desktop application, or alternatively follow the instructions from [this link](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-to-github-desktop), depending on your Operating System.
+
+### Deployment on Heroku
+
+While the repository is held on GitHub, since this project is not a static website, the live site cannnot be hosted on GitHub. Instead, Heroku is used. The following steps were taken for its deployment:
+
+1) Log in to [MongoDB account](https://www.mongodb.com/3)
+2) Create new database, with collections as listed above in the Database section.
+3) Log in to [Heroku account](https://www.heroku.com/).
+4) Create a new app in the Heroku dashboard using the "Create New App" button. Be sure to use a unique name with no spaces (use - instead of spaces) and set the region to your current region.
+5) Click "Create App".
+6) In the Command Line of your Terminal in the cloned repository, type and return the following:
+
+	`npm install -g heroku`
+
+7) Once this packages has been installed, log in to Heroku account from the Terminal by returning:
+
+	`heroku login-i`
+
+8) Follow the prompts in the Terminal to log in.
+9) To check you are successfully logged in, return:
+
+	`heroku apps`
+
+	If you are logged in, you will see the name of the application you created in step 2, above.
+
+10) Go back to heroku.com in your browser and click "Open App" and check the address bar of the new window. It should read 
+
+	`www.<name-of-your-clone>.herokuapp.com`.
+
+11) Link the Git repository to Heroku. In the Terminal once again, return the following commands:
+		
+	`git add -A` (to gather all files and add them to the staging area)
+
+	`git commit -m "Deployment to Heroku"` (commit message)
+
+	`git push -u heroku master`(push files to heroku)
+
+12) Create the requirements.txt file (needed to tell Heroku the language the application is built in) in the Terminal by typing 
+		
+	`pip3 freeze --local > requirements.txt`
+
+13) Add, commit and push these files once again:
+	
+	`git add -A`
+	
+	`git commit -m "Add requirements.txt file"`
+		
+	`git push -u heroku main`
+
+14) Create the Procfile by typing:
+
+	`echo web: python run.py > Procfile`
+
+	Make sure to use a capital P for Procfile.
+
+15) Add, commit and push these files once again:
+	
+	`git add Procfile`
+	
+	`git commit -m "Add requirements.txt file"`
+		
+	`git push`
+
+16) Create env.py file and add it to .gigignore:
+
+	To create these files, return these commands in the Terminal window:
+
+	`touch env.py`
+
+	`touch .gitignore`
+
+	In the .gigignore file, add these values:
+
+	`env.py`
+
+	`__pycache__/`
+	 
+
+17) Add sensitive data to the env.py file:
+	
+	In the newly created env.py file (not the Terminal window), add the following:
+
+	`import os`
+	
+	```
+	os.environ.setdefault("IP", "0.0.0.0")
+	os.environ.setdefault("PORT", "5000")
+	os.environ.setdefault("SECRET_KEY", "Add a secret key value*" )
+	os.environ.setdefault("MONGO_URI", "Insert your MongoDB URI details here")
+	os.environ.setdefault("MONGO_DBNAME", "Insert the name of the Database here")
+
+	os.environ.setdefault("MAIL_SERVER", "Insert your mail server here")
+	os.environ.setdefault("MAIL_PORT", "Port number")
+	os.environ.setdefault("MAIL_USE_SSL", "True")
+	os.environ.setdefault("MAIL_USERNAME", "email address")
+	os.environ.setdefault("MAIL_PASSWORD", "email password")
+	os.environ.setdefault("SECURITY_EMAIL_SENDER", "email address")
+	```
+
+	*[You can create a secret key here](http://RandomKeygen.com)
+
+18) Add these key values to Heroku by returning to the Heroku browser page:
+		
+	a) Click "Reveal Config Vars" in the App settings
+		
+	b) Add the keys and values listed above in the fields:
+
+			
+	| Key  | Value  |
+	|:----------|:----------|
+	| IP    | 0.0.0.0    |
+	| PORT    | 5000    |
+	| ... | ... |
+	| SECURITY_EMAIL_SENDER | email address |
+
+	(Make sure to not use "" when adding these values to Heroku)
+
+19) In the Terminal window, add, commit and push all files once again:
+	
+	`git add -A`
+	
+	`git commit -m "Commit all files"`
+		
+	`git push`
+
+20) Return to Heroku and click "Enable Automatic Deployment" and then "Deploy Branch".
+
+21) Click "View" to see the deployed live site.
+
+The site has now been successfully deployed.
+
+# Credits
+## Code
+Materialize was used extensively throughout this project for its responsive properties. Many elements were taken from this library, such as Cards and Buttons, but each element has been heavily modified for the needs of this website.
+
+[W3Schools.com](https://www.w3schools.com/) was used extensively for research for this project.
+
+[Stack Overflow](https://stackoverflow.com/) has been a fountain of knowledge in the production of this project.
+
+Where other 'non-original' code has been used, it has been credited within the HTML, CSS, JavaScript and Python files.
+
+## Media
+Unless otherwise stated, all images are my own.
+ 
+- ### Plaigirism
+
+	This is a community recipe building site. While the ideal situation is that users will photograph their recipe creations themselves, the developer cannot be held responsible if users take images from other sources, such as copyrighted materials. Similarly, while the developer has requested that users give credit for any images they may use for their created recipes, the developer cannot guarantee the accuracy of these credits, and thus cannot be held responsible if credits are inaccurate.
+
+## Content
+All content written by the developer.
+
+## Acknowledgements
+[Code Institute](https://codeinstitute.net/) for the tuition, and Aaron, the mentor I have been assigned, without whose advice I would not have been able to complete this project.
+
+A special mention for the Code Institute tutors, Igor (Igor_ci) and Tim (Tim_ci) for their patience, time and availability.
+
+[This little fellow](https://www.sciencephoto.com/media/1008843/view/colorectal-cancer-cell-sem) for making me see sense.
+
+GG for the constant presence and encouragement. You are a pearl.
+
+My family for the encouragement and help in seeing this project become a reality.
 
 
 ## Future Plans:
@@ -1584,6 +1750,6 @@ As detailed in the Testing section of this README, the developer had difficultie
 
 Further research is needed into obfuscation, and once this has been researched, the developer will obfuscate the Cloudinary Upload Preset value.
 
-Again, as stated in the Testing section of this README, the developer is aware that users can create categories that are similar to each other, such as "Soup" and "Soups". The developer thought about adding existinog category buttons to the create and edit recipe pages for the user to choose from, as well as having an option to create new categories if none seem to fit. However, in the course of creating this application, the developer has already created more than 20 categories. These categories, if listed, would take up too much valuable screen estate on smaller devices. The developer believes a good solution to this would be to enact an autocomplete service, where entries in the category field are autocompleted with values taken from the database. Thus, if value "Asian" exists and the user types "as", the user sees "Asian" as an autocompleted option. Again, further research is needed into this possibility.
+Again, as stated in the Testing section of this README, the developer is aware that users can create categories that are similar to each other, such as "Soup" and "Soups". The developer thought about adding existing category buttons to the create and edit recipe pages for the user to choose from, as well as having an option to create new categories if none seem to fit. However, in the course of creating this application, the developer has already created more than 20 categories. These categories, if listed, would take up too much valuable screen estate on smaller devices. The developer believes a good solution to this would be to enact an autocomplete service, where entries in the category field are autocompleted with values taken from the database. Thus, if value "Asian" exists and the user types "as", the user sees "Asian" as an autocompleted option. Again, further research is needed into automating this functionality.
 
 
