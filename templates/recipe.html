@@ -17,37 +17,21 @@
     <div class="row">
         <!-- Recipe title -->
         <div class="col s12">
-            {% if session.user|lower in recipe.created_by %}
-                <h1 class="title">{{ recipe.recipe_name }}
-                    {% if session.user|lower in recipe.favourite_of %}
-                    <button class="btn-floating">
-                        <i class="fas fa-heart white-text red tooltipped right" data-position="right" data-tooltip="Is a favourite"></i>
+            <h1 class="title">{{ recipe.recipe_name }}
+                {% if not session.user %}
+                    <a href="{{ url_for('login') }}" class="btn-floating waves-effect waves-light green darken-2">
+                        <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Log In To Add To Favourites!"></i>
+                    </a>
+                {% elif session.user|lower in recipe.favourite_of %}
+                    <button class="btn-floating waves-effect waves-light red">
+                        <i class="fas fa-heart tooltipped" data-position="left" data-tooltip="Is Favourite!"> </i>
                     </button>
-                    {% else %}
-                    <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-floating green darken-2">
-                        <i class="fas fa-plus tooltipped" data-position="right" data-tooltip="Add to Favourites!"></i>
+                {% else %}
+                    <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-floating waves-effect waves-light green darken-2">
+                        <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
                     </a>
-                    {% endif %}
-                </h1>
-            {% elif not session.user|lower in recipe.created_by %}
-                <h1 class="title">{{ recipe.recipe_name }}
-                    {% if session.user|lower in recipe.favourite_of %}
-                    <button class="btn-floating">
-                        <i class="fas fa-heart white-text red tooltipped right" data-position="right" data-tooltip="Is a favourite"></i>
-                    </button>
-                    {% else %}
-                    <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-floating green darken-2">
-                        <i class="fas fa-plus tooltipped" data-position="right" data-tooltip="Add to Favourites!"></i>
-                    </a>
-                    {% endif %}
-                </h1>
-            {% else %}
-                <h1 class="title">{{ recipe.recipe_name }} 
-                    <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-floating green darken-2">
-                        <i class="fas fa-plus tooltipped" data-position="right" data-tooltip="Add to Favourites!"></i>
-                    </a>
-                </h1>
-            {% endif %}
+                {% endif %}
+            </h1>   
         </div>
         
 
@@ -127,35 +111,23 @@
     <div class="row">
         <div class="col s12">
             <h2>Enjoyed this Recipea? Add it to your favourites!</h2>
-            {% if session.user|lower in recipe.created_by %}
-                {% if session.user|lower in recipe.favourite_of %}
-                <!-- Remove from favourites button -->
-                <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons red">Remove from
-                    Favourites
-                    <i class="fas fa-heart-broken"></i>
-                </a>
-                {% elif not session.user|lower in recipe.favourite_of %}
-                <!-- Add to favourites button -->
-                <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons green darken-2">Add to
-                    Favourites
-                    <i class="fas fa-plus"></i>
-                </a>
+                {% if not session.user %}
+                    <!-- Log in to add to favourites button -->
+                    <a href="{{ url_for('login') }}" class="btn green darken-2">Log In To Add To Favourites 
+                        <i class="fas fa-plus tooltipped"></i>
+                    </a>
+                {% elif session.user|lower in recipe.favourite_of %}
+                    <!-- Remove from favourites button -->
+                    <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons red">Remove from
+                        Favourites
+                        <i class="fas fa-heart-broken"></i>
+                    </a>
+                {% else %}
+                    <!-- Add to favourites button -->
+                    <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons green darken-2">
+                        Add to favourites <i class="fas fa-plus tooltipped"></i>
+                    </a>
                 {% endif %}
-            {% elif not session.user|lower in recipe.created_by%}
-                {% if session.user|lower in recipe.favourite_of %}
-                <!-- Remove from favourites button -->
-                <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons red">Remove from
-                    Favourites
-                    <i class="fas fa-heart-broken"></i>
-                </a>
-                {% elif not session.user|lower in recipe.favourite_of %}
-                <!-- Add to favourites button -->
-                <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn edit-buttons green darken-2">Add to
-                    Favourites
-                    <i class="fas fa-plus"></i>
-                </a>
-                {% endif %}
-            {% endif %}
         </div>
     </div>
 
