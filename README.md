@@ -4,7 +4,7 @@
 
 This is the website and application for Recipeas and Greens, a database of recipes created by a community of members.
 
-The website is by design simple, and is designed for ease of use. It is primarily targeted towards an audience that has little experience of storing recipes in a web application, preferring up until now to store their "home-made" recipes on paper, or within physical folders.
+The website is by design simple, and is designed for ease of use. It is primarily targeted towards an audience that has little experience of storing recipes in a web application, preferring until now to store their "home-made" recipes on paper, or within physical folders.
 
 The website is free to use and recipes are by design exposed (and thus accesible) to the public, the user will need to sign up as a member in order to contribute to the pool of recipes.
 
@@ -22,13 +22,13 @@ The website is free to use and recipes are by design exposed (and thus accesible
 
 		4) Upon loading the website, I would like to be presented with the most recently added recipes. I want these recipes to be shown with images, in order to whet my appetite. 
 
-		5) I want the possibility to both search for recipes but also to simply view recipes bsed on their category or level of difficulty via a simple click of buttons. Thus, on the loading page (but not within the navigation) I want to see buttons listing (for example) "Quick and Easy", "Challenging" or "Difficult". On pressing these links, I want to be presented with the most recently uploaded recipes within these criteria. Conversly, if I press the button "Category", I want to be taken to a generic page that list (with images overlaid by the category name) each category. Upon clicking these images, I then want to be taken to a page showing the most recently uploaded recipes within that category.
+		5) I want the possibility to both search for recipes and also to simply view recipes based on their category or level of difficulty via a simple click of buttons. Thus, on the loading page (but not within the navigation) I want to see buttons listing (for example) "Quick and Easy", "Challenging" or "Difficult". On pressing these links, I want to be presented with the most recently uploaded recipes within these criteria. Conversely, if I press the button "Category", I want to be taken to a generic page that lists (with images overlaid by the category name) each category. Upon clicking these images, I then want to be taken to a page showing the most recently uploaded recipes within that category.
 
-		6) I want to be encouraged to join the community and thus enter my own recipes for the community to use and enjoy. Although there might not be monetary incentives for joining the community, I would like to to be made clear that there are indeed advantages to joining, such as the possibility to mark recipes as personal favourites. I want this functionality so that I do not have to keep scrolling through a potentially endless list of recipes before finding the recipe I enjoyed preparing (and eating!) last week, last month or last year.
+		6) I want to be encouraged to join the community and thus enter my own recipes for the community to use and enjoy. Although there might not be monetary incentives for joining the community, I would it like to to be made clear that there are indeed advantages to joining, such as the possibility of marking recipes as personal favourites. I want this functionality so that I do not have to keep scrolling through a potentially endless list of recipes before finding the recipe I enjoyed preparing (and eating!) last week, last month or last year.
 
 		7) If I decide to join the community, I would like to be able to create my Account. I want the account to be simple, and simple to modify. My Account should not overwhelm me, but should rather contain simple entries for my (first and last) name, a username that I choose, my email address and perhaps a photo of me. While the photo is not obligatory, I understand that having a functioning Account means that including my name, username and email are required for building my personal database of recipes.
 
-		8) If I decide to join the community, I want my list of favourite recipes to be built automatically, by a simple press on an icon such as a "+" or a "heart". I then want these favourited or loved recipes to appear both within my account details, but more importantly, directly from the home page of the website. In other words, I do not want to have to access my Account page before being able to access my favourite recipes.
+		8) If I decide to join the community, I want my list of favourite recipes to be built automatically, by a simple press on an icon such as a "+" or a "heart". I then want these "favourited" or loved recipes to appear both within my account details, but more importantly, directly from the home page of the website. In other words, I do not want to have to access my Account page before being able to access my favourite recipes.
 
 		9) I want the website to remember me. Once logged in, I want to stay logged in, unless I choose to log out.
 
@@ -42,7 +42,7 @@ The website is free to use and recipes are by design exposed (and thus accesible
 
 		3) As a returning member, I want the navigation of the website to reflect my membership status. Thus, I want to see within the navigation links a link to my Account. My Account page should detail my Account settings (username, etc), recipes I have created, recipes created by others that I have favourited, and recipes that I have not yet tried. I want to be able to mark recipes as favourites from any page I access: the Home page, the Recipe page, the selection of recipes within a category pages, and of course from my own Account page. 
 
-		4) As a returning member, I want to be able to add new recipes, edit previous recipes, edit my Account details if any of these have changed. 
+		4) As a returning member, I want to be able to add new recipes, edit previous recipes and edit my Account details if any of these have changed. 
 
 		5) I want to be able to search for recipes based on their name, their ingredients, their category and their ease of preparation. For example, if I return home late from work during a weeknight, I want to be able to search for "Quick and Easy" recipes. Ultimately, I would like to then refine my search to include what I have in my pantry or fridge. Thus while using the search functionality, if I search for "Quick and Easy spaghetti", I would like to be presented with recipes that are both "Quick and Easy" *or* have "spaghetti" as a listed ingredient. These recipes need not be only in my personal favourites, but the search must list all community recipes with these criteria.
 
@@ -51,27 +51,27 @@ The website is free to use and recipes are by design exposed (and thus accesible
 	- #### Frequent Visitors:
 		1) I want the conditions listed for First Time Visitors and Returning Visitors to be true also for myself as a Frequent Visitor.
 
-		2) I want the process of adding new recipes to be "second nature". In other words, unless absolutely necessary, if there is an update to the website, I want the process of uploading new recipes to remain "as is". If there is a neccesity to change the process of adding or editing recipes, I want this change to be virtually invisible (unnoticable) to me as an end user. Thus, I can become what is known as a "power user" with ease.
+		2) I want the process of adding new recipes to be "second nature". In other words, unless absolutely necessary, if there is an update to the website, I want the process of uploading new recipes to remain "as is". If there is a neccesity to change the process of adding or editing recipes, I want this change to be virtually invisible (unnoticeable) to me as an end user. Thus, I can become what is known as a "power user" with ease.
 
 - ### Design:
     - #### Colour scheme:
 		The project uses a simple design, with colours that are designed to make the end user think of food. The website is named "Reci***PEAS*** and ***GREENS***" and thus green is the natural choice for its primary colour. Green is the colour of both most vegetables and most herbs, and is universally known as "Go". Thus the user knows that generally speaking, clicking something green will take the user there. 
 
-		The green is contrasted with brown, which makes the end user think of the warmth of spice and spice mixtures. The brown chosen - the colour of cinnamon - is almost amber, which makes the user think of preparing, just as the amber light in traffic signals tells the driver to prepare to go. Thus, where this cinnamon colour is used, the user knows to either prepare to edit a recipe or the user's Account details.
+		The green is contrasted with brown, which makes the end user think of the warmth of spice and spice mixtures. The brown chosen - the colour of cinnamon - is almost amber, which makes the user think of preparing, just as the amber light in traffic signals tells the driver to prepare to go. Thus, where this cinnamon colour is used, the user knows to either prepare to edit a recipe or edit the user's Account details.
 
-		Where red is used, the user knows this as a "stop", just as the red in traffic signals does. Thus, red is used for Deleting, and also for removing a recipe from the user's list of favourite recipes. The exception for this is of course where the recipes are in the list of favourites - the natural colour for a badge containing a heart is of course red.
+		Where red is used, the user knows this as a "stop", just as the red in traffic signals does. Thus, red is used for Deleting, and also for removing a recipe from the user's list of favourite recipes. The exception to this is of course where the recipes are in the list of favourites - the natural colour for a badge containing a heart is of course red.
 
 	- #### Typography:
-		As the website is aimed towards the generation that uses paper or physical folders to store their personal recipes, the typography must be simple. For this reason, different weights of a single font are preferred over different fonts to discern between titles and text. It is for this reason that the site sticks with the standard font provided by the Materialize framework.
+		As the website is aimed towards the generation that uses paper or physical folders to store their personal recipes, the typography must be simple. For this reason, different weights of a single font are preferred over different fonts to differentiate between titles and text. It is for this reason that the site sticks with the standard font provided by the Materialize framework.
 
 	- #### Imagery:
 		Imagery is extremely important on this website. Nothing makes the tongue water more than seeing a beautifully presented meal. The images inspire the end user to both try the recipe, and more importantly, join the community and become an active member.
 
-		Ideally, each recipe page should have the final end meal for that recipe as its banner image. Where this is not possible, the banner image should be an image of the recipe's category (i.e. "Italian" rather than "Quick and Easy").
+		Ideally, each recipe page should have the final meal for that recipe as its banner image. Where this is not possible, the banner image should be an image of the recipe's category (i.e. "Italian" rather than "Quick and Easy").
 
 		Thus, when uploading a recipe to the website, the community member should be prompted to add an image of the prepared meal. 
 
-		For plaigirism reasons, the user is only given the option of uploading images from their device, rather than having the option to search online for images. The user is also asked to provide an image credit.
+		For plagiarism reasons, the user is only given the option of uploading images from their device, rather than having the option to search online for images. The user is also asked to provide an image credit.
 
 - ### Wireframes:
 	[Landing Pages](https://github.com/Justin-Sawyer/recipeas-and-greens/blob/master/static/documentation/wireframes/landing-pages.png)
@@ -178,7 +178,7 @@ This website was tested using the following tools:
 
 		1) As a first time visitor, I want to see a range of recipes that detail both ingredients and preparation. As a plus, I would like to see the level of difficulty for each particular recipe, its preparation and cooking times, and the category for each recipe.
 
-			Upon first loading the applcation, the user is presnted with a beautiful dislpay of recipe "cards". Depending on the screen size of the user's device, the user can see grids of 1, 2 or 3 recipes per row. Clicking on each recipe takes the user to the associated recipe page, where the user can see the time needed for the preparation of the recipe. Additionally, the application has a "Search for"  functionality where gthe user can filter recipes by their level of difficulty or category.
+			Upon first loading the applcation, the user is presented with a beautiful dislpay of recipe "cards". Depending on the screen size of the user's device, the user can see grids of 1, 2 or 3 recipes per row. Clicking on each recipe takes the user to the associated recipe page, where the user can see the time needed for the preparation of the recipe. Additionally, the application has a "Search for"  functionality where the user can filter recipes by their level of difficulty or category.
 
 		2) I want the design of each recipe to be accorded to my particular screen size: 
 			- With a large screen such as a desktop or a tablet in a landscape orientation, I would like both ingredients and preparation to be visible together so that I can ensure that I have not missed anything.
@@ -194,11 +194,11 @@ This website was tested using the following tools:
 
 		Although recipes are not date stamped as they are published, they are published in "most recent" order. Each recipe card show both the name and an image (if added) of the finished recipe. As above, if no image is added, then the card displays an image of the applications home page banner.
 
-		5) I want the possibility to both search for recipes but also to simply view recipes based on their category or level of difficulty via a simple click of buttons. Thus, on the loading page (but not within the navigation) I want to see buttons listing (for example) "Quick and Easy", "Challenging" or "Difficult". On pressing these links, I want to be presented with the most recently uploaded recipes within these criteria. Conversly, if I press the button "Category", I want to be taken to a generic page that list (with images overlaid by the category name) each category. Upon clicking these images, I then want to be taken to a page showing the most recently uploaded recipes within that category.
+		5) I want the possibility to both search for recipes and also to simply view recipes based on their category or level of difficulty via a simple click of buttons. Thus, on the loading page (but not within the navigation) I want to see buttons listing (for example) "Quick and Easy", "Challenging" or "Difficult". On pressing these links, I want to be presented with the most recently uploaded recipes within these criteria. Conversely, if I press the button "Category", I want to be taken to a generic page that lists (with images overlaid by the category name) each category. Upon clicking these images, I then want to be taken to a page showing the most recently uploaded recipes within that category.
 
 		This has been achieved by the addition of "Search by ..." buttons.
 
-		6) I want to be encouraged to join the community and thus enter my own recipes for the community to use and enjoy. Although there might not be monetary incentives for joining the community, I would like to to be made clear that there are indeed advantages to joining, such as the possibility to mark recipes as personal favourites. I want this functionality so that I do not have to keep scrolling through a potentially endless list of recipes before finding the recipe I enjoyed preparing (and eating!) last week, last month or last year.
+		6) I want to be encouraged to join the community and thus enter my own recipes for the community to use and enjoy. Although there might not be monetary incentives for joining the community, I would like it to to be made clear that there are indeed advantages to joining, such as the possibility of marking recipes as personal favourites. I want this functionality so that I do not have to keep scrolling through a potentially endless list of recipes before finding the recipe I enjoyed preparing (and eating!) last week, last month or last year.
 
 		On each page where either a recipe grid or recipe itself is shown, the user can favourite recipes by simply clicking either an icon or a button. Additionally, on the user's profile page, the user has 3 recipe lists: the user's own published recipes, the user's favourite recipes published by others, and recipes untried by the user. All are shown in reverse order of publication (ie, most recently published is first). On the user's profile page, as the user favourites recipes, these are auto-updated into the user's list of favourites.
 
@@ -224,7 +224,7 @@ This website was tested using the following tools:
 
 		10) If I decide to join the community, I want to be able to add my own recipes. The process must be simple, and I should be prompted how to add ingredients, the preparation method, the category of the recipe, its difficulty level and its preparation and cooking times.
 
-		Just like registering an Account, adding a recipe is indeed simple. The user is promted how to do so.
+		Just like registering an Account, adding a recipe is indeed simple. The user is prompted how to do so.
 
     - #### Returning Visitors:
 
@@ -232,7 +232,7 @@ This website was tested using the following tools:
 
 		2) If I have not yet joined the community, I would like to be prompted to join upon returning to the website.
 
-		The developer thought about adding a popup to prompt users to join the community. However, as popups are often annoying, the developer decided to allow the design aesthetics of the application speak for itself. 
+		The developer thought about adding a popup to prompt users to join the community. However, as popups are often annoying, the developer decided to allow the design aesthetics of the application to speak for itself. 
 
 		3) As a returning member, I want the navigation of the website to reflect my membership status. Thus, I want to see within the navigation links a link to my Account. My Account page should detail my Account settings (username, etc), recipes I have created, recipes created by others that I have favourited, and recipes that I have not yet tried. I want to be able to mark recipes as favourites from any page I access: the Home page, the Recipe page, the selection of recipes within a category pages, and of course from my own Account page. 
 
@@ -246,14 +246,14 @@ This website was tested using the following tools:
 
 		All of these goals have been achieved.
 
-		6) Conversely, as a returing member, if I decide that this is a community I no longer want to be a part of, I want the possibility to delete my Account. The deleting process must be simple, but I do not want to be able to delete my Account by accident. Thus, I want to be prompted with an alert, for example, that asks me simply to veify that I do indeed wish to delete my Account. I also want it to be made clear to me that upon clicking "Delete Account", I have the option to delete my Account *and* any recipes I may have created, *or* to delete my Account but leave my recipes online for the community. Both delete options will clear any community recipes from my own personal list of favourites. Thus, if at a later date I decide to rejoin the community, I want it made clear to me on deleting my account that I will have to rebuild my list of favourites as any new community member would.
+		6) Conversely, as a returing member, if I decide that this is a community I no longer want to be a part of, I want the possibility of deleting my Account. The deleting process must be simple, but I do not want to be able to delete my Account by accident. Thus, I want to be prompted with an alert, for example, that asks me simply to verify that I do indeed wish to delete my Account. I also want it to be made clear to me that upon clicking "Delete Account", I have the option to delete my Account *and* any recipes I may have created, *or* to delete my Account but leave my recipes online for the community. Both delete options will clear any community recipes from my own personal list of favourites. Thus, if at a later date I decide to rejoin the community, I want it made clear to me on deleting my account that I will have to rebuild my list of favourites as any new community member would.
 
 		All of these goals have been achieved.
 
 	- #### Frequent Visitors:
 		1) I want the conditions listed for First Time Visitors and Returning Visitors to be true also for myself as a Frequent Visitor.
 
-		2) I want the process of adding new recipes to be "second nature". In other words, unless absolutely necessary, if there is an update to the website, I want the process of uploading new recipes to remain "as is". If there is a neccesity to change the process of adding or editing recipes, I want this change to be virtually invisible (unnoticable) to me as an end user. Thus, I can become what is known as a "power user" with ease.
+		2) I want the process of adding new recipes to be "second nature". In other words, unless absolutely necessary, if there is an update to the website, I want the process of uploading new recipes to remain "as is". If there is a necessity to change the process of adding or editing recipes, I want this change to be virtually invisible (unnoticeable) to me as an end user. Thus, I can become what is known as a "power user" with ease.
 
 		The developer believes these goals have been achieved. However, changes and upgrades do occur, but the developer aims to keep this site as simple to use as it is currently.
 
@@ -342,7 +342,7 @@ Safari:
 
 <img src="static/documentation/testing-screenshots/registration/registration-form-conditions-8.png">
 
-The devloper then looked for a better solution on StackOverflow, and found the following snippet:
+The developer then looked for a better solution on StackOverflow, and found the following snippet:
 
 ```
 /* Change the autofill background color 
@@ -360,7 +360,7 @@ The code was pushed to Git, and the results were almost as expected: the backgro
 
 <img src="static/documentation/testing-screenshots/registration/registration-form-conditions-9.png">
 
-However, on iOS, the background color persists. The developer found a further snippet of code on StackOverflow:
+However, on iOS, the background colour persists. The developer found a further snippet of code on StackOverflow:
 
 ```
 /* Change the autofill background color Safari iOS 
@@ -376,7 +376,7 @@ And as can be seen in the last two images above, the "Min x" prompts in the User
 
 ### Recipe Display Order:
 
-While building this website, the developer noticed a few things that were different to the user goals stated in this README file:
+While building this website, the developer noticed a few things that were different from the user goals stated in this README file:
 
 Firstly, the categories were displaying in order of creation rather than in reverse order of creation. In other words, the most recently added category was always the last to be seen on the user's device. Thus, if the first Asian recipe was created AFTER the creation of a recipe with a category of Sauces, then the Asian category was being displayed after the Sauces category, and thus seemed out of sequence:
 
@@ -398,7 +398,7 @@ It was decided to simply create a collection of Levels of Difficulty inside of M
 
 Secondly, the recipes were displaying in order of creation rather than in reverse order of creation. In other words, the most recently added recipe was always the last to be seen on the user's device. The stated goal for the ideal user experience was to display the most recently uploaded recipe first, in order that the user is not endlessly scrolling through an ever-growing list of recipes before finding one (s)he has not yet tried.
 
-Since the recipes are being called in essantially the same way as are the categories and difficulty levels (`recipes = list(mongo.db.recipes.find())`), the developer chose to a different `sort()` criteria:
+Since the recipes are being called in essentially the same way as are the categories and difficulty levels (`recipes = list(mongo.db.recipes.find())`), the developer chose to a different `sort()` criteria:
 
 At first, the developer decided that since MongoDB database ids should always be rising in value, a simple "minus 1" sort should suffice:
 
@@ -420,7 +420,7 @@ The built in setting for pagination is that pagination should occur for every te
 
 Since this website caters for different width screen sizes and since 10 is not the most divisible of numbers, the user may be confused into thinking (s)he has reached the end of all listed recipes prematurely:
 
-A full size screen shows three recipes in a row before breaking to the next row. Thus, with each page, the user sees three full rows of recipes and then a row with one single recipe. While the user is presented with pagination numbers and arrows both above and below these rows of recipes, to avoid any confusion it was thought best to paginate at 12 recipes. Thus if the users accesses from a mobile (showing one recipe before breaking to the next row), a tablet (showing two or three recipes before breaking, depending on the orientation) or a full size screen (showing 3 before breaking), the only page ever to perhaps not be filled is the very last page. 
+A full size screen shows three recipes in a row before breaking to the next row. Thus, with each page, the user sees three full rows of recipes and then a row with one single recipe. While the user is presented with pagination numbers and arrows both above and below these rows of recipes, to avoid any confusion it was thought best to paginate at 12 recipes. Thus if the user accesses from a mobile (showing one recipe before breaking to the next row), a tablet (showing two or three recipes before breaking, depending on the orientation) or a full size screen (showing 3 before breaking), the only page ever to perhaps not be filled is the very last page. 
 
 Paginating at 12 also allows the developer to change functionality to show 1, 2, 3, 4 or 6 recipes per row before breaking to the next row, should the site grow. At the moment, the developer has chosen larger elements such as recipe images in cards over amount of recipes per screen rendering, as a larger image naturally draws more people in: an image speaks a thousand words, after all.
 
@@ -450,7 +450,7 @@ def index():
                            )
 ```
 
-The developer first changed these code blocks to suit the Recipeas and Greens applicattion: 
+The developer first changed these code blocks to suit the Recipeas and Greens application: 
 
 ```
 recipes = list(mongo.db.recipes.find().sort("_id", pymongo.DESCENDING))
@@ -541,7 +541,7 @@ The develpoer tested this code and indeed, the pagination was working. So, the c
 
 Everything seemed fine until the developer decided to add a new recipe, to further test the functionality of pagination.
 
-The developer now found that adding a new recipe to the database did not show this new recipe rendered on the page. The developer checked the database, and the recipe had indeed been created. The developer then tried to searech for this new recipe using the search functionality of the application. Upon doing so, the developer found a second problem, which will be discussed in the next point (see "Search", below).
+The developer now found that adding a new recipe to the database did not show this new recipe rendered on the page. The developer checked the database, and the recipe had indeed been created. The developer then tried to search for this new recipe using the search functionality of the application. Upon doing so, the developer found a second problem, which will be discussed in the next point (see "Search", below).
 
 Upon fixing the search functionality (see below), the developer could now access the recipe by its name. So, why was it not showing up in the full list of recipes?
 
@@ -551,9 +551,9 @@ The developer realised he needed to call the `recipes` variable from within the 
 
 He uncommented the recipes variable within the function and then again added a new recipe. Again, this new recipe was not displaying. 
 
-He then realised he needed to find a way for the two functions (`get_all_recipes()` and `get_recipes()`) to call the updated database entries to find the newly uploadeds recipe.
+He then realised he needed to find a way for the two functions (`get_all_recipes()` and `get_recipes()`) to call the updated database entries to find the newly uploaded recipe.
 
-Thus, the developer removed the global recipes variable, kept the local recipes variable (uncommented) and inserted this local variable as an argument to the `get_all_recipes()` function, and also add this local variable to the `pagination_recipes` assignment.
+Thus, the developer removed the global recipes variable, kept the local recipes variable (uncommented) and inserted this local variable as an argument to the `get_all_recipes()` function, and also added this local variable to the `pagination_recipes` assignment.
 
 Having done this, full functionality was added to the HTML rendering of the application: recipes were showing as they were created. Deleting recipes also showed the correct database collection length. 
 
@@ -834,7 +834,7 @@ To counter for this, a little Jinja templating was added where needed, either in
 ```
 ### Deleting Account:
 
-While the code for deleting an Account is relatively straighforward, the developer nonetheless came across an interesting problem while testing the functionality.
+While the code for deleting an Account is relatively straightforward, the developer nonetheless came across an interesting problem while testing the functionality.
 
 The developer discovered that if he were to create an Account, then delete it and then create a new Account using the same "credentials", all previous recipes created by the first Account, as well as any recipes the first Account had lsited as favourites were automatically attributed to this new Account.
 
@@ -863,7 +863,7 @@ Since we are able to connect different collections in a database, the developer 
 
 Given this, the developer was thus faced with a question regarding Account deletions: does Recipeas and Greens allow for one single use of a username - in other words, is a record kept of a username even if the user using that username deletes the associated Account - or can Recipeas and Greens allow for users to (re)create an Account using a username that had been previously taken? (The application only allows for one user to use the same username at a time currently.)
 
-While setting up the application, the developer discussed the needs of this site with friends, family and other developers. It became clear to the developer that in terms of *privacy*, it was better to keep no record of anything the user has created when that user deleted the Account, **unless the user specified otherwise when that user deletes their Account**.
+While setting up the application, the developer discussed the needs of this site with friends, family and other developers. It became clear to the developer that in terms of *privacy*, it was better to keep no record of anything the user has created when that user deletes the Account, **unless the user specified otherwise when that user deletes their Account**.
 
 The block of code above is *only* deleting the Account itself, and is not touching upon any other collection in the database. The `recipes` collection, in other words, is being left intact.
 
@@ -1085,7 +1085,7 @@ The developer also concluded that if he were able to update the value and then c
 
 Clearly, another way to reset a password was needed.
 
-Having been locked out of his Account, the developer first tried for a "Forgot Password" functionality, where a user can signal that (s)he has forgotten their password, receive an email and reset the password via that email. This functionality has been removed from the current version of this application, as the developer had too many problems trying to get this to work. However, the developer does intend to include this funcionality in the future: see the Future PLans section.
+Having been locked out of his Account, the developer first tried for a "Forgot Password" functionality, where a user can signal that (s)he has forgotten their password, receive an email and reset the password via that email. This functionality has been removed from the current version of this application, as the developer had too many problems trying to get this to work. However, the developer does intend to include this funcionality in the future: see the Future Plans section.
 
 However, even though the functionality has been removed from this version of the application, it is worth discussing the code used here in the Testing section:
 
@@ -1104,7 +1104,7 @@ token = s.dumps({'user_id': 1}).decode('utf-8')
 token
 ```
 
-This returned a multi-character string of random values. Then, again within the CLI, the devloper typed 
+This returned a multi-character string of random values. Then, again within the CLI, the developer typed 
 
 `s.loads(token)`
 
@@ -1201,7 +1201,7 @@ Accompanying HTML pages were also written with password reset forms, and a passw
 
 <img src="static/documentation/testing-screenshots/change-password/password-reset.png">
 
-While the proof of concept does function, as can be seen above, the simple fact that the token did not time out pusuaded the developer that further development of this functionality was like heading down a rabbit hole: perhaps more trouble that it is worth, seeing as this is his first Python project. 
+While the proof of concept does function, as can be seen above, the simple fact that the token did not time out persuaded the developer that further development of this functionality was like heading down a rabbit hole: perhaps more trouble that it is worth, seeing as this is his first Python project. 
 
 The developer also questioned the security of the code he had written: since defensive programming is the ideal, the developer needs to be 100% certain that the code he writes *is* indeed secure. While the developer knows full well that the code he wrote above is not at this level, he realised that more research was needed in order to guarantee secure coding.
 
@@ -1329,15 +1329,15 @@ If the cookie exists, and the username and password match, the code then looks t
 
 If they do match, and all other conditions have been met, the databse is then updated with the new password value.
 
-The code was tested and the developer was able to confirm the functionality of thus code by both inserting incorrect and correct values in each field.
+The code was tested and the developer was able to confirm the functionality of this code by both inserting incorrect and correct values in each field.
 
 Having then tested that this code works, the developer then inserted an extra "confirm password" field in the register.html page and associated code in the register Python function. This confirm password field is designed to re-enforce memory retention of the user's password when a user creates an account.
 
-As an aisde, the developer believes that it is the developer's role to create code where, should the user forget the login details, then the users should be able to securely recover their credentials. It is not the developers role to force a user to memorise said credentials. It is precisely because of this that the "Forgot Password" functionality will be added as soon as the developer is able to do so.
+As an aside, the developer believes that it is the developer's role to create code where, should the user forget the login details, then the user should be able to securely recover their credentials. It is not the developer's role to force a user to memorise said credentials. It is precisely because of this that the "Forgot Password" functionality will be added as soon as the developer is able to do so.
 
 ### Adding/Editing Recipes:
 
-As can be seen on the rendered application, when a user adds a recipe, the user is promted to do so in a certain way. For example, the user is asked to separate each ingredient used in the recipe with a new line. No system is foolproof, and not every one has the same typing ability, and this is of course a community website, rather than a professional cookery site, so there will of course be errors in enetering details, or times when the recipe looks badly formatted, just as there are many badly written posts on Facebook or other social media sites.
+As can be seen on the rendered application, when a user adds a recipe, the user is prompted to do so in a certain way. For example, the user is asked to separate each ingredient used in the recipe with a new line. No system is foolproof, and not every one has the same typing ability, and this is of course a community website, rather than a professional cookery site, so there will of course be errors in entering details, or times when the recipe looks badly formatted, just as there are many badly written posts on Facebook or other social media sites.
 
 The developer understands this, and hopes the application's audience does too.
 
@@ -1347,7 +1347,7 @@ The developer has created a collection within the database for categories. Anoth
 
 The servings collection was created purely to ensure that there would always be serving quantities of each number from 1 to 9. For the HTML dropdown, the developer is using Jinja templating to render the number of serving rather than list each number in a `<li>` element.
 
-While developing this application, the developer realised that if there were no recipes lited with (for example) 5 servings, and no independent servings collection, then the number 5 would not appear within the dropdown menu. Thus to ensure the dropdown was always numbered correctly, this collection of servings was added to the Database.
+While developing this application, the developer realised that if there were no recipes listed with (for example) 5 servings, and no independent servings collection, then the number 5 would not appear within the dropdown menu. Thus to ensure the dropdown was always numbered correctly, this collection of servings was added to the Database.
 
 It is also worth noting that should the application be successful, then a "button search" for recipes by their number of servings can easily be added.
 
@@ -1438,11 +1438,11 @@ def add_recipe():
 
 As can be seen, as the user enters a list of categories, each entry of the list is split by a return and new line, then each entry is entered into the category collection of the database.
 
-The developer tested this and believed all to be working well: when he then used the "Search by Category" buttons, each value was being listed as a separate entry. Thus if a user created a recipe with (for example) three new categories like (for example) "Carribean", "Spicy", "Plantain", the "Search by Category" results wer ineed showing these three new entries as separate entries.
+The developer tested this and believed all to be working well: when he then used the "Search by Category" buttons, each value was being listed as a separate entry. Thus if a user created a recipe with (for example) three new categories like (for example) "Carribean", "Spicy", "Plantain", the "Search by Category" results were indeed showing these three new entries as separate entries.
 
 However, the next day, when the developer returned to the project, and having asked a colleague to test the application (two eyes are better than one!), the developer did indeed notice something amiss with the code he had written.
 
-All works as it should it each category is separated by ONE return new line. The colleague had added a recipe where each category was separated by TWO return new lines.
+All works as it should if each category is separated by ONE return new line. The colleague had added a recipe where each category was separated by TWO return new lines.
 
 As a consequence, this extra return new line was being treated as an entry in itself, and was being inserted into the category collection as an empty string. 
 
@@ -1493,7 +1493,7 @@ The developer wants to use an obfuscation tool to obfuscate the upload preset fo
 
 ## Database
 
-In order to create your own version of this app, a developer will need to use a database, with the following collections and document fields. The database used for this project is [MongoDB](https://www.mongodb.com/3). It was chosen for its flexibility, and for the simple fact that this is the developers first project using a database, and the tuition he received about MongoDB was superior to other databases.
+In order to create your own version of this app, a developer will need to use a database, with the following collections and document fields. The database used for this project is [MongoDB](https://www.mongodb.com/3). It was chosen for its flexibility, and for the simple fact that this is the developers first project using a database, and the tuition he received about MongoDB was superior to that of other databases.
 
 ### Collections and Document Fields:
 
@@ -1595,7 +1595,7 @@ While the repository is held on GitHub, since this project is not a static websi
 
 	`npm install -g heroku`
 
-7) Once this packages has been installed, log in to Heroku account from the Terminal by returning:
+7) Once this package has been installed, log in to Heroku account from the Terminal by returning:
 
 	`heroku login-i`
 
@@ -1725,7 +1725,7 @@ Where other 'non-original' code has been used, it has been credited within the H
 ### Media
 Unless otherwise stated, all images are my own.
  
-- #### Plaigirism
+- #### Plagiarism
 
 	This is a community recipe building site. While the ideal situation is that users will photograph their recipe creations themselves, the developer cannot be held responsible if users take images from other sources, such as copyrighted materials. Similarly, while the developer has requested that users give credit for any images they may use for their created recipes, the developer cannot guarantee the accuracy of these credits, and thus cannot be held responsible if credits are inaccurate.
 
