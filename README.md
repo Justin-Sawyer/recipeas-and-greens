@@ -1491,13 +1491,13 @@ Some users have reported difficulties with dropdowns when adding or editing reci
 ## Known Issues
 The developer wants to use an obfuscation tool to obfuscate the upload preset for Cloudinary in the JavaScript file. Each time the developer has tried, the upload preset works in development mode, but stops working once development mode is switched off. Until the developer finds a more robust solution, the upload preset is not being obfuscated. 
 
-# Database
+## Database
 
 In order to create your own version of this app, a developer will need to use a database, with the following collections and document fields. The database used for this project is [MongoDB](https://www.mongodb.com/3). It was chosen for its flexibility, and for the simple fact that this is the developers first project using a database, and the tuition he received about MongoDB was superior to other databases.
 
-## Collections and Document Fields:
+### Collections and Document Fields:
 
-- ### Users:
+- #### Users:
 	
 
 	| Key  | Value  | Relationship  | Comment |
@@ -1519,7 +1519,7 @@ In order to create your own version of this app, a developer will need to use a 
 
 	Additionally, when a user publishes a recipe, the user has the possibility to stop email alerts from being sent. 
 
-- ### Recipes:
+- #### Recipes:
 	
 
 	| Key  | Value  | Relationship  | Comment  |
@@ -1542,28 +1542,28 @@ In order to create your own version of this app, a developer will need to use a 
 
 
 
-- ### Categories
+- #### Categories
 	| Key  | Value  | Relationship  | Comment  |
 	|:----------|:----------|:----------|:----------|
 	| "recipe_category" | "string" | (recipes.recipe_category)
 
 	Users can add new categories. See Testing and Future Plans.
 
-- ### Level_of_difficulty
+- #### Level_of_difficulty
 	| Key  | Value  | Relationship  | Comment  |
 	|:----------|:----------|:----------|:----------|
 	| "recipe_level_of_difficulty" |"string"| (recipes.recipe_level_of_difficulty) |Choice of "Quick and Easy", "Challenging", "Difficult". Users cannot edit these levels.
 
-- ### Servings
+- #### Servings
 	| Key  | Value  | Relationship  | Comment  |
 	|:----------|:----------|:----------|:----------|
 	| "recipe_servings" | Integer ||Choice from 1 - 9. Collection created simply to ensure the dropdown for Servings displays correctly when creating or editing recipes.
 
-# Hosting and Deployment
+## Hosting and Deployment
 
 This site was published to GitHub and deployed as a live site on Heroku.
 
-## Forking the GitHub repository
+### Forking the GitHub repository
 
 Making a fork is like making a duplicate, from which one can edit the repository without affecting the original.
 
@@ -1573,7 +1573,7 @@ Making a fork is like making a duplicate, from which one can edit the repository
 
 A fork should now have been created in your GitHub account.
 
-## Making a local clone
+### Making a local clone
 You can clone and edit this clone in your GitHub Desktop application by following these steps:
 
 1) Log in to GitHub and locate the [repository](https://github.com/Justin-Sawyer/recipeas-and-greens).
@@ -1582,7 +1582,7 @@ You can clone and edit this clone in your GitHub Desktop application by followin
 
 3) Either click "Open with GitHub Desktop" and follow the prompts in the GitHub Desktop application, or alternatively follow the instructions from [this link](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-to-github-desktop), depending on your Operating System.
 
-## Deployment on Heroku
+### Deployment on Heroku
 
 While the repository is held on GitHub, since this project is not a static website, the live site cannnot be hosted on GitHub. Instead, Heroku is used. The following steps were taken for its deployment:
 
@@ -1712,8 +1712,8 @@ While the repository is held on GitHub, since this project is not a static websi
 
 The site has now been successfully deployed.
 
-# Credits
-## Code
+## Credits
+### Code
 Materialize was used extensively throughout this project for its responsive properties. Many elements were taken from this library, such as Cards and Buttons, but each element has been heavily modified for the needs of this website.
 
 [W3Schools.com](https://www.w3schools.com/) was used extensively for research for this project.
@@ -1722,17 +1722,17 @@ Materialize was used extensively throughout this project for its responsive prop
 
 Where other 'non-original' code has been used, it has been credited within the HTML, CSS, JavaScript and Python files.
 
-## Media
+### Media
 Unless otherwise stated, all images are my own.
  
-- ### Plaigirism
+- #### Plaigirism
 
 	This is a community recipe building site. While the ideal situation is that users will photograph their recipe creations themselves, the developer cannot be held responsible if users take images from other sources, such as copyrighted materials. Similarly, while the developer has requested that users give credit for any images they may use for their created recipes, the developer cannot guarantee the accuracy of these credits, and thus cannot be held responsible if credits are inaccurate.
 
-## Content
+### Content
 All content written by the developer.
 
-## Acknowledgements
+### Acknowledgements
 [Code Institute](https://codeinstitute.net/) for the tuition, and Aaron, the mentor I have been assigned, without whose advice I would not have been able to complete this project.
 
 A special mention for the Code Institute tutors, Igor (Igor_ci) and Tim (Tim_ci) for their patience, time and availability.
@@ -1744,7 +1744,7 @@ GG for the constant presence and encouragement. You are a pearl.
 My family for the encouragement and help in seeing this project become a reality.
 
 
-# Future Plans:
+## Future Plans:
 
 As detailed in the Testing section of this README, the developer had difficulties enabling a "Forgot Password?" functionality when the user has logged out of the Account and then forgotten their password. This will be added as soon as the developer is able to do so.
 
