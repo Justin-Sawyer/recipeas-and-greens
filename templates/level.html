@@ -78,34 +78,39 @@
 
                         <!-- Open recipe -->
                         <a href="{{ url_for('recipe', recipe_id=recipe._id)}}" class="s12 btn-small recipe-action green darken-2">Go to Recipea <i class="fas fa-external-link-alt"></i></a>                       
-                        
-                        {% if session.user|lower in recipe.created_by %}
-                            {% if session.user|lower in recipe.favourite_of %}
-                                <!-- Remove from favourites button -->
-                                <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Remove from Favourites 
-                                    <i class="fas fa-heart-broken"></i>
-                                </a>
-                            {% elif not session.user|lower in recipe.favourite_of %}
-                                <!-- Add to favourites button -->
-                                <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action green darken-2">Add to Favourites 
-                                    <i class="fas fa-plus"></i>
-                                </a>
-                            {% endif %}
-                            <!-- Edit recipe -->
-                            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small btn-block recipe-action edit-button cinnamon">Edit <i class="fas fa-edit"></i></a>
-                            <!-- Delete recipe -->
-                            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Delete <i class="fas fa-trash-alt"></i></a>
-                        {% elif not session.user|lower in recipe.created_by%}
-                            {% if session.user|lower in recipe.favourite_of %}
-                                <!-- Remove from favourites button -->
-                                <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Remove from Favourites 
-                                    <i class="fas fa-heart-broken"></i>
-                                </a>
-                            {% elif not session.user|lower in recipe.favourite_of %}
-                                <!-- Add to favourites button -->
-                                <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action green darken-2">Add to Favourites 
-                                    <i class="fas fa-plus"></i>
-                                </a>
+                        {% if not session.user|lower %}
+                            <a href="{{ url_for('login') }}" class="btn-small recipe-action green darken-2">Add to Favourites 
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        {% else %}
+                            {% if recipe.created_by == session.user|lower %}
+                                {% if session.user|lower in recipe.favourite_of %}
+                                    <!-- Switch "is_favourite" to off in MongoDB -->
+                                    <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Remove from Favourites 
+                                        <i class="fas fa-heart-broken"></i>
+                                    </a>
+                                {% elif not session.user|lower in recipe.favourite_of %}
+                                    <!-- Switch "is_favourite" to off in MongoDB -->
+                                    <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action green darken-2">Add to Favourites 
+                                        <i class="fas fa-plus"></i>
+                                    </a>
+                                {% endif %}
+                                <!-- Edit recipe -->
+                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small btn-block recipe-action edit-button cinnamon">Edit <i class="fas fa-edit"></i></a>
+                                <!-- Delete recipe -->
+                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Delete <i class="fas fa-trash-alt"></i></a>
+                            {% elif recipe.created_by != session.user|lower %}
+                                {% if session.user|lower in recipe.favourite_of %}
+                                    <!-- Switch "is_favourite" to off in MongoDB -->
+                                    <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Remove from Favourites 
+                                        <i class="fas fa-heart-broken"></i>
+                                    </a>
+                                {% elif not session.user|lower in recipe.favourite_of %}
+                                    <!-- Switch "is_favourite" to off in MongoDB -->
+                                    <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="btn-small recipe-action green darken-2">Add to Favourites 
+                                        <i class="fas fa-plus"></i>
+                                    </a>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                         

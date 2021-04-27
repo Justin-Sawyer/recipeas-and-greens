@@ -131,7 +131,7 @@
         </div>
     </div>
 
-    {% if session.user in recipe.created_by %}
+    {% if recipe.created_by == session.user|lower %}
     <div class="row">
         <div class="col s12">
             <h2>Need to make changes?</h2>
@@ -142,7 +142,7 @@
         </div>
     </div>
     {% endif %}
-    
+
     <!-- Search by category / level -->
     <div class="row">
         <div class="col s12">
