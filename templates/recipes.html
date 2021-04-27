@@ -26,9 +26,10 @@
                     </div>
                 </div>
                 <button type="submit" class="btn green darken-2">
-                    <i class="fas fa-search left"></i> Search
+                    Search <i class="fas fa-search"></i>
                 </button>
-                <a href="{{ url_for('get_recipes') }}" class="red btn">Clear Search</a>
+                <a href="{{ url_for('get_recipes') }}" class="red btn">
+                    Clear Search <i class="fas fa-times-circle"></i></a>
             </form> 
         </div>    
     </div>
@@ -37,8 +38,8 @@
     <div class="row">
         <div class="col s12">
             <h2>Looking for Recipea ideas?</h2>
-            <button class="btn category-buttons green darken-2" id="display-cats">Search by Category</button>
-            <button class="btn category-buttons green darken-2" id="display-levs">Search by Level of Difficulty</button>
+            <button class="btn category-buttons green darken-2" id="display-cats">Search by Category <i class="fas fa-sort-alpha-down"></i></button>
+            <button class="btn category-buttons green darken-2" id="display-levs">Search by Level of Difficulty <i class="fas fa-sort-numeric-down"></i></button>
         </div>
         <div class="col s12" id="cats" style="display:none">
             {% for category in categories %}

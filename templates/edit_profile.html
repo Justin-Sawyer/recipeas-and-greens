@@ -34,7 +34,7 @@
                             </label>
                             <input id="file-upload1" type="hidden" name="profile_image_url" value="{{ user.image_url }}" style="display:none;">
                         </p>
-                        <p>Just adding or changing your photo? Remember to click "Update" below!</p>
+                        <p>Just adding or changing your photo? Remember to click "Update"!</p>
                     </div>
                 </div>
             </div>
@@ -75,32 +75,31 @@
                             <label for="opt_in">
                                 Email alerts:
                                 {% if user.opt_in == "on" %}
-                                <input type="checkbox" id="opt_in" name="opt_in" checked>
-                                {% else %}
-                                <input type="checkbox" id="opt_in" name="opt_in">
-                                {% endif %}
-                                <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to opt in to email alerts for new Recipeas"></span>
+                                <input type="checkbox" id="opt_in" name="opt_in" checked> ON
+                                <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to left to opt out of email alerts for new Recipeas"></span>
                                 <i class="fas fa-check prefix loved green-text text-darken-2"></i>
+                                {% else %}
+                                <input type="checkbox" id="opt_in" name="opt_in"> OFF
+                                <span class="lever tooltipped" data-position="bottom" data-tooltip="Slide to right to opt in to email alerts for new Recipeas"></span>
+                                <i class="fas fa-times prefix loved red-text text-darken-2"></i>
+                                {% endif %}
+                                
                             </label>
                         </div>
                     </div>
                 </div>
-            </div>
+            
 
-            <!-- Submit Button -->
-            <div class="col s12" id="submit-button">
-                <button type="submit" class="col s12 btn-small btn-block register-button green darken-2">
-                    Update <i class="fas fa-sign-in-alt"></i>
+                <!-- Submit Button -->
+                <button type="submit" class="btn edit-buttons green darken-2" id="submit-button">
+                    Update Profile <i class="fas fa-sign-in-alt"></i>
                 </button>
+                <!-- Password Reset Button -->
+                <a class="btn edit-buttons edit-button cinnamon" href="{{ url_for('reset_password') }}">Reset Password <i class="fas fa-lock"></i></a>
+                <!-- Cancel Update Button -->
+                <a class="btn edit-buttons red darken-2" href="{{ url_for('profile', username=session['user']) }}">Cancel Editing <i class="fas fa-times-circle"></i></a>
             </div>                    
         </form>
-    </div>
-
-    <div class="row">
-        <div class="col s12">
-            <p>You can also change your password if you are worried about security:</p>
-            <a class="btn-small btn-block recipe-action edit-button white-text cinnamon" href="{{ url_for('reset_password') }}">Reset Password <i class="fas fa-lock"></i></a>
-        </div>
     </div>
 
     <!-- If user is admin, manage buttons -->
@@ -161,7 +160,7 @@
                 
                                     <!-- Open recipe -->
                                     <a href="{{ url_for('recipe', recipe_id=recipe._id)}}"
-                                        class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>
+                                        class="s12 btn-small recipe-action green darken-2">Go to Recipea <i class="fas fa-external-link-alt"></i></a>
                 
                                     <!-- Add to / Remove from favourites -->
                                     {% if session.user|lower in recipe.favourite_of %}
@@ -177,9 +176,8 @@
                                     {% endif %}
 
                                     <!-- Edit recipe -->
-                                    <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small btn-block recipe-action edit-button cinnamon">Edit <i class="fas fa-edit"></i></a>
+                                    <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small recipe-action edit-button cinnamon">Edit <i class="fas fa-edit"></i></a>
                                     <!-- Delete recipe -->
-
                                     <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Delete <i class="fas fa-trash-alt"></i></a>
                                 
                                 </div>

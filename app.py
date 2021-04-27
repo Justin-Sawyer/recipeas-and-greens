@@ -200,6 +200,7 @@ def edit_profile():
         mongo.db.users.update_one({"username": session["user"]}, data)
 
         user = mongo.db.users.find_one({"username": session["user"]})
+        flash("Your profile has been updated!")
         return redirect(url_for('profile', username=session["user"]))
 
     user = mongo.db.users.find_one({"username": session["user"]})
@@ -675,4 +676,4 @@ def special_exception_handler(error):
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)

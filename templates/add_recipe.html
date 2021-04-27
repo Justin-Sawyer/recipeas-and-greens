@@ -48,22 +48,22 @@
                     <!-- Recipe Preparation Time -->
                     <div class="input-field col s12">
                         <i class="fas fa-user-clock prefix green-text text-darken-2"></i>
-                        <input id="recipe_prep_time" name="recipe_prep_time" minlength="5" maxlength="50" type="text" class="validate" required>
-                        <label for="recipe_prep_time">Prep Time (eg: 1 hour 30 mins)</label>
+                        <input id="recipe_prep_time" name="recipe_prep_time" minlength="4" maxlength="50" type="text" class="validate" required>
+                        <label for="recipe_prep_time">Prep Time</label>
                     </div>
 
                     <!-- Recipe Cooking Time -->
                     <div class="input-field col s12">
                         <i class="fas fa-hourglass-start prefix green-text text-darken-2"></i>
-                        <input id="recipe_cooking_time" name="recipe_cooking_time" minlength="5" maxlength="50" type="text" class="validate" required>
-                        <label for="recipe_cooking_time">Cooking Time (eg: 1 hour 30 mins)</label>
+                        <input id="recipe_cooking_time" name="recipe_cooking_time" minlength="4" maxlength="50" type="text" class="validate" required>
+                        <label for="recipe_cooking_time">Cooking Time</label>
                     </div>
 
                     <!-- Total Cooking Time -->
                     <div class="input-field col s12">
                         <i class="fas fa-hourglass-start prefix green-text text-darken-2"></i>
-                        <input id="recipe_total_time" name="recipe_total_time" minlength="5" maxlength="50" type="text" class="validate" required>
-                        <label for="recipe_total_time">Total Time (eg: 1 hour 30 mins)</label>
+                        <input id="recipe_total_time" name="recipe_total_time" minlength="4" maxlength="50" type="text" class="validate" required>
+                        <label for="recipe_total_time">Total Time</label>
                     </div>
 
                     <!-- Recipe Source -->
@@ -100,12 +100,11 @@
 
                     <!-- Image Uploader formatting -->
                     <div class="input-field col s12">
-                        <p>Since your image will be the banner image for your recipea, please use a photo in landscape orientation!</p>
                         <p>Please credit the image source (eg: yourself, a website) in the Chef's Notes section.</p>
                         <!-- Add files to cloudinary and display them online
                         From Learn with Coffee https://www.youtube.com/watch?v=6uHfIv4981U -->
                         <p><img src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" id="img-preview" alt="Recipe placeholder image"/></p>
-                        <p><label class="file-upload-container btn btn-block green darken-2 white-text" for="file-upload">
+                        <p><label class="file-upload-container btn edit-buttons green darken-2" for="file-upload">
                             <input id="file-upload" type="file" name="recipe_image_url" style="display:none;"> 
                                 Add Photo <i class="fas fa-camera"></i>
                             </label>
@@ -157,10 +156,16 @@
                 </div>
 
                 <!-- Submit button -->            
-                <div class="col s12 center-align">
-                    <button type="submit" class="btn green darken-2" id="adding-recipe">
-                        Add Recipea  <i class="fas fa-plus-square"></i>
+                <div class="col s12">
+                    <div class="col s12">
+                    <button type="submit" class="btn edit-buttons green darken-2" id="adding-recipe">
+                        Add Recipea <i class="fas fa-plus-circle"></i>
                     </button>
+                    <!-- Cancel button -->
+                    <a href="{{ url_for('get_recipes') }}" type="button" class="btn edit-buttons red darken-2">
+                        Cancel Add Recipea <i class="fas fa-times-circle"></i>
+                    </a>
+                    </div>
                 </div>
                            
             </div>

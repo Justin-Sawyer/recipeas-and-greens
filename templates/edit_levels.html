@@ -19,7 +19,7 @@
             <!-- Category Name -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-folder-open prefix purple-text text-darken-4"></i>
+                    <i class="fas fa-folder-open prefix green-text text-darken-2"></i>
                     <input id="recipe_level_of_difficulty" name="recipe_level_of_difficulty" minlength="3" maxlength="25" type="text" class="validate" value="{{ level.recipe_level_of_difficulty }}" required>
                     <label for="recipe_level_of_difficulty">Level of Difficulty</label>
                 </div>
@@ -30,11 +30,11 @@
                 <div class="col s12 center-align">
                     
                     <!-- Cancel button -->
-                    <a href="{{ url_for('get_difficulty_levels') }}" class="btn-large red">
+                    <a href="{{ url_for('get_difficulty_levels') }}" class="btn red">
                         Cancel Edit <i class="fas fa-times-circle right"></i>
                     </a>
                     <!-- Edit button -->
-                    <button type="submit" class="btn-large green darken-2">
+                    <button type="submit" class="btn green darken-2">
                         Confirm Edit <i class="fas fa-edit right"></i>
                     </button>
 

@@ -20,28 +20,27 @@
         <!-- User's profile details -->
         <div class="col s4">
             {% if user.image_url %}
-            <p><img src="{{ user.image_url }}" id="img-preview" alt="Profile image"/></p>
+                <p><img src="{{ user.image_url }}" id="img-preview" alt="Profile image"/></p>
             {% else %}
-            <p><img src="../static/media/images/profile-photo/profile_avatar_placeholder_large.png" id="img-preview" alt="Profile image placeholder"/></p>
+                <p><img src="../static/media/images/profile-photo/profile_avatar_placeholder_large.png" id="img-preview" alt="Profile image placeholder"/></p>
             {% endif %}
         </div>
         <div class="col s8">
             <p><i class="far fa-id-card small green-text text-darken-2"></i><span class="right">{{ user.first_name }} {{ user.last_name }}</span></p>
             <p><i class="far fa-user small green-text text-darken-2"></i><span class="right">{{ user.username }}</span></p>
             <p><i class="fas fa-at small green-text text-darken-2"></i><span class="right">{{ user.email }}</span></p>
-        </div>
-    </div>
+            {% if user.opt_in == "on" %}
+                <p><i class="fas fa-bell small green-text text-darken-2"></i><span class="right"> Alerts are {{ user.opt_in }}</span></p>                  
+            {% else %}
+                <p><i class="fas fa-bell small red-text text-darken-2"></i><span class="right"> Alerts are {{ user.opt_in }}</span></p>
+            {% endif %}
         
-        <!-- Edit Profile -->
-    <div class="row">
-        <div class="col s12 m6">
-            <p>Want to change your profile details? Change your email alert settings? Even add a profile photo?</p>
-            <a href="{{ url_for('edit_profile', username=session['user']) }}" class="col s12 btn-small btn-block recipe-action edit-button cinnamon">Edit</a>
-            </div>
-            <!-- Delete Profile -->
-            <div class="col s12 m6">
-            <p>You can also delete your profile if you no longer want to be part of the Recipeas and Greens community:</p>
-            <a class="modal-trigger col s12 btn-small btn-block recipe-action red" href="#delete-account-modal">delete your profile</a>
+            <!-- Edit Profile -->
+            <p>Need to make changes?</p>
+            <a href="{{ url_for('edit_profile', username=session['user']) }}" class="btn edit-buttons edit-button cinnamon">Edit Profile <i class="fas fa-edit"></i></a>
+            
+            <!-- Delete Profile -->           
+            <a class="modal-trigger btn edit-buttons red" href="#delete-account-modal">Delete Profile <i class="fas fa-trash-alt"></i></a>
         </div>
     </div>
         
@@ -104,7 +103,7 @@
                 
                                     <!-- Open recipe -->
                                     <a href="{{ url_for('recipe', recipe_id=recipe._id)}}"
-                                        class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>
+                                        class="s12 btn-small recipe-action green darken-2">Go to Recipea <i class="fas fa-external-link-alt"></i></a>
                 
                                     <!-- Add to / Remove from favourites -->
                                     {% if session.user|lower in recipe.favourite_of %}
@@ -120,7 +119,7 @@
                                     {% endif %}
 
                                     <!-- Edit recipe -->
-                                    <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small btn-block recipe-action edit-button cinnamon">Edit <i class="fas fa-edit"></i></a>
+                                    <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small recipe-action edit-button cinnamon">Edit <i class="fas fa-edit"></i></a>
                                     <!-- Delete recipe -->
 
                                     <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Delete <i class="fas fa-trash-alt"></i></a>
@@ -183,7 +182,7 @@
                         
                                             <!-- Open recipe -->
                                             <a href="{{ url_for('recipe', recipe_id=recipe._id)}}"
-                                                class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>
+                                                class="s12 btn-small recipe-action green darken-2">Go to Recipea <i class="fas fa-external-link-alt"></i></a>
 
                                             <!-- Remove from "favourite_of" array in MongoDB -->
                                             <a href="{{ url_for('remove_from_favourites', recipe_id=recipe._id)}}" class="s12 btn-small recipe-action red">Remove from Favourites 
@@ -217,45 +216,45 @@
                 <ul class="recipe-list">
                     {% for recipe in recipes %}
                         {% if user.username != recipe.created_by %}
-                        {% if not user.username in recipe.favourite_of %}
-                                    <li class="col s12 m4 recipe-list-item">
-                                        <div class="card">
-                                            <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}"
-                                                class="btn-floating halfway-fab waves-effect waves-light green darken-2">
-                                                <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
-                                            </a>
-                                            <div class="card-image waves-effect waves-block waves-light">
-                                                {% if recipe.image_url %}
-                                                    <img class="activator img-in-card" src="{{ recipe.image_url }}" alt="Recipe photo">
-                                                {% else %}
-                                                    <img class="activator img-in-card" src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Recipe photo">
-                                                {% endif %}
-                                            </div>
-                                            <div class="card-content">
-                                                <span class="card-title activator cinnamon-text">
-                                                    <i class="fas fa-ellipsis-v right"></i><strong>{{ recipe.recipe_name }}</strong></span>
-                                                <p><a class="green-text text-darken-2" href="{{ url_for('recipe', recipe_id=recipe._id)}}">Go to Recipea</a></p>
-                                            </div>
-                                            <div class="card-reveal">
-                                                <span class="card-title cinnamon-text">
-                                                    <i class="far fa-times-circle right"></i>
-                                                    <strong>{{ recipe.recipe_name }}</strong>
-                                                </span>
-                                                <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
-                                                <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
-                            
-                                                <!-- Open recipe -->
-                                                <a href="{{ url_for('recipe', recipe_id=recipe._id)}}"
-                                                    class="s12 btn-small recipe-action green darken-2">Go to Recipea</a>
-                                                
-                                                <!-- Add to "favourite_of" array in MongoDB -->
-                                                <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="s12 btn-small recipe-action green darken-2">Add to Favourites 
-                                                    <i class="fas fa-plus"></i>
-                                                </a>
-                                            </div>
+                            {% if not user.username in recipe.favourite_of %}
+                                <li class="col s12 m4 recipe-list-item">
+                                    <div class="card">
+                                        <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}"
+                                            class="btn-floating halfway-fab waves-effect waves-light green darken-2">
+                                            <i class="fas fa-plus tooltipped" data-position="left" data-tooltip="Add to Favourites!"></i>
+                                        </a>
+                                        <div class="card-image waves-effect waves-block waves-light">
+                                            {% if recipe.image_url %}
+                                                <img class="activator img-in-card" src="{{ recipe.image_url }}" alt="Recipe photo">
+                                            {% else %}
+                                                <img class="activator img-in-card" src="{{ url_for('static', filename='media/images/banners/pexels-anna-tis-6219209.jpg') }}" alt="Recipe photo">
+                                            {% endif %}
                                         </div>
-                                    </li>
-                        {% endif %}
+                                        <div class="card-content">
+                                            <span class="card-title activator cinnamon-text">
+                                                <i class="fas fa-ellipsis-v right"></i><strong>{{ recipe.recipe_name }}</strong></span>
+                                            <p><a class="green-text text-darken-2" href="{{ url_for('recipe', recipe_id=recipe._id)}}">Go to Recipea</a></p>
+                                        </div>
+                                        <div class="card-reveal">
+                                            <span class="card-title cinnamon-text">
+                                                <i class="far fa-times-circle right"></i>
+                                                <strong>{{ recipe.recipe_name }}</strong>
+                                            </span>
+                                            <p class="source"><em>Source: {{ recipe.recipe_source }}</em></p>
+                                            <p class="source"><em>Added by: {{ recipe.created_by }}</em></p>
+                        
+                                            <!-- Open recipe -->
+                                            <a href="{{ url_for('recipe', recipe_id=recipe._id)}}"
+                                                class="s12 btn-small recipe-action green darken-2">Go to Recipea <i class="fas fa-external-link-alt"></i></a>
+                                            
+                                            <!-- Add to "favourite_of" array in MongoDB -->
+                                            <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id)}}" class="s12 btn-small recipe-action green darken-2">Add to Favourites 
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -265,34 +264,30 @@
 
 
     <!-- Delete account? modal -->
-        <!--<div class="col s12">-->
-            <div class="col s12 modal" id="delete-account-modal">
-                <div class="modal-content">
-                    <h4>Are you sure you want to delete your account and no longer be part of the Recipeas and Greens community?</h4>
-                    <p><strong>Please choose one of the following options:</strong></p>
-                    <p>1: Delete your account but keep your Recipeas online</p>                  
-                    <a href="{{ url_for('remove_all_from_favourites_and_delete_account')}}" class="btn edit-buttons red">
-                        Delete Account Only <i class="fas fa-trash-alt right"></i></a>                  
-                    <p>(This action is best if you want the Recipeas and Greens community to still have access to Recipeas that you have published. 
-                        Recipeas will be credited to "Former Member".
-                        Community Recipeas you have added as favourites will be "un-favourited".</p>                       
-                    <p>If you decide later to return to the Recipeas and Greens community, you will not be able to edit any Recipeas that you created previsouly, 
-                        since those Recipeas are now credited to "Former Member" rather than to your username. And since any community Recipeas you have previously 
-                        added as favourites will be removed from your list of favourites, you will need to rebuilt your list of favourites by clicking their green 
-                        "+" badges.)</p>
-                    <hr>                   
-                    <p>2: Delete your account and remove your Recipeas</p>                  
-                    <a href="{{ url_for('remove_all_from_favourites_and_delete_recipes_and_delete_account')}}" class="btn edit-buttons red">
-                        Delete Account And Recipeas <i class="fas fa-trash-alt right"></i></a>                  
-                    <p>(This action is best if you want to delete everything you posted to the Recipeas and Greens community.)</p>
-                    <hr>                  
-                    <p>3: Do not delete your account</p>
-                    <a href="#!" class="btn edit-buttons modal-close green darken-2">Do Not Delete <i class="fas fa-times-circle right"></i></a>
-                </div>
-            </div>
-        <!--</div>-->
-
-    <!--</div>-->
+    <div class="modal" id="delete-account-modal" style="width:95%">
+        <div class="modal-content">
+            <h4>Are you sure you want to delete your account and no longer be part of the Recipeas and Greens community?</h4>
+            <p><strong>Please choose one of the following options:</strong></p>
+            <p>1: Delete your account but keep your Recipeas online</p>                  
+            <a href="{{ url_for('remove_all_from_favourites_and_delete_account')}}" class="btn edit-buttons red">
+                Delete Account Only <i class="fas fa-trash-alt right"></i></a>                  
+            <p>(This action is best if you want the Recipeas and Greens community to still have access to Recipeas that you have published. 
+                Recipeas will be credited to "Former Member".
+                Community Recipeas you have added as favourites will be "un-favourited".</p>                       
+            <p>If you decide later to return to the Recipeas and Greens community, you will not be able to edit any Recipeas that you created previsouly, 
+                since those Recipeas are now credited to "Former Member" rather than to your username. And since any community Recipeas you have previously 
+                added as favourites will be removed from your list of favourites, you will need to rebuilt your list of favourites by clicking their green 
+                "+" badges.)</p>
+            <hr>                   
+            <p>2: Delete your account and remove your Recipeas</p>                  
+            <a href="{{ url_for('remove_all_from_favourites_and_delete_recipes_and_delete_account')}}" class="btn edit-buttons red">
+                Delete Account And Recipeas <i class="fas fa-trash-alt right"></i></a>                  
+            <p>(This action is best if you want to delete everything you posted to the Recipeas and Greens community.)</p>
+            <hr>                  
+            <p>3: Do not delete your account</p>
+            <a href="#!" class="btn edit-buttons modal-close green darken-2">Do Not Delete <i class="fas fa-times-circle right"></i></a>
+        </div>
+    </div>
 
 {% endblock%}
 

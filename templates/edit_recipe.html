@@ -66,21 +66,21 @@
                     <!-- Recipe Preparation Time -->
                     <div class="input-field col s12">
                         <i class="fas fa-user-clock prefix green-text text-darken-2"></i>
-                        <input class="edit-recipe-prompt validate" id="recipe_prep_time" name="recipe_prep_time" minlength="5" maxlength="50" value="{{ recipe.recipe_prep_time }}" type="text" required>
+                        <input class="edit-recipe-prompt validate" id="recipe_prep_time" name="recipe_prep_time" minlength="4" maxlength="50" value="{{ recipe.recipe_prep_time }}" type="text" required>
                         <label class="edit-recipe" for="recipe_prep_time">Preparation Time:</label>
                     </div>
 
                     <!-- Recipe Cooking Time -->
                     <div class="input-field col s12">
                         <i class="fas fa-hourglass-start prefix green-text text-darken-2"></i>
-                        <input class="edit-recipe-prompt validate" id="recipe_cooking_time" name="recipe_cooking_time" minlength="5" maxlength="50" value="{{ recipe.recipe_cooking_time }}" type="text" required>
+                        <input class="edit-recipe-prompt validate" id="recipe_cooking_time" name="recipe_cooking_time" minlength="4" maxlength="50" value="{{ recipe.recipe_cooking_time }}" type="text" required>
                         <label class="edit-recipe" for="recipe_cooking_time">Cooking Time:</label>
                     </div>
 
                     <!-- Total Cooking Time -->
                     <div class="input-field col s12">
                         <i class="fas fa-hourglass-start prefix green-text text-darken-2"></i>
-                        <input id="recipe_total_time" name="recipe_total_time" minlength="5" maxlength="50" value="{{ recipe.recipe_total_time }}" type="text" class="validate" required>
+                        <input id="recipe_total_time" name="recipe_total_time" minlength="4" maxlength="50" value="{{ recipe.recipe_total_time }}" type="text" class="validate" required>
                         <label for="recipe_total_time">Total Time:</label>
                     </div>
 
