@@ -46,7 +46,7 @@ The website is free to use and recipes are by design exposed (and thus accesible
     + [users](#users)
     + [recipes](#recipes)
     + [categories](#categories)
-    + [level_of_difficulty](#level-of-difficulty)
+    + [level_of_difficulty](#level_of_difficulty)
     + [servings](#servings)
 - [Hosting and Deployment](#hosting-and-deployment)
   * [Forking the GitHub repository](#forking-the-github-repository)
@@ -58,7 +58,10 @@ The website is free to use and recipes are by design exposed (and thus accesible
     + [Plagiarism](#plagiarism)
   * [Content](#content)
   * [Acknowledgements](#acknowledgements)
-- [Future Plans:](#future-plans-)
+- [Future Plans](#future-plans)
+  * [Forgot Password?](#forgot-password)
+  * [Obfuscation](#obfuscation)
+  * [Recipe Categories](#recipe-categories)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -1596,7 +1599,7 @@ In order to create your own version of this app, a developer will need to use a 
         |:----------|:----------|:----------|:----------|
         | "recipe_category" | "string" | (recipes.recipe_category)
 
-        Users can add new categories. See Testing and Future Plans.
+        Users can add new categories. See [Testing](#testing) and [Future Plans](#future-plans).
 
     - #### level_of_difficulty
 
@@ -1795,12 +1798,17 @@ All content written by the developer.
     My family for the encouragement and help in seeing this project become a reality.
 
 
-## Future Plans:
+## Future Plans
+- ### Forgot Password?
 
-As detailed in the Testing section of this README, the developer had difficulties enabling a "Forgot Password?" functionality when the user has logged out of the Account and then forgotten their password. This will be added as soon as the developer is able to do so.
+    As detailed in the Testing section of this README, the developer had difficulties enabling a "Forgot Password?" functionality when the user has logged out of the Account and then forgotten their password. This will be added as soon as the developer is able to do so.
 
-Further research is needed into obfuscation, and once this has been researched, the developer will obfuscate the Cloudinary Upload Preset value.
+- ### Obfuscation
 
-Again, as stated in the Testing section of this README, the developer is aware that users can create categories that are similar to each other, such as "Soup" and "Soups". The developer thought about adding existing category buttons to the create and edit recipe pages for the user to choose from, as well as having an option to create new categories if none seem to fit. However, in the course of creating this application, the developer has already created more than 20 categories. These categories, if listed, would take up too much valuable screen estate on smaller devices. The developer believes a good solution to this would be to enact an autocomplete service, where entries in the category field are autocompleted with values taken from the database. Thus, if value "Asian" exists and the user types "as", the user sees "Asian" as an autocompleted option. Again, further research is needed into automating this functionality.
+    Further research is needed into obfuscation, and once this has been researched, the developer will obfuscate the Cloudinary Upload Preset value.
+
+- ### Recipe Categories
+
+    Again, as stated in the Testing section of this README, the developer is aware that users can create categories that are similar to each other, such as "Soup" and "Soups". The developer thought about adding existing category buttons to the create and edit recipe pages for the user to choose from, as well as having an option to create new categories if none seem to fit. However, in the course of creating this application, the developer has already created more than 20 categories. These categories, if listed, would take up too much valuable screen estate on smaller devices. The developer believes a good solution to this would be to enact an autocomplete service, where entries in the category field are autocompleted with values taken from the database. Thus, if value "Asian" exists and the user types "as", the user sees "Asian" as an autocompleted option. Again, further research is needed into automating this functionality.
 
 
