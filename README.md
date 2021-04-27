@@ -1784,7 +1784,8 @@ This site was published to GitHub and deployed as a live site on Heroku.
 	    This is a community recipe building site. While the ideal situation is that users will photograph their recipe creations themselves, the developer cannot be held responsible if users take images from other sources, such as copyrighted materials. Similarly, while the developer has requested that users give credit for any images they may use for their created recipes, the developer cannot guarantee the accuracy of these credits, and thus cannot be held responsible if credits are inaccurate.
 
 - ### Content
-All content written by the developer.
+
+    All content written by the developer.
 
 - ### Acknowledgements
     [Code Institute](https://codeinstitute.net/) for the tuition, and Aaron, the mentor I have been assigned, without whose advice I would not have been able to complete this project.
