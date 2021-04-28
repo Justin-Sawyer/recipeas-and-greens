@@ -22,7 +22,7 @@
                         <span class="card-title">{{ level.recipe_level_of_difficulty }}</span>
                     </div>
                     <div class="card-action col s12">
-                        <a class="btn cinnamon left" href="{{ url_for('edit_levels', level_id=level._id)}}">Edit</a>
+                        <a class="btn amber darken-4 left" href="{{ url_for('edit_levels', level_id=level._id)}}">Edit</a>
                         <a href="{{ url_for('delete_level', level_id=level._id) }}" class="btn red edit-button right">Delete</a>
                     </div>
                 </div>

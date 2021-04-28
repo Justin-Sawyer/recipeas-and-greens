@@ -115,7 +115,7 @@ The website is free to use and recipes are by design exposed (and thus accesible
     - #### Colour scheme
 		The project uses a simple design, with colours that are designed to make the end user think of food. The website is named "Reci***PEAS*** and ***GREENS***" and thus green is the natural choice for its primary colour. Green is the colour of both most vegetables and most herbs, and is universally known as "Go". Thus the user knows that generally speaking, clicking something green will take the user there. 
 
-		The green is contrasted with brown, which makes the end user think of the warmth of spice and spice mixtures. The brown chosen - the colour of cinnamon - is almost amber, which makes the user think of preparing, just as the amber light in traffic signals tells the driver to prepare to go. Thus, where this cinnamon colour is used, the user knows to either prepare to edit a recipe or edit the user's Account details.
+		The green is contrasted with brown, which makes the end user think of the warmth of spice and spice mixtures. The brown chosen - the colour of amber darken-4 - is almost amber, which makes the user think of preparing, just as the amber light in traffic signals tells the driver to prepare to go. Thus, where this amber darken-4 colour is used, the user knows to either prepare to edit a recipe or edit the user's Account details.
 
 		Where red is used, the user knows this as a "stop", just as the red in traffic signals does. Thus, red is used for Deleting, and also for removing a recipe from the user's list of favourite recipes. The exception to this is of course where the recipes are in the list of favourites - the natural colour for a badge containing a heart is of course red.
 
@@ -1274,7 +1274,7 @@ This project has been a labour of love and has taken many, many hours to complet
 
     ```
     <form class="col s12 m8" method="POST" action="{{ url_for('reset_password') }}">
-        <div class="card-panel cinnamon">
+        <div class="card-panel amber darken-4">
 
             <!-- Confirm Login User Name -->
             <div class="row registration" id="username-row">

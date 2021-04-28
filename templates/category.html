@@ -22,12 +22,12 @@
         </div>
         <div class="col s12" id="cats" style="display:none">
             {% for category in categories %}
-                <a class="btn category-button-links cinnamon" href="{{ url_for('category', category_id=category._id)}}">{{ category.recipe_category}}</a>
+                <a class="btn category-button-links amber darken-4" href="{{ url_for('category', category_id=category._id)}}">{{ category.recipe_category}}</a>
             {% endfor %}
         </div>
         <div class="col s12" id="levs" style="display:none">
             {% for level in levels %}
-                <a class="btn category-button-links cinnamon" href="{{ url_for('level', level_id=level._id)}}">{{ level.recipe_level_of_difficulty }}</a>
+                <a class="btn category-button-links amber darken-4" href="{{ url_for('level', level_id=level._id)}}">{{ level.recipe_level_of_difficulty }}</a>
             {% endfor %}
         </div>
     </div>
@@ -69,12 +69,12 @@
 
                             <!-- Card Content -->
                             <div class="card-content">
-                                <span class="card-title activator cinnamon-text">
+                                <span class="card-title activator amber-text text-darken-4">
                                     <i class="fas fa-ellipsis-v right"></i><strong>{{ recipe.recipe_name }}</strong></span>
                                 <p><a class="green-text text-darken-2" href="{{ url_for('recipe', recipe_id=recipe._id)}}">Go to Recipea</a></p>
                             </div>
                             <div class="card-reveal">
-                                <span class="card-title cinnamon-text">
+                                <span class="card-title amber-text text-darken-4">
                                     <i class="far fa-times-circle right"></i>
                                     <strong>{{ recipe.recipe_name }}</strong>
                                         </span>
@@ -101,7 +101,7 @@
                                     </a>
                                 {% endif %}
                                 <!-- Edit recipe -->
-                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small btn-block recipe-action edit-button cinnamon">Edit <i class="fas fa-edit"></i></a>
+                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small btn-block recipe-action edit-button amber darken-4">Edit <i class="fas fa-edit"></i></a>
                                 <!-- Delete recipe -->
                                 <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Delete <i class="fas fa-trash-alt"></i></a>
                             {% elif recipe.created_by != session.user|lower %}

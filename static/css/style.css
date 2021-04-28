@@ -33,13 +33,13 @@ img {
     margin: 8px 0;
 }
 
-.cinnamon {
+/*.amber darken-4 {
     background-color: #bd6423
-}
+}*/
 
-.cinnamon-text {
+/*.amber-text text-darken-4 {
     color: #bd6423
-}
+}*/
 
 .recipe-list {
     display: flex;
@@ -212,7 +212,7 @@ input:-webkit-autofill:active {
     margin: 4px 0;
 }
 
-.edit-button:active,
+/*.edit-button:active,
 .edit-button:focus,
 .edit-button:focus-within,
 .edit-button:hover,
@@ -225,7 +225,7 @@ input:-webkit-autofill:active {
 .category-button-links:visited,
 .category-button-links:focus-visible {
     background-color: #bd6423!important;
-}
+}*/
 
 .category-buttons,
 .category-button-links,
