@@ -10,6 +10,7 @@ The website is free to use and recipes are by design exposed (and thus accesible
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [User Experience (UX)](#user-experience--ux-)
   * [User stories](#user-stories)
     + [First Time Visitors](#first-time-visitors)
@@ -21,6 +22,28 @@ The website is free to use and recipes are by design exposed (and thus accesible
     + [Imagery](#imagery)
   * [Wireframes](#wireframes)
 - [Features](#features)
+  * [Home](#home)
+    + [User logged out](#user-logged-out)
+    + [User logged in](#user-logged-in)
+      - [Recipes created by other users](#recipes-created-by-other-users)
+      - [Recipes created by the user](#recipes-created-by-the-user)
+  * [Register](#register)
+  * [Log In](#log-in)
+  * [Search](#search)
+    + [Search Bar](#search-bar)
+    + [Search By Category or Level of Difficulty Buttons](#search-by-category-or-level-of-difficulty-buttons)
+  * [Recipe](#recipe)
+  * [Add Recipe](#add-recipe)
+  * [Edit / Delete Recipe](#edit---delete-recipe)
+  * [Profile](#profile)
+    + [Recipes Created By User](#recipes-created-by-user)
+    + [Recipes Added By Others And Marked As Favourites](#recipes-added-by-others-and-marked-as-favourites)
+    + [Recipes Added By Others Not Marked As Favourites](#recipes-added-by-others-not-marked-as-favourites)
+    + [Delete Profile](#delete-profile)
+  * [Edit Profile](#edit-profile)
+  * [Change Password](#change-password)
+  * [Log Out](#log-out)
+  * [Contact](#contact)
 - [Technologies Used](#technologies-used)
   * [Languages](#languages)
   * [Frameworks, Libraries & Programs](#frameworks--libraries---programs)
@@ -33,7 +56,7 @@ The website is free to use and recipes are by design exposed (and thus accesible
   * [Registration](#registration)
   * [Recipe Display Order:](#recipe-display-order-)
   * [Pagination](#pagination)
-  * [Search](#search)
+  * [Search](#search-1)
   * [Images (uploading, hosting, displaying of):](#images--uploading--hosting--displaying-of--)
   * [Recipes Without Images](#recipes-without-images)
   * [Deleting Account:](#deleting-account-)
@@ -46,7 +69,7 @@ The website is free to use and recipes are by design exposed (and thus accesible
     + [users](#users)
     + [recipes](#recipes)
     + [categories](#categories)
-    + [level_of_difficulty](#level_of_difficulty)
+    + [level_of_difficulty](#level-of-difficulty)
     + [servings](#servings)
 - [Hosting and Deployment](#hosting-and-deployment)
   * [Forking the GitHub repository](#forking-the-github-repository)
@@ -59,11 +82,14 @@ The website is free to use and recipes are by design exposed (and thus accesible
   * [Content](#content)
   * [Acknowledgements](#acknowledgements)
 - [Future Plans](#future-plans)
-  * [Forgot Password?](#forgot-password)
+  * [Forgot Password?](#forgot-password-)
   * [Obfuscation](#obfuscation)
   * [Recipe Categories](#recipe-categories)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
+
 
 
 ## User Experience (UX)
@@ -164,6 +190,206 @@ The website is free to use and recipes are by design exposed (and thus accesible
 
 ## Features
 This website is fully responsive and interactive.
+
+- ### Home
+
+	(~~c~~*R*~~ud~~)
+
+	When the user first accesses Recipeas and Greens, (s)he is presented with a page of 12 recipe cards. The recipe cards show an image of the recipe (if an image was added when the recipe creator added the recipe) or an image of the main site banner.
+
+	- #### User logged out
+	
+		If the user is not logged in, the user is presented with a green cross at the base of each recipe card. If the user clicks on this green cross, the user is then taken to the login page. Alternatively, if the user reveals the card by clicking the three brown dots the user is presented with a possibility of either going to the recipe or adding it to their favourites. As the user is not logged in at this time, clicking on the "Add to Favourites" button will take the user to the Login Page. However, clicking on the "Go to Recipe" link or button will take the user to the recipe.
+
+	- #### User logged in
+		- ##### Recipes created by other users
+
+			If the user is logged in, the user is presented with either the green cross or a red heart at the base of each recipe card. If the user sees a green cross, this means that the user has not added this recipe to their favourites. Clicking on the grreen cross will add the recipe to their favourites. Alternatively, if the user sees a red heart, the recipe is already in their list of favourites.
+
+			To avoid confusion, clicking on a red heart icon does not remove the recipe from the users list of favourites. However, if the user reveals the card by clicking the three brown dots, the logged in user can remove the recipe from the list of favourites by clicking on the red "Remove from Favourites" button. Conversely, if the recipe is not in the users list of favourites the user is presented with a green "Add to Favourites" button instead. The login user also sees the green "Go to Recipe" button.
+
+		- ##### Recipes created by the user
+	
+			Again, if the user is logged in, the user is presented with the same options as (s)he has above. However, if the user created the recipe, the user has two further buttons that are visible upon revealing the card. These two extra buttons are to edit the recipe or to delete the recipe. Clicking either of these buttons will take the user to the "Edit / Delete Recipe" Page where the user can then either edit or delete the recipe.
+
+	The functionality of buttons to add or remove from favourites or to go to recipes is mirrored across the whole site. Thus, searching would reveal cards with the same options, as does searching using the "Search by..." buttons.
+
+- ### Register
+	
+	(*C*~~rud~~)
+
+	When registering, the future community member is asked for the following details to be entered in order to create an Account:
+	
+	| Key  | Collection  | Value  | Comment |
+	|:----------|:----------|:----------|:----------|
+	| First Name    | users    | "first_name"    ||
+	| Last Name    | users    | "last_name"    ||
+	| User Name    | users    | "username"    ||
+	| Email    | users    | "email"    ||
+	| Password    | users    | "password"    ||
+	| Opt In To Email Alerts | users | "opt_in" | "off" by default. User has to opt in ("on") if alerts are desired. |
+
+	The user is asked to first type a password, then confirm it by re-typing the same password. Only if these two values match, and if the email and username are unique is the user able to create an Account. 
+
+	Otherwise, the user is asked to try again.
+
+	When the user is registered, (s)he is taken to the Profile page where the user can the see the created Account, edit it if necessary by following links, and then explore the site by again following links.
+
+- ### Log In
+
+	(~~c~~*R*~~ud~~)
+
+	When logging in, the member is asked for the username and password values. If these match the entries held in the database document, the user is logged in.
+
+	Otherwise, the user is told that one of the two entries is incorrect, but not which one. This is for security against an Account being hacked.
+
+	When the user is logged in, (s)he is taken to the "Profile" Page where the user can the see the created Account, edit it if necessary by following links, and then explore the site by again following links.
+
+- ### Search
+
+	(~~c~~*R*~~ud~~)
+
+	Users have the possibility of searching for recipes either through the dedicated Search Bar or via the two "Search By... " buttons.
+
+	- #### Search Bar
+
+		Users are taken to the Search page where all recipes meeting the search criteria are listed.
+
+		Included in search parameters:
+
+		- ##### Recipe Name,
+
+		- ##### Recipe Ingredients
+
+		- ##### Recipe Preparation
+
+		- ##### Recipe Category
+
+		- ##### Recipe Level of Dificulty
+
+		- ##### Recipe Source
+
+		- ##### Recipe Created By
+
+	- #### Search By Category or Level of Difficulty Buttons
+
+		Users are taken to pages that list all recipes within that category or that level of difficulty
+
+- ### Recipe
+
+	(~~c~~*R*~~ud~~)
+
+	As this is a community website, the user does not need to be logged in to have access to the recipes. Nor does the use even need an account to access recipes. However, if the logged out user wants to add a recipe to a list of favourites, clicking either the green plus icon or the "Add to Favourites" button will take the user to the "Login" Page. Again, if the user is logged in, the user sees either a red heart icon (and a red "Remove from Favourites" button) or a green plus icon (and a green "Add to Favourites" button), depending on whether the recipe is a favourite or not.
+
+	Additionally, if the user created this recipe, the user also has "Edit" and "Delete Recipe" buttons which take the user to the "Edit / Delete Recipe" Page.
+
+- ### Add Recipe
+	
+	(*C*~~rud~~)
+
+	The "Add Recipe" page is of course only available to logged in users.
+
+	Adding a recipe is a painless process. The user is presented with a form in which (s)he is prompted to add the relevant details, and according to the format requested. Thus the user can add the title of the recipe, and then select from the drop-down menus the difficulty level and the number of servings for each recipe. The user can then enter the cooking time, the preparation time and the total time needed for this recipe. By flicking switches the user can designate that recipe as a favourite and also decide whether to alert the community by email about the creation of this new recipe. The user can then add an image if required.
+
+	When it comes to adding the category, the ingredients and the preparation of the recipe, the user is prompted to separate each entry with a new line. Thus, if there is more than one category, each category in the string is separated into an array value and each of these new categories is added to the categories collection in the database. Similarly, separating each line in the ingredients and the preparation of the recipe means that these will be nicely displayed on the recipe page.
+
+	| Key  | Database  | Value  | Comment |
+	|:----------|:----------|:----------|:----------|
+	| Recipe Name    | recipes    | "recipe_name"    |
+	| Recipe Ingredients    | recipes    | "recipe_ingredients"    |
+	| Recipe Preparation    | recipes    | ""recipe_preparation"    |
+	| Recipe Notes    | recipes    | "recipe_notes"    |
+	| Recipe Preparation Time    | recipes    | "recipe_prep_time"    |
+	| Recipe Cooking Time    | recipes    | "recipe_cooking_time"    |
+	| Recipe Total Time    | recipes    | "recipe_total_time"    |
+	| Recipe Description    | recipes    | "recipe_description"    |
+	| Recipe Category    | recipes    |  [recipe_category]   | Each category added to "categories" Collection
+	| Recipe Level of Difficulty    | recipes    | "recipe_level_of_difficulty"    |
+	| Recipe Servings | recipes | "recipe_servings" |
+	| Recipe Image | recipes | "image_url" | Not obligatory. If none added, recipe card uses site banner image.
+	| Recipe Source | recipes | "recipe_source" | 
+	| Recipe Created By | recipes | "created_by" |
+	| Favourite Of | recipes | [favourite_of] | Key created if user designates recipe as a favourite. If not, key is created when another user adds this recipe as a favourite.
+
+	Once the user has finished entering the required data, the user can now click the "Create recipe" button or the "Cancel create recipe" button. Clicking create creates the recipe when clicking cancel text the user back to the main page.
+
+- ### Edit / Delete Recipe 
+
+	(~~cr~~*UD*)
+
+	It is only the creator of the recipe who can edit or delete said recipe, and again, said recipe can only be edited or deleted if the creator of that recipe is logged in.
+
+	This page has the same functionality as the "Add Recipe" page, but of course here the user is changing values.
+
+	The user also has the possibility of deleting the recipe by clicking on the delete recipe button. Doing so reveals a pop-up where the user is asked to confirm that they do indeed wish to delete that recipe.
+
+- ### Profile 
+
+	(~~c~~*R*~~u~~*D*)
+
+	On the user's profile page, the user sees a summary of his or her profile.
+
+	The user can see straight away if all details are correct, and also whether email alerts are set to "on" or "off".
+
+	If the user has added a photo (in the "Edit Profile" Page), the user's photo is displayed here, too.
+
+	The user now has a list of 3 recipe card blocks:
+
+	- #### Recipes Created By User
+
+		A list of all recipes the user has created. Icons denote whether the recipe is or is not a favourite. Revealing the card allows the user to quickly access editing or deleting the recipe via the "Edit / Delete Recipe" Page, access the "Recipe" Page itself, or add and remove the recipe from the list of favourites.
+
+	- #### Recipes Added By Others And Marked As Favourites
+
+		As above, but without the Edit / Delete capabilities, as the user has not created these recipes.
+
+	- #### Recipes Added By Others Not Marked As Favourites
+
+		All other recipes. Functionality as above.
+    
+    - #### Delete Profile
+
+	    The user also has the possibility of deleting their profile from their "Profile" Page. Clicking the "Delete Account" button opens a pop-up where the users is asked *how* they wish to delete the profile.
+
+	    Options are given to either:
+		
+	    - #### Delete profile, remove username from ecipes marked as favourites, but keep recipes published by user online (creedited to Former Member)
+
+	    - #### Delete profile, remove username from ecipes marked as favourites and delete recipes created by the user.
+
+	    - #### Cancel delete and return to Profile Page
+
+- ### Edit Profile
+
+	(~~cr~~*U*~~d~~)
+
+	Users can edit their First and Last Names, their email address and switch alerts to "on" or "off". The developer has not enabled the possibility of changing usernames, although this will be reviewed, if users call for this functionality.
+
+	The user can also add a profile photo from here, if desired.
+
+	The user can also change the Account password, if desired. Clicking the "Change Password" button takes the user to a page dedicated to this functionaluty.
+
+	The user also is presented with the list of recipes that the user has created. The user has the same possibilities as elsewhere on the site from these cards. To avoid confusion, recipes not created by the user are *not* listed on the "Edit Profile" page.
+
+- ### Change Password 
+
+	(~~cr~~*U*~~d~~)
+
+	User is asked to confirm username and current password. If these match and are matched to the same user in the users Database, the user can now type and re-type a new password.
+
+	If username and current password do not match, then user is told one of the two does not match. This guards against forced entry on this page, even though only users who are logged in can access it.
+
+	If new password and new confirm password match, the user's password is reset to this new value.
+
+- ### Log Out
+
+	Log the user out of their Account and returns user to Home page.
+
+- ### Contact
+
+	Users (both logged in and not logged in) can fill in the form and send feature requests, comments etc to the developer.
+
+There is also added functionality for an Admin Account. Users who are listed as Admin can edit and delete categories and Levels of Difficulty, if required.
 
 ## Technologies Used
 - ### Languages
