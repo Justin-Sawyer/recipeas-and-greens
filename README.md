@@ -69,7 +69,7 @@ The website is free to use and recipes are by design exposed (and thus accesible
     + [users](#users)
     + [recipes](#recipes)
     + [categories](#categories)
-    + [level_of_difficulty](#level-of-difficulty)
+    + [level_of_difficulty](#level_of_difficulty)
     + [servings](#servings)
 - [Hosting and Deployment](#hosting-and-deployment)
   * [Forking the GitHub repository](#forking-the-github-repository)
