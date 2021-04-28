@@ -96,7 +96,7 @@
                                     </a>
                                 {% endif %}
                                 <!-- Edit recipe -->
-                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small btn-block recipe-action edit-button amber darken-4">Edit <i class="fas fa-edit"></i></a>
+                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small btn-block recipe-action amber darken-4">Edit <i class="fas fa-edit"></i></a>
                                 <!-- Delete recipe -->
                                 <a href="{{ url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-small recipe-action red">Delete <i class="fas fa-trash-alt"></i></a>
                             {% elif recipe.created_by != session.user|lower %}

@@ -33,14 +33,6 @@ img {
     margin: 8px 0;
 }
 
-/*.amber darken-4 {
-    background-color: #bd6423
-}*/
-
-/*.amber-text text-darken-4 {
-    color: #bd6423
-}*/
-
 .recipe-list {
     display: flex;
     flex-direction: row;
@@ -211,21 +203,6 @@ input:-webkit-autofill:active {
     display: block;
     margin: 4px 0;
 }
-
-/*.edit-button:active,
-.edit-button:focus,
-.edit-button:focus-within,
-.edit-button:hover,
-.edit-button:visited,
-.edit-button:focus-visible,
-.category-button-links:active,
-.category-button-links:focus,
-.category-button-links:focus-within,
-.category-button-links:hover,
-.category-button-links:visited,
-.category-button-links:focus-visible {
-    background-color: #bd6423!important;
-}*/
 
 .category-buttons,
 .category-button-links,
